@@ -1,16 +1,16 @@
-import { FC } from "react"
+import { FC, ReactChild } from "react"
 
 import Head from "next/head"
 
 import { AppBar, Container, Toolbar, Typography } from "@material-ui/core"
 
-const Layout: FC = ({ children }) => {
+const Layout: FC<Props> = ({ children }) => {
 	return (
 		<>
 			<Head>
 				<title>Amazoness</title>
 			</Head>
-			<AppBar position="fixed">
+			<AppBar position="sticky">
 				<Toolbar>
 					<Typography>Amazoness</Typography>
 				</Toolbar>
@@ -22,3 +22,7 @@ const Layout: FC = ({ children }) => {
 }
 
 export default Layout
+
+interface Props {
+	children: ReactChild
+}
