@@ -1,10 +1,17 @@
-import { Theme } from "@mui/material"
-import { SxProps } from "@mui/system"
+import { makeStyles } from "@mui/styles"
 
-export const navbar: SxProps<Theme> = {
-	backgroundColor: "#203040",
-	"& a": {
-		color: "#fff",
-		marginLeft: 10,
+export const useStyles = makeStyles({
+	navbar: {
+		backgroundColor: "#203040",
+		"& a": {
+			color: "#fff",
+			marginLeft: 10,
+		},
 	},
-}
+	mainContainer: {
+		minHeight: "80vh",
+	},
+	footer: {
+		textAlign: "center",
+	},
+})
