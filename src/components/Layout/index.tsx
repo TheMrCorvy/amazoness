@@ -13,6 +13,33 @@ const Layout: FC<Props> = ({ children }) => {
 		<>
 			<Head>
 				<title>Amazoness</title>
+
+				<link
+					rel="stylesheet"
+					href="https://fonts.googleapis.com/icon?family=Material+Icons"
+				/>
+				<link
+					rel="stylesheet"
+					href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+				/>
+				<meta charSet="utf-8" />
+				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+
+				<meta
+					name="description"
+					content="Visita la Tienda Online de Stallion Marroquinería"
+				/>
+				<meta name="keywords" content="Marroquineria Stallion" />
+
+				{/* Google Fonts */}
+				<link rel="preconnect" href="https://fonts.googleapis.com"></link>
+				<link rel="preconnect" href="https://fonts.gstatic.com"></link>
+				<link
+					href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap"
+					rel="stylesheet"
+				></link>
+
+				<meta name="viewport" content="initial-scale=1, width=device-width" />
 			</Head>
 
 			<AppBar position="sticky" className={classes.navbar}>
