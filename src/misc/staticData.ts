@@ -101,4 +101,5 @@ export const urlKeyWords: UrlKeyWords = {
 	products: "/products",
 	cart: "/cart",
 	login: "/login",
+	productNotFound: "/product-was-not-found",
 }
