@@ -11,7 +11,8 @@ export const useStyles = makeStyles((theme: Theme) =>
 			},
 		},
 		mainContainer: {
-			paddingTop: "5rem",
+			paddingTop: "7rem",
+			paddingBottom: "7rem",
 			minHeight: "80vh",
 		},
 		footer: {
