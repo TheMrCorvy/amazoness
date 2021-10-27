@@ -42,9 +42,11 @@ const Layout: FC<Props> = ({ children }) => {
 				<meta name="viewport" content="initial-scale=1, width=device-width" />
 			</Head>
 
-			<AppBar position="sticky" className={classes.navbar}>
+			<AppBar position="fixed" className={classes.navbar}>
 				<Toolbar>
-					<Typography>Amazoness</Typography>
+					<Typography color="white" className={classes.brand}>
+						Amazoness
+					</Typography>
 				</Toolbar>
 			</AppBar>
 
