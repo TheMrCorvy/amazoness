@@ -1,5 +1,7 @@
 import { FC } from "react"
 
+import NextLink from "next/link"
+
 import {
 	Button,
 	Card,
@@ -12,27 +14,31 @@ import {
 
 import { Product } from "../../misc/types"
 
-import { usePriceFormatter } from "../utils"
+import { usePriceFormatter, useSlug } from "../utils"
 
 const ProductCard: FC<Props> = ({ product }) => {
 	const formatPrice = usePriceFormatter
 
+	const slug = useSlug
+
 	return (
 		<Card elevation={0}>
-			<CardActionArea>
-				<CardMedia
-					image={product.images[0]}
-					title={product.name}
-					sx={{
-						height: 0,
-						paddingTop: "100%",
-						borderRadius: 1,
-					}}
-				/>
-				<CardContent>
-					<Typography variant="subtitle1">{product.name}</Typography>
-				</CardContent>
-			</CardActionArea>
+			<NextLink href={`/product/${slug(product.name)}`} passHref>
+				<CardActionArea>
+					<CardMedia
+						image={product.images[0]}
+						title={product.name}
+						sx={{
+							height: 0,
+							paddingTop: "100%",
+							borderRadius: 1,
+						}}
+					/>
+					<CardContent>
+						<Typography variant="subtitle1">{product.name}</Typography>
+					</CardContent>
+				</CardActionArea>
+			</NextLink>
 			<CardActions
 				sx={{
 					justifyContent: "space-between",
