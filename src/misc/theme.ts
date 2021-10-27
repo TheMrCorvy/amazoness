@@ -23,9 +23,9 @@ const theme = createTheme({
 			dark: "#e65100",
 		},
 		info: {
-			light: "#03a9f4",
-			main: "#0288d1",
-			dark: "#01579b",
+			light: "#42a5f5",
+			main: "#1976d2",
+			dark: "#1565c0",
 		},
 		success: {
 			light: "#4caf50",
