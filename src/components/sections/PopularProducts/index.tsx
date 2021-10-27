@@ -18,12 +18,20 @@ import { usePriceFormatter } from "../../utils"
 
 import { data } from "../../../misc/staticData"
 
+import UnderlinedTitle from "../../UnderlinedTitle"
+
 const PopularProducts: FC = () => {
 	return (
-		<Container maxWidth="xl">
+		<Container maxWidth="lg">
 			<Grid container justifyContent="space-around" spacing={4}>
 				<Grid item xs={12}>
-					<Typography variant="h4">Popular Products</Typography>
+					<UnderlinedTitle
+						color="info"
+						body="popular products"
+						useCaps
+						bold
+						variant="h4"
+					/>
 				</Grid>
 				{data.products.map((product: Product, index: number) => (
 					<Grid item xs={12} md={6} lg={4} xl={3} key={index}>
