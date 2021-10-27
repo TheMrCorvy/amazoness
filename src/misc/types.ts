@@ -16,3 +16,8 @@ export interface Product {
 	stock: number
 	description: string
 }
+
+/********************************************************************************************** URL key words */
+export interface UrlKeyWords {
+	[key: string]: string
+}
