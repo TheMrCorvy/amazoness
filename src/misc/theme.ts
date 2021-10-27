@@ -42,12 +42,12 @@ const theme = createTheme({
 			A400: "#131A22",
 		},
 		background: {
-			default: "#fefefe",
+			default: "#eeeeee",
 			paper: "#fff",
 		},
 	},
 	shape: {
-		borderRadius: 10,
+		borderRadius: 15,
 	},
 	typography: {
 		h1: {
