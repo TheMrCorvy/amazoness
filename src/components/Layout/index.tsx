@@ -2,7 +2,9 @@ import { FC, ReactChild } from "react"
 
 import Head from "next/head"
 
-import { AppBar, Container, Toolbar, Typography } from "@mui/material"
+import { Container, Typography } from "@mui/material"
+
+import Navbar from "../Navbar"
 
 import { useStyles } from "./styles"
 
@@ -42,11 +44,7 @@ const Layout: FC<Props> = ({ children }) => {
 				<meta name="viewport" content="initial-scale=1, width=device-width" />
 			</Head>
 
-			<AppBar position="sticky" className={classes.navbar}>
-				<Toolbar>
-					<Typography>Amazoness</Typography>
-				</Toolbar>
-			</AppBar>
+			<Navbar />
 
 			<Container maxWidth="xl" className={classes.mainContainer}>
 				{children}

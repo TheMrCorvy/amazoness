@@ -1,14 +1,9 @@
 import { makeStyles } from "@mui/styles"
 
 export const useStyles = makeStyles({
-	navbar: {
-		backgroundColor: "#203040",
-		"& a": {
-			color: "#fff",
-			marginLeft: 10,
-		},
-	},
 	mainContainer: {
+		paddingTop: "7rem",
+		paddingBottom: "7rem",
 		minHeight: "80vh",
 	},
 	footer: {
