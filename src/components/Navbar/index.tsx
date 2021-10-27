@@ -6,6 +6,8 @@ import { AppBar, Link, Toolbar, Typography, Button } from "@mui/material"
 
 import { useStyles } from "./styles"
 
+import { urlKeyWords } from "../../misc/staticData"
+
 const Navbar: FC = () => {
 	const classes = useStyles()
 
@@ -18,10 +20,10 @@ const Navbar: FC = () => {
 					</Link>
 				</NextLink>
 				<div className={classes.grow} />
-				<NextLink href="/cart" passHref>
+				<NextLink href={urlKeyWords.cart} passHref>
 					<Button color="inherit">Cart Items</Button>
 				</NextLink>
-				<NextLink href="/login" passHref>
+				<NextLink href={urlKeyWords.login} passHref>
 					<Button color="inherit">Login</Button>
 				</NextLink>
 			</Toolbar>

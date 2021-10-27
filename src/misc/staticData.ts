@@ -95,3 +95,10 @@ export const data: StaticProductData = {
 		},
 	],
 }
+
+export const urlKeyWords = {
+	product: "/product",
+	products: "/products",
+	cart: "/cart",
+	login: "/login",
+}

@@ -15,6 +15,7 @@ import {
 import { Product } from "../../misc/types"
 
 import { usePriceFormatter, useSlug } from "../utils"
+import { urlKeyWords } from "../../misc/staticData"
 
 const ProductCard: FC<Props> = ({ product }) => {
 	const formatPrice = usePriceFormatter
@@ -23,7 +24,7 @@ const ProductCard: FC<Props> = ({ product }) => {
 
 	return (
 		<Card elevation={0}>
-			<NextLink href={`/product/${slug(product.name)}`} passHref>
+			<NextLink href={`${urlKeyWords.product}/${slug(product.name)}`} passHref>
 				<CardActionArea>
 					<CardMedia
 						image={product.images[0]}
