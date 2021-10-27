@@ -21,6 +21,8 @@ import { data } from "../../../misc/staticData"
 import UnderlinedTitle from "../../UnderlinedTitle"
 
 const PopularProducts: FC = () => {
+	const formatPrice = usePriceFormatter
+
 	return (
 		<Container maxWidth="lg">
 			<Grid container justifyContent="space-around" spacing={4}>
@@ -58,7 +60,7 @@ const PopularProducts: FC = () => {
 								}}
 							>
 								<Typography variant="body1" color="green">
-									{usePriceFormatter(product.price)}
+									{formatPrice(product.price)}
 								</Typography>
 								<Button color="info" size="small">
 									Add To Cart
