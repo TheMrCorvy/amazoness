@@ -18,22 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		textRight: {
 			textAlign: "right",
 		},
-		card: {
-			padding: "16px",
-			paddingLeft: "24px",
-			paddingRight: "24px",
-			color: "#fff",
-			background: theme.palette.warning.main,
-			width: "100%",
-		},
-		card2: {
-			padding: "16px",
-			paddingLeft: "24px",
-			paddingRight: "24px",
-			color: "#fff",
-			background: theme.palette.grey.A100,
-			width: "100%",
-		},
 	})
 )
 
