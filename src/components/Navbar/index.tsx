@@ -1,8 +1,12 @@
 import { FC } from "react"
 
-import { AppBar, Toolbar, Typography } from "@mui/material"
+import NextLink from "next/link"
+
+import { AppBar, Link, Toolbar, Typography, Button } from "@mui/material"
 
 import { useStyles } from "./styles"
+
+import { urlKeyWords } from "../../misc/staticData"
 
 const Navbar: FC = () => {
 	const classes = useStyles()
@@ -10,9 +14,18 @@ const Navbar: FC = () => {
 	return (
 		<AppBar position="fixed" className={classes.navbar}>
 			<Toolbar>
-				<Typography color="white" className={classes.brand}>
-					Amazoness
-				</Typography>
+				<NextLink href="/" passHref>
+					<Link sx={{ textDecoration: "none" }}>
+						<Typography className={classes.brand}>Amazoness</Typography>
+					</Link>
+				</NextLink>
+				<div className={classes.grow} />
+				<NextLink href={urlKeyWords.cart} passHref>
+					<Button color="inherit">Cart Items</Button>
+				</NextLink>
+				<NextLink href={urlKeyWords.login} passHref>
+					<Button color="inherit">Login</Button>
+				</NextLink>
 			</Toolbar>
 		</AppBar>
 	)

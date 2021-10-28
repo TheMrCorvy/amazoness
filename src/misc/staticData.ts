@@ -1,4 +1,4 @@
-import { StaticProductData } from "./types"
+import { StaticProductData, UrlKeyWords } from "./types"
 
 export const data: StaticProductData = {
 	products: [
@@ -94,4 +94,12 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 	],
+}
+
+export const urlKeyWords: UrlKeyWords = {
+	product: "/product",
+	products: "/products",
+	productNotFound: "/product-was-not-found",
+	cart: "/cart",
+	login: "/login",
 }

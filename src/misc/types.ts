@@ -16,3 +16,27 @@ export interface Product {
 	stock: number
 	description: string
 }
+
+/********************************************************************************************** URL key words */
+export interface UrlKeyWords {
+	[key: string]: string
+}
+
+/********************************************************************************************** API Request */
+export interface Req {
+	method: "GET" | "POST" | "PUT" | "DELETE"
+	endpoint: string
+	body?: object
+	token?: string
+	apiUri?: string
+	headers?: {
+		[key: string]: string
+	}
+}
+
+export interface Res {
+	message: string
+	data: object
+	status: number
+	request?: object
+}
