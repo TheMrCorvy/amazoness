@@ -2,17 +2,21 @@ import { FC, useEffect, useState } from "react"
 
 import { useRouter } from "next/router"
 
-import { Container, Typography } from "@mui/material"
+import { Container, Grid } from "@mui/material"
 
 import { data, urlKeyWords } from "../../misc/staticData"
 import { useFakeApi, useSlug } from "../../components/utils"
 import { Product, Req } from "../../misc/types"
 
+import BreadCrumbs from "../../components/BreadCrumbs"
+
 const ProductPage: FC = () => {
 	const router = useRouter()
 	const createSlug = useSlug
+	const callApi = useFakeApi
 
 	const [stateProduct, setStateProduct] = useState<Product>(placeholder)
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		if (!router.isReady) return
@@ -24,7 +28,7 @@ const ProductPage: FC = () => {
 			method: "GET",
 		}
 
-		useFakeApi(req).then(() => {
+		callApi(req).then((res) => {
 			let product: Product = placeholder
 
 			data.products.forEach((element) => {
@@ -36,6 +40,7 @@ const ProductPage: FC = () => {
 			if (!product.id) {
 				router.push(urlKeyWords.productNotFound)
 			} else {
+				setLoading(false)
 				setStateProduct(product)
 			}
 		})
@@ -43,7 +48,19 @@ const ProductPage: FC = () => {
 
 	return (
 		<Container maxWidth="lg">
-			<Typography variant="h1">{stateProduct.name}</Typography>
+			<Grid container justifyContent="space-around" spacing={4}>
+				<Grid item xs={12}>
+					{!loading && stateProduct.id && (
+						<BreadCrumbs
+							title={stateProduct.name}
+							steps={{
+								home: "/",
+								[stateProduct.category]: "/" + stateProduct.category,
+							}}
+						/>
+					)}
+				</Grid>
+			</Grid>
 		</Container>
 	)
 }
