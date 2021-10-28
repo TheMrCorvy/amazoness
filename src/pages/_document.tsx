@@ -19,10 +19,6 @@ class MyDocument extends Document {
 					<meta charSet="utf-8" />
 					<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
-					<meta
-						name="description"
-						content="An E-Commerce made with NextJS, Typescript, and MongoDB"
-					/>
 					<meta name="keywords" content="Amazoness" />
 
 					{/* Google Fonts */}

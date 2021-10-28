@@ -32,6 +32,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 					content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
 				/>
 
+				<meta
+					name="description"
+					content="An E-Commerce made with NextJS, Typescript, and MongoDB"
+				/>
+
 				<meta name="keywords" content="Amazoness" />
 			</Head>
 			<ThemeProvider theme={theme}>

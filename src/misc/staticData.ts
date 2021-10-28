@@ -99,7 +99,7 @@ export const data: StaticProductData = {
 export const urlKeyWords: UrlKeyWords = {
 	product: "/product",
 	products: "/products",
+	productNotFound: "/product-was-not-found",
 	cart: "/cart",
 	login: "/login",
-	productNotFound: "/product-was-not-found",
 }
