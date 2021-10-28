@@ -2,9 +2,22 @@ import { FC, useEffect, useState } from "react"
 
 import { useRouter } from "next/router"
 import Image from "next/image"
+import NextLink from "next/link"
 
-import { Button, ButtonBase, Container, Grid, IconButton, Typography, Rating } from "@mui/material"
+import {
+	Button,
+	ButtonBase,
+	Container,
+	Grid,
+	IconButton,
+	Typography,
+	Rating,
+	Card,
+	Link,
+	CardContent,
+} from "@mui/material"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow"
 
 import { data, urlKeyWords } from "../../misc/staticData"
 import { useFakeApi, usePriceFormatter, useSlug } from "../../components/utils"
@@ -197,6 +210,40 @@ const ProductPage: FC = () => {
 								>
 									buy now
 								</Button>
+							</Grid>
+							<Grid item xs={12}>
+								<NextLink href={urlKeyWords.shippingInfo} passHref>
+									<ButtonBase sx={{ width: "100%", borderRadius: 1 }}>
+										<Card elevation={0} className={classes.card}>
+											<IconButton color="inherit">
+												<DoubleArrowIcon />
+											</IconButton>
+											<Link color="inherit" underline="hover">
+												Know more about our shipping options
+											</Link>
+											<IconButton color="inherit">
+												<DoubleArrowIcon />
+											</IconButton>
+										</Card>
+									</ButtonBase>
+								</NextLink>
+							</Grid>
+							<Grid item xs={12}>
+								<NextLink href={urlKeyWords.faq} passHref>
+									<ButtonBase sx={{ width: "100%", borderRadius: 1 }}>
+										<Card elevation={0} className={classes.card2}>
+											<IconButton color="inherit">
+												<DoubleArrowIcon />
+											</IconButton>
+											<Link color="inherit" underline="hover">
+												Frequently Asked Questions
+											</Link>
+											<IconButton color="inherit">
+												<DoubleArrowIcon />
+											</IconButton>
+										</Card>
+									</ButtonBase>
+								</NextLink>
 							</Grid>
 							{similarProducts(2)}
 						</Grid>
