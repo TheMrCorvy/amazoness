@@ -64,6 +64,8 @@ const ProductPage: FC = () => {
 				setLoading(false)
 				setProduct(apiProduct)
 
+				document.title = apiProduct.name + " - Amazoness"
+
 				let newSimilarProducts: Product[] = []
 
 				data.products.forEach((product) => {
