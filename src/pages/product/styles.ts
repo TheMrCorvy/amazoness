@@ -9,6 +9,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		img: {
 			borderRadius: 10,
 		},
+		textGreen: {
+			color: theme.palette.success.light,
+		},
+		textInfo: {
+			color: theme.palette.info.main,
+		},
+		textRight: {
+			textAlign: "right",
+		},
 	})
 )
 

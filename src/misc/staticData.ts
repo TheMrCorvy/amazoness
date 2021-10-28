@@ -45,7 +45,7 @@ export const data: StaticProductData = {
 			id: 4,
 			name: "Shoe 1",
 			category: "Shoes",
-			images: ["/images/pants-1.jpg"],
+			images: ["/images/pants-1.jpg", "/images/shirt-1.jpg"],
 			price: 7,
 			brand: "Nike",
 			rating: 5,

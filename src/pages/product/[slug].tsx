@@ -3,10 +3,11 @@ import { FC, useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import Image from "next/image"
 
-import { ButtonBase, Container, Grid, Typography } from "@mui/material"
+import { Button, ButtonBase, Container, Grid, IconButton, Typography, Rating } from "@mui/material"
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 
 import { data, urlKeyWords } from "../../misc/staticData"
-import { useFakeApi, useSlug } from "../../components/utils"
+import { useFakeApi, usePriceFormatter, useSlug } from "../../components/utils"
 import { Product, Req } from "../../misc/types"
 
 import BreadCrumbs from "../../components/BreadCrumbs"
@@ -20,9 +21,11 @@ const ProductPage: FC = () => {
 	const createSlug = useSlug
 	const callApi = useFakeApi
 	const classes = useStyles()
+	const formatPrice = usePriceFormatter
 
 	const [product, setProduct] = useState<Product>(placeholder)
 	const [loading, setLoading] = useState(true)
+	const [mainImg, setMainImg] = useState("")
 
 	useEffect(() => {
 		if (!router.isReady) return
@@ -52,10 +55,45 @@ const ProductPage: FC = () => {
 		})
 	}, [router.isReady])
 
+	const updateMainImg = (src: string) => setMainImg(src)
+
+	const similarProducts = (option: 1 | 2) => {
+		const display1 = { xs: "none", md: "block" }
+		const display2 = { xs: "block", md: "none" }
+
+		const layoutOption = option === 1 ? display1 : display2
+
+		return (
+			<>
+				<Grid item xs={12} className={classes.marginTop} sx={{ display: layoutOption }}>
+					<UnderlinedTitle
+						color="success"
+						variant="h5"
+						body="other similar products"
+						useCaps
+						bold
+					/>
+				</Grid>
+				<Grid item xs={12} sx={{ display: layoutOption }}>
+					<Grid container spacing={4}>
+						{data.products.map(
+							(product, index) =>
+								product.id <= 4 && (
+									<Grid item xs={12} md={6} key={index}>
+										<ProductCard product={product} />
+									</Grid>
+								)
+						)}
+					</Grid>
+				</Grid>
+			</>
+		)
+	}
+
 	return (
 		<Container maxWidth="lg">
 			{!loading && product.id && (
-				<Grid container justifyContent="space-around" spacing={4}>
+				<Grid container justifyContent="space-around" spacing={6}>
 					<Grid item xs={12}>
 						<BreadCrumbs
 							title={product.name}
@@ -69,7 +107,7 @@ const ProductPage: FC = () => {
 						<Grid container spacing={3}>
 							<Grid item xs={12} md={9}>
 								<Image
-									src={product.images[0]}
+									src={mainImg ? mainImg : product.images[0]}
 									alt={product.name}
 									height={640}
 									width={640}
@@ -81,7 +119,10 @@ const ProductPage: FC = () => {
 								<Grid container spacing={3}>
 									{product.images.map((image, index) => (
 										<Grid item xs={4} md={12} key={index}>
-											<ButtonBase className={classes.img}>
+											<ButtonBase
+												className={classes.img}
+												onClick={() => updateMainImg(image)}
+											>
 												<Image
 													src={image}
 													title={product.name}
@@ -95,27 +136,69 @@ const ProductPage: FC = () => {
 									))}
 								</Grid>
 							</Grid>
-							<Grid item xs={12} className={classes.marginTop}>
+							{similarProducts(1)}
+						</Grid>
+					</Grid>
+					<Grid item xs={12} md={6}>
+						<Grid container spacing={4}>
+							<Grid item xs={10}>
+								<Typography variant="h1" sx={{ fontWeight: "bold" }}>
+									{product.name}
+								</Typography>
+							</Grid>
+							<Grid item xs={2}>
+								<IconButton color="error" size="large">
+									<FavoriteBorderIcon />
+								</IconButton>
+							</Grid>
+							<Grid item xs={12}>
+								<Typography variant="body1">{product.description}</Typography>
+							</Grid>
+							<Grid item xs={12} className={classes.textGreen}>
 								<UnderlinedTitle
+									variant="h4"
 									color="info"
-									variant="h5"
-									body="other similar products"
-									useCaps
-									bold
+									body={formatPrice(product.price)}
 								/>
 							</Grid>
 							<Grid item xs={12}>
-								<Grid container spacing={4}>
-									{data.products.map(
-										(product, index) =>
-											product.id <= 4 && (
-												<Grid item xs={12} md={6} key={index}>
-													<ProductCard product={product} />
-												</Grid>
-											)
-									)}
+								<Grid container spacing={3}>
+									<Grid item xs={6} sm={4} lg={3}>
+										<Rating
+											name="read-only"
+											value={product.rating / 2}
+											readOnly
+											precision={0.5}
+										/>
+									</Grid>
+									<Grid item xs={6} sm={8} lg={9}>
+										<Typography className={classes.textInfo}>
+											{product.numReviews} Reviews
+										</Typography>
+									</Grid>
 								</Grid>
 							</Grid>
+							<Grid item xs={6}>
+								<Button
+									variant="outlined"
+									size="large"
+									className={classes.textGreen}
+									color="success"
+								>
+									add to cart
+								</Button>
+							</Grid>
+							<Grid item xs={6} className={classes.textRight}>
+								<Button
+									variant="contained"
+									size="large"
+									color="error"
+									disableElevation
+								>
+									buy now
+								</Button>
+							</Grid>
+							{similarProducts(2)}
 						</Grid>
 					</Grid>
 				</Grid>
