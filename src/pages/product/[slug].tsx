@@ -2,30 +2,18 @@ import { FC, useEffect, useState } from "react"
 
 import { useRouter } from "next/router"
 import Image from "next/image"
-import NextLink from "next/link"
 
-import {
-	Button,
-	ButtonBase,
-	Container,
-	Grid,
-	IconButton,
-	Typography,
-	Rating,
-	Card,
-	Link,
-	CardContent,
-} from "@mui/material"
+import { Button, ButtonBase, Container, Grid, IconButton, Typography, Rating } from "@mui/material"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
-import DoubleArrowIcon from "@mui/icons-material/DoubleArrow"
 
 import { data, urlKeyWords } from "../../misc/staticData"
 import { useFakeApi, usePriceFormatter, useSlug } from "../../components/utils"
 import { Product, Req } from "../../misc/types"
 
 import BreadCrumbs from "../../components/BreadCrumbs"
-import ProductCard from "../../components/ProductCard"
+import CardLink from "../../components/CardLink"
 import UnderlinedTitle from "../../components/UnderlinedTitle"
+import SimilarProducts from "../../components/sections/SimilarProducts"
 
 import useStyles from "./styles"
 
@@ -39,6 +27,7 @@ const ProductPage: FC = () => {
 	const [product, setProduct] = useState<Product>(placeholder)
 	const [loading, setLoading] = useState(true)
 	const [mainImg, setMainImg] = useState("")
+	const [similarProducts, setSimilarProducts] = useState<Product[]>([placeholder])
 
 	useEffect(() => {
 		if (!router.isReady) return
@@ -64,44 +53,21 @@ const ProductPage: FC = () => {
 			} else {
 				setLoading(false)
 				setProduct(apiProduct)
+
+				let newSimilarProducts: Product[] = []
+
+				data.products.forEach((product) => {
+					if (product.id >= 4) {
+						newSimilarProducts.push(product)
+					}
+				})
+
+				setSimilarProducts(newSimilarProducts)
 			}
 		})
 	}, [router.isReady])
 
 	const updateMainImg = (src: string) => setMainImg(src)
-
-	const similarProducts = (option: 1 | 2) => {
-		const display1 = { xs: "none", md: "block" }
-		const display2 = { xs: "block", md: "none" }
-
-		const layoutOption = option === 1 ? display1 : display2
-
-		return (
-			<>
-				<Grid item xs={12} className={classes.marginTop} sx={{ display: layoutOption }}>
-					<UnderlinedTitle
-						color="success"
-						variant="h5"
-						body="other similar products"
-						useCaps
-						bold
-					/>
-				</Grid>
-				<Grid item xs={12} sx={{ display: layoutOption }}>
-					<Grid container spacing={4}>
-						{data.products.map(
-							(product, index) =>
-								product.id <= 4 && (
-									<Grid item xs={12} md={6} key={index}>
-										<ProductCard product={product} />
-									</Grid>
-								)
-						)}
-					</Grid>
-				</Grid>
-			</>
-		)
-	}
 
 	return (
 		<Container maxWidth="lg">
@@ -111,8 +77,7 @@ const ProductPage: FC = () => {
 						<BreadCrumbs
 							title={product.name}
 							steps={{
-								home: "/",
-								[product.category]: "/" + product.category,
+								[product.category]: "/" + createSlug(product.category),
 							}}
 						/>
 					</Grid>
@@ -149,7 +114,7 @@ const ProductPage: FC = () => {
 									))}
 								</Grid>
 							</Grid>
-							{similarProducts(1)}
+							<SimilarProducts products={similarProducts} layoutOption={1} />
 						</Grid>
 					</Grid>
 					<Grid item xs={12} md={6}>
@@ -212,40 +177,20 @@ const ProductPage: FC = () => {
 								</Button>
 							</Grid>
 							<Grid item xs={12}>
-								<NextLink href={urlKeyWords.shippingInfo} passHref>
-									<ButtonBase sx={{ width: "100%", borderRadius: 1 }}>
-										<Card elevation={0} className={classes.card}>
-											<IconButton color="inherit">
-												<DoubleArrowIcon />
-											</IconButton>
-											<Link color="inherit" underline="hover">
-												Know more about our shipping options
-											</Link>
-											<IconButton color="inherit">
-												<DoubleArrowIcon />
-											</IconButton>
-										</Card>
-									</ButtonBase>
-								</NextLink>
+								<CardLink
+									color="warning"
+									innerText="Know more about our shipping options"
+									url={urlKeyWords.shippingInfo}
+								/>
 							</Grid>
 							<Grid item xs={12}>
-								<NextLink href={urlKeyWords.faq} passHref>
-									<ButtonBase sx={{ width: "100%", borderRadius: 1 }}>
-										<Card elevation={0} className={classes.card2}>
-											<IconButton color="inherit">
-												<DoubleArrowIcon />
-											</IconButton>
-											<Link color="inherit" underline="hover">
-												Frequently Asked Questions
-											</Link>
-											<IconButton color="inherit">
-												<DoubleArrowIcon />
-											</IconButton>
-										</Card>
-									</ButtonBase>
-								</NextLink>
+								<CardLink
+									color="grey"
+									innerText="Frequently Asked Questions"
+									url={urlKeyWords.faq}
+								/>
 							</Grid>
-							{similarProducts(2)}
+							<SimilarProducts products={similarProducts} layoutOption={2} />
 						</Grid>
 					</Grid>
 				</Grid>

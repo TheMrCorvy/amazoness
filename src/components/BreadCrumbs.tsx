@@ -37,6 +37,15 @@ const BreadCrumbs: FC<Props> = ({ title, steps }) => {
 					}}
 				>
 					<Breadcrumbs sx={{ color: "white" }}>
+						<NextLink href="/" passHref>
+							<Link
+								color="inherit"
+								underline="hover"
+								sx={{ textTransform: "capitalize" }}
+							>
+								Home
+							</Link>
+						</NextLink>
 						{urlSteps.map((step: string[], index: number) => (
 							<NextLink key={index} href={slug(step[1])} passHref>
 								<Link
