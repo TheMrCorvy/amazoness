@@ -2,8 +2,18 @@ import { FC, useEffect, useState } from "react"
 
 import { useRouter } from "next/router"
 import Image from "next/image"
+import NextLink from "next/link"
 
-import { Button, ButtonBase, Container, Grid, IconButton, Typography, Rating } from "@mui/material"
+import {
+	Button,
+	ButtonBase,
+	Container,
+	Grid,
+	IconButton,
+	Typography,
+	Rating,
+	Link,
+} from "@mui/material"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 
 import { data, urlKeyWords } from "../../misc/staticData"
@@ -131,6 +141,16 @@ const ProductPage: FC = () => {
 							</Grid>
 							<Grid item xs={12}>
 								<Typography variant="body1">{product.description}</Typography>
+							</Grid>
+							<Grid item xs={12}>
+								<Typography variant="h6">
+									See Category:{" "}
+									<NextLink href={createSlug(product.category)} passHref>
+										<Link underline="hover" color="royalblue">
+											{product.category}
+										</Link>
+									</NextLink>
+								</Typography>
 							</Grid>
 							<Grid item xs={12} className={classes.textGreen}>
 								<UnderlinedTitle
