@@ -25,7 +25,7 @@ import CardLink from "../../components/CardLink"
 import UnderlinedTitle from "../../components/UnderlinedTitle"
 import SimilarProducts from "../../components/sections/SimilarProducts"
 
-import useStyles from "./styles"
+import useStyles from "../../styles/pages/product/[slug]"
 
 const ProductPage: FC = () => {
 	const router = useRouter()
