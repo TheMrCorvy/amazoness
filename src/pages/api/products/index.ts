@@ -8,7 +8,7 @@ dbConnect()
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	switch (req.method) {
 		case "GET":
-			const data = await get(req)
+			const data = await getProducts()
 
 			return res.status(200).json({ data })
 
@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 }
 
-const get = async (req: NextApiRequest) => {
+const getProducts = async () => {
 	const products = await Product.find()
 
 	return { products }
