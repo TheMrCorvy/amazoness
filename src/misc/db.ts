@@ -4,7 +4,7 @@ const conn = {
 	isConnected: false,
 }
 
-export async function dbConnect() {
+export default async function dbConnect() {
 	if (conn.isConnected || !process.env.MONGODB_URI) return
 
 	const db = await connect(process.env.MONGODB_URI)

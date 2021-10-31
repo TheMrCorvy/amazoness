@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import Product from "../../../models/Product"
 
-import { dbConnect } from "../../../misc/db"
+import dbConnect from "../../../misc/db"
 
 dbConnect()
 
