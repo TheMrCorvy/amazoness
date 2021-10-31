@@ -3,8 +3,6 @@ import Product from "../../../models/Product"
 
 import dbConnect from "../../../misc/db"
 
-dbConnect()
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	switch (req.method) {
 		case "GET":
@@ -18,6 +16,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 const getProducts = async () => {
+	await dbConnect()
+
 	const products = await Product.find()
 
 	return { products }
