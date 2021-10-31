@@ -58,7 +58,7 @@ const ProductPage: FC = () => {
 				}
 			})
 
-			if (!apiProduct.id) {
+			if (!apiProduct._id) {
 				router.push(urlKeyWords.productNotFound)
 			} else {
 				setLoading(false)
@@ -66,15 +66,7 @@ const ProductPage: FC = () => {
 
 				document.title = apiProduct.name + " - Amazoness"
 
-				let newSimilarProducts: Product[] = []
-
-				data.products.forEach((product) => {
-					if (product.id >= 4) {
-						newSimilarProducts.push(product)
-					}
-				})
-
-				setSimilarProducts(newSimilarProducts)
+				setSimilarProducts(data.products)
 			}
 		})
 	}, [router.isReady])
@@ -83,7 +75,7 @@ const ProductPage: FC = () => {
 
 	return (
 		<Container maxWidth="lg">
-			{!loading && product.id && (
+			{!loading && product._id && (
 				<Grid container justifyContent="space-around" spacing={6}>
 					<Grid item xs={12}>
 						<BreadCrumbs
@@ -223,7 +215,7 @@ const ProductPage: FC = () => {
 
 const placeholder: Product = {
 	name: "loading",
-	id: 0,
+	_id: "0",
 	category: "",
 	description: "",
 	images: [""],
