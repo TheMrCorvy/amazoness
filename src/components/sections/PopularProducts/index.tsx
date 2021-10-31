@@ -8,6 +8,7 @@ import { Product, Req } from "../../../misc/types"
 
 import UnderlinedTitle from "../../UnderlinedTitle"
 import ProductCard from "../../ProductCard"
+import SkeletonProductCard from "../../SkeletonProductCard"
 
 const PopularProducts: FC = () => {
 	const callApi = useApi
@@ -42,12 +43,17 @@ const PopularProducts: FC = () => {
 						variant="h4"
 					/>
 				</Grid>
-				{!loading &&
-					products.map((product: Product, index: number) => (
-						<Grid item xs={12} md={6} lg={3} key={index}>
-							<ProductCard product={product} />
-						</Grid>
-					))}
+				{!loading
+					? products.map((product: Product, index: number) => (
+							<Grid item xs={12} md={6} lg={3} key={index}>
+								<ProductCard product={product} />
+							</Grid>
+					  ))
+					: products.map((product: Product, index: number) => (
+							<Grid item xs={12} md={6} lg={3} key={index}>
+								<SkeletonProductCard />
+							</Grid>
+					  ))}
 			</Grid>
 		</Container>
 	)
