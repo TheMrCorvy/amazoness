@@ -5,7 +5,7 @@ export interface StaticProductData {
 
 /********************************************************************************************** Products */
 export interface Product {
-	id: number
+	_id: string
 	name: string
 	category: string
 	images: string[]

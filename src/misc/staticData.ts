@@ -3,7 +3,7 @@ import { StaticProductData, UrlKeyWords } from "./types"
 export const data: StaticProductData = {
 	products: [
 		{
-			id: 1,
+			_id: "1",
 			name: "Shirt 1",
 			category: "Shirts",
 			images: ["/images/shirt-1.jpg"],
@@ -16,7 +16,7 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 2,
+			_id: "2",
 			name: "Shirt 2",
 			category: "Shirts",
 			images: ["/images/shirt-1.jpg"],
@@ -29,7 +29,7 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 3,
+			_id: "3",
 			name: "Pants 1",
 			category: "Pants",
 			images: ["/images/pants-1.jpg"],
@@ -42,10 +42,10 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 4,
+			_id: "4",
 			name: "Shoe 1",
 			category: "Shoes",
-			images: ["/images/pants-1.jpg"],
+			images: ["/images/pants-1.jpg", "/images/shirt-1.jpg"],
 			price: 7,
 			brand: "Nike",
 			rating: 5,
@@ -55,7 +55,7 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 5,
+			_id: "5",
 			name: "Pants 2",
 			category: "Pants",
 			images: ["/images/pants-1.jpg"],
@@ -68,7 +68,7 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 6,
+			_id: "6",
 			name: "Pants 3",
 			category: "Pants",
 			images: ["/images/pants-1.jpg"],
@@ -81,7 +81,7 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 7,
+			_id: "7",
 			name: "Shirt 3",
 			category: "Shirts",
 			images: ["/images/shirt-1.jpg"],
@@ -102,4 +102,6 @@ export const urlKeyWords: UrlKeyWords = {
 	productNotFound: "/product-was-not-found",
 	cart: "/cart",
 	login: "/login",
+	shippingInfo: "/about-shippings",
+	faq: "/frequently-asked-questions",
 }
