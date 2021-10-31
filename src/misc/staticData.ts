@@ -3,7 +3,6 @@ import { StaticProductData, UrlKeyWords } from "./types"
 export const data: StaticProductData = {
 	products: [
 		{
-			id: 1,
 			name: "Shirt 1",
 			category: "Shirts",
 			images: ["/images/shirt-1.jpg"],
@@ -16,7 +15,6 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 2,
 			name: "Shirt 2",
 			category: "Shirts",
 			images: ["/images/shirt-1.jpg"],
@@ -29,7 +27,6 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 3,
 			name: "Pants 1",
 			category: "Pants",
 			images: ["/images/pants-1.jpg"],
@@ -42,7 +39,6 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 4,
 			name: "Shoe 1",
 			category: "Shoes",
 			images: ["/images/pants-1.jpg", "/images/shirt-1.jpg"],
@@ -55,7 +51,6 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 5,
 			name: "Pants 2",
 			category: "Pants",
 			images: ["/images/pants-1.jpg"],
@@ -68,7 +63,6 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 6,
 			name: "Pants 3",
 			category: "Pants",
 			images: ["/images/pants-1.jpg"],
@@ -81,7 +75,6 @@ export const data: StaticProductData = {
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
 		},
 		{
-			id: 7,
 			name: "Shirt 3",
 			category: "Shirts",
 			images: ["/images/shirt-1.jpg"],

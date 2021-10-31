@@ -1,17 +1,21 @@
-import mongoose from "mongoose"
+import { connect, connection } from "mongoose"
 
-const connect = async () => {
-	if (!process.env.MONGODB_URI) return
-
-	await mongoose.connect(process.env.MONGODB_URI)
+const conn = {
+	isConnected: false,
 }
 
-const disconnect = async () => {
-	await mongoose.disconnect()
+export async function dbConnect() {
+	if (conn.isConnected || !process.env.MONGODB_URI) return
 
-	console.log("diconnected from db")
+	const db = await connect(process.env.MONGODB_URI)
+
+	conn.isConnected = db.connections[0].readyState ? true : false
 }
 
-const db = { connect, disconnect }
+connection.on("connected", () => {
+	console.log("Mongodb connected to db")
+})
 
-export default db
+connection.on("error", (err) => {
+	console.error(err.message)
+})
