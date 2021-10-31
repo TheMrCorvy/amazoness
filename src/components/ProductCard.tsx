@@ -22,6 +22,8 @@ const ProductCard: FC<Props> = ({ product }) => {
 
 	const slug = useSlug
 
+	if (!product.images[0]) return null
+
 	return (
 		<Card elevation={0}>
 			<NextLink href={`${urlKeyWords.product}/${slug(product.name)}`} passHref>

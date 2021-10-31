@@ -38,6 +38,7 @@ const ProductPage: FC = () => {
 	const [loading, setLoading] = useState(true)
 	const [mainImg, setMainImg] = useState("")
 	const [similarProducts, setSimilarProducts] = useState<Product[]>([placeholder])
+	const [imagesAreLoaded, setImagesAreLoaded] = useState(false)
 
 	useEffect(() => {
 		if (!router.isReady) return
@@ -58,7 +59,7 @@ const ProductPage: FC = () => {
 				}
 			})
 
-			if (!apiProduct._id) {
+			if (!apiProduct.brand) {
 				router.push(urlKeyWords.productNotFound)
 			} else {
 				setLoading(false)
@@ -71,11 +72,17 @@ const ProductPage: FC = () => {
 		})
 	}, [router.isReady])
 
+	useEffect(() => {
+		if (product.brand && !imagesAreLoaded) {
+			setImagesAreLoaded(true)
+		}
+	}, [product, imagesAreLoaded])
+
 	const updateMainImg = (src: string) => setMainImg(src)
 
 	return (
 		<Container maxWidth="lg">
-			{!loading && product._id && (
+			{!loading && product.brand && (
 				<Grid container justifyContent="space-around" spacing={6}>
 					<Grid item xs={12}>
 						<BreadCrumbs
@@ -88,34 +95,40 @@ const ProductPage: FC = () => {
 					<Grid item xs={12} md={6}>
 						<Grid container spacing={3}>
 							<Grid item xs={12} md={9}>
-								<Image
-									src={mainImg ? mainImg : product.images[0]}
-									alt={product.name}
-									height={640}
-									width={640}
-									layout="responsive"
-									className={classes.img}
-								/>
+								{imagesAreLoaded && (
+									<Image
+										src={mainImg ? mainImg : product.images[0]}
+										alt={product.name}
+										height={640}
+										width={640}
+										layout="responsive"
+										className={classes.img}
+									/>
+								)}
 							</Grid>
 							<Grid item xs={12} md={3}>
 								<Grid container spacing={3}>
-									{product.images.map((image, index) => (
-										<Grid item xs={4} md={12} key={index}>
-											<ButtonBase
-												className={classes.img}
-												onClick={() => updateMainImg(image)}
-											>
-												<Image
-													src={image}
-													title={product.name}
-													alt={product.name}
-													width={150}
-													height={150}
-													className={classes.img}
-												/>
-											</ButtonBase>
-										</Grid>
-									))}
+									{imagesAreLoaded && (
+										<>
+											{product.images.map((image, index) => (
+												<Grid item xs={4} md={12} key={index}>
+													<ButtonBase
+														className={classes.img}
+														onClick={() => updateMainImg(image)}
+													>
+														<Image
+															src={image}
+															title={product.name}
+															alt={product.name}
+															width={150}
+															height={150}
+															className={classes.img}
+														/>
+													</ButtonBase>
+												</Grid>
+											))}
+										</>
+									)}
 								</Grid>
 							</Grid>
 							<SimilarProducts products={similarProducts} layoutOption={1} />
@@ -214,8 +227,8 @@ const ProductPage: FC = () => {
 }
 
 const placeholder: Product = {
-	name: "loading",
-	_id: "0",
+	_id: "loading",
+	name: "0",
 	category: "",
 	description: "",
 	images: [""],
