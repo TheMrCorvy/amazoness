@@ -24,7 +24,7 @@ const CardLink: FC<Props> = ({ innerText, url, color }) => {
 					<IconButton color="inherit">
 						<DoubleArrowIcon />
 					</IconButton>
-					<Link color="inherit" underline="hover">
+					<Link color="inherit" underline="hover" component="span">
 						{innerText}
 					</Link>
 					<IconButton color="inherit">
