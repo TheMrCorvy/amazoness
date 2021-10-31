@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import { Product } from "../misc/types"
 
-export interface ProductDocument extends Product, mongoose.Document {
+export interface ProductDocument extends Omit<Product, "_id">, mongoose.Document {
 	createdAt: Date
 	updatedAt: Date
 }
