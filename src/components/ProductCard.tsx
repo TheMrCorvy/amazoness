@@ -12,10 +12,10 @@ import {
 	Typography,
 } from "@mui/material"
 
-import { Product } from "../../misc/types"
+import { Product } from "../misc/types"
 
-import { usePriceFormatter, useSlug } from "../utils"
-import { urlKeyWords } from "../../misc/staticData"
+import { usePriceFormatter, useSlug } from "./utils"
+import { urlKeyWords } from "../misc/staticData"
 
 const ProductCard: FC<Props> = ({ product }) => {
 	const formatPrice = usePriceFormatter
