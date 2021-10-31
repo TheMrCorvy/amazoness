@@ -1,15 +1,35 @@
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 
 import { Container, Grid } from "@mui/material"
 
-import { Product } from "../../../misc/types"
+import { useApi } from "../../utils"
 
-import { data } from "../../../misc/staticData"
+import { Product, Req } from "../../../misc/types"
 
 import UnderlinedTitle from "../../UnderlinedTitle"
 import ProductCard from "../../ProductCard"
 
 const PopularProducts: FC = () => {
+	const callApi = useApi
+
+	const [products, setProducts] = useState<Product[] | any[]>(["", "", "", ""])
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		const req: Req = {
+			endpoint: "/products/recently-added",
+			method: "GET",
+		}
+
+		callApi(req).then((res: any) => {
+			if (res.status === 200) {
+				setProducts(res.data.products)
+				setLoading(false)
+			}
+
+			console.log(res)
+		})
+	}, [])
 	return (
 		<Container maxWidth="lg">
 			<Grid container justifyContent="space-around" spacing={4}>
@@ -22,11 +42,12 @@ const PopularProducts: FC = () => {
 						variant="h4"
 					/>
 				</Grid>
-				{data.products.map((product: Product, index: number) => (
-					<Grid item xs={12} md={6} lg={3} key={index}>
-						<ProductCard product={product} />
-					</Grid>
-				))}
+				{!loading &&
+					products.map((product: Product, index: number) => (
+						<Grid item xs={12} md={6} lg={3} key={index}>
+							<ProductCard product={product} />
+						</Grid>
+					))}
 			</Grid>
 		</Container>
 	)
