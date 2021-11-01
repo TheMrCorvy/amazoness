@@ -11,13 +11,13 @@ import Snackbar from "../Snackbar"
 import { useStyles } from "./styles"
 
 const Layout: FC<Props> = ({ children }) => {
-	const loading = useSelector((state: RootState) => state.loading)
+	const { loading, error } = useSelector((state: RootState) => state.loading)
 
 	const classes = useStyles()
 
 	return (
 		<>
-			{loading.loading && (
+			{loading && (
 				<Backdrop
 					sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
 					open={true}
@@ -26,9 +26,9 @@ const Layout: FC<Props> = ({ children }) => {
 				</Backdrop>
 			)}
 
-			{loading.error && (
+			{error && (
 				<Snackbar
-					message={loading.error}
+					message={error}
 					open={true}
 					color="error"
 					duration={25000}
