@@ -15,6 +15,7 @@ export interface Product {
 	numReviews: number
 	stock: number
 	description: string
+	slug: string
 }
 
 /********************************************************************************************** URL key words */

@@ -4,6 +4,7 @@ export const data: StaticProductData = {
 	products: [
 		{
 			_id: "1",
+			slug: "shirt-1",
 			name: "Shirt 1",
 			category: "Shirts",
 			images: ["/images/shirt-1.jpg"],
@@ -17,6 +18,7 @@ export const data: StaticProductData = {
 		},
 		{
 			_id: "2",
+			slug: "shirt-2",
 			name: "Shirt 2",
 			category: "Shirts",
 			images: ["/images/shirt-1.jpg"],
@@ -30,6 +32,7 @@ export const data: StaticProductData = {
 		},
 		{
 			_id: "3",
+			slug: "pants-1",
 			name: "Pants 1",
 			category: "Pants",
 			images: ["/images/pants-1.jpg"],
@@ -43,6 +46,7 @@ export const data: StaticProductData = {
 		},
 		{
 			_id: "4",
+			slug: "shoe-1",
 			name: "Shoe 1",
 			category: "Shoes",
 			images: ["/images/pants-1.jpg", "/images/shirt-1.jpg"],
@@ -56,6 +60,7 @@ export const data: StaticProductData = {
 		},
 		{
 			_id: "5",
+			slug: "pants-2",
 			name: "Pants 2",
 			category: "Pants",
 			images: ["/images/pants-1.jpg"],
@@ -69,6 +74,7 @@ export const data: StaticProductData = {
 		},
 		{
 			_id: "6",
+			slug: "pants-3",
 			name: "Pants 3",
 			category: "Pants",
 			images: ["/images/pants-1.jpg"],
@@ -82,6 +88,7 @@ export const data: StaticProductData = {
 		},
 		{
 			_id: "7",
+			slug: "shirt-3",
 			name: "Shirt 3",
 			category: "Shirts",
 			images: ["/images/shirt-1.jpg"],
