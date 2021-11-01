@@ -97,12 +97,14 @@ const ProductPage: FC = () => {
 				{!loading ? (
 					<>
 						<Grid item xs={12}>
-							<BreadCrumbs
-								title={product.name}
-								steps={{
-									[product.category]: "/" + createSlug(product.category),
-								}}
-							/>
+							{product.category && (
+								<BreadCrumbs
+									title={product.name}
+									steps={{
+										[product.category]: "/" + createSlug(product.category),
+									}}
+								/>
+							)}
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<Grid container spacing={3}>
