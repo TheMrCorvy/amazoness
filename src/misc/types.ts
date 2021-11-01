@@ -1,6 +1,6 @@
 /********************************************************************************************** Static data for testing locally */
 export interface StaticProductData {
-	products: Product[] | []
+	products: Omit<Product, "slug" | "_id">[] | []
 }
 
 /********************************************************************************************** Products */
