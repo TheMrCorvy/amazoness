@@ -10,6 +10,9 @@ import { ThemeProvider } from "@mui/material/styles"
 import CssBaseline from "@mui/material/CssBaseline"
 import theme from "../misc/theme"
 
+import { Provider } from "react-redux"
+import store from "../redux/store"
+
 import Layout from "../components/Layout"
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -39,12 +42,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 				<meta name="keywords" content="Amazoness" />
 			</Head>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
-			</ThemeProvider>
+			<Provider store={store}>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
+				</ThemeProvider>
+			</Provider>
 		</>
 	)
 }
