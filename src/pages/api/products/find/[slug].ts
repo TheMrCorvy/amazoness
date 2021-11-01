@@ -24,7 +24,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 const findProduct = async (slug: string) => {
 	await dbConnect()
 
-	const product = await Product.find({ slug })
+	const product = await Product.findOne({ slug })
+	const similarProducts = await Product.find({ category: product.category }).limit(4)
 
-	return { product, slug }
+	return { product, similarProducts, slug }
 }

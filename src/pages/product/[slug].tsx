@@ -21,7 +21,7 @@ import { RootState } from "../../redux/store"
 import { toggleLoading, setErrorLoading } from "../../redux/actions/loadingActions"
 
 import { data, urlKeyWords } from "../../misc/staticData"
-import { useFakeApi, usePriceFormatter, useSlug } from "../../components/utils"
+import { useApi, usePriceFormatter, useSlug } from "../../components/utils"
 import { Product, Req } from "../../misc/types"
 
 import BreadCrumbs from "../../components/BreadCrumbs"
@@ -37,7 +37,7 @@ const ProductPage: FC = () => {
 
 	const router = useRouter()
 	const createSlug = useSlug
-	const callApi = useFakeApi
+	const callApi = useApi
 	const classes = useStyles()
 	const formatPrice = usePriceFormatter
 
@@ -56,30 +56,21 @@ const ProductPage: FC = () => {
 		const { slug } = router.query
 
 		const req: Req = {
-			endpoint: "/find",
+			endpoint: "/products/find/" + slug,
 			method: "GET",
 		}
 
 		callApi(req).then((res) => {
-			let apiProduct: Product = placeholder
+			if (res.status !== 200) {
+				dispatch(setErrorLoading(res.message))
 
-			data.products.forEach((element) => {
-				if (createSlug(element.name) === slug) {
-					apiProduct = element
-				}
-			})
-
-			if (!apiProduct.brand) {
-				router.push(urlKeyWords.productNotFound)
-			} else {
-				dispatch(toggleLoading(false))
-
-				setProduct(apiProduct)
-
-				document.title = apiProduct.name + " - Amazoness"
-
-				setSimilarProducts(data.products)
+				return
 			}
+
+			setProduct(res.data.product)
+			setSimilarProducts(res.data.similarProducts)
+
+			dispatch(toggleLoading(false))
 		})
 	}, [router])
 
@@ -163,16 +154,18 @@ const ProductPage: FC = () => {
 								<Grid item xs={12}>
 									<Typography variant="body1">{product.description}</Typography>
 								</Grid>
-								<Grid item xs={12}>
-									<Typography variant="h6">
-										See Category:{" "}
-										<NextLink href={createSlug(product.category)} passHref>
-											<Link underline="hover" color="royalblue">
-												{product.category}
-											</Link>
-										</NextLink>
-									</Typography>
-								</Grid>
+								{product.category && (
+									<Grid item xs={12}>
+										<Typography variant="h6">
+											See Category:{" "}
+											<NextLink href={createSlug(product.category)} passHref>
+												<Link underline="hover" color="royalblue">
+													{product.category}
+												</Link>
+											</NextLink>
+										</Typography>
+									</Grid>
+								)}
 								<Grid item xs={12} className={classes.textGreen}>
 									<UnderlinedTitle
 										variant="h4"
