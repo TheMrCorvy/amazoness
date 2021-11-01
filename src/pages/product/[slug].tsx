@@ -249,6 +249,7 @@ const ProductPage: FC = () => {
 
 const placeholder: Product = {
 	_id: "loading",
+	slug: "",
 	name: "0",
 	category: "",
 	description: "",
