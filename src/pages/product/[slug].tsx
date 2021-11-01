@@ -70,7 +70,7 @@ const ProductPage: FC = () => {
 				setSimilarProducts(data.products)
 			}
 		})
-	}, [router.isReady])
+	}, [router])
 
 	useEffect(() => {
 		if (product.brand && !imagesAreLoaded) {
