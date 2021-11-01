@@ -15,6 +15,7 @@ export interface Product {
 	numReviews: number
 	stock: number
 	description: string
+	slug: string
 }
 
 /********************************************************************************************** URL key words */
@@ -36,7 +37,9 @@ export interface Req {
 
 export interface Res {
 	message: string
-	data: object
+	data: {
+		[key: string]: any
+	}
 	status: number
 	request?: object
 }

@@ -9,6 +9,7 @@ export interface ProductDocument extends Omit<Product, "_id">, mongoose.Document
 const productSchema = new mongoose.Schema(
 	{
 		name: { type: String, required: true, unique: true },
+		slug: { type: String, required: true, unique: true },
 		description: { type: String, required: true },
 		price: { type: Number, required: true },
 		images: { type: [String], required: true },
