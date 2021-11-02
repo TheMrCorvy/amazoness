@@ -185,7 +185,10 @@ const ProductPage: FC = () => {
 									</Grid>
 								</Grid>
 								<Grid item xs={12}>
-									<ProductOptions product={product} />
+									<ProductOptions
+										product={product}
+										updateMainImg={updateMainImg}
+									/>
 								</Grid>
 								<Grid item xs={12}>
 									<CardLink

@@ -17,7 +17,7 @@ import UnderlinedTitle from "../../UnderlinedTitle"
 
 import { Product } from "../../../misc/types"
 
-const ProductOptions: FC<Props> = ({ product }) => {
+const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 	const formatPrice = usePriceFormatter
 	const classes = useStyles()
 
@@ -27,8 +27,9 @@ const ProductOptions: FC<Props> = ({ product }) => {
 		return null
 	}
 
-	const handleChange = (newValue: number) => {
+	const handleChange = (newValue: number, newSrc: string) => {
 		setValue(newValue)
+		updateMainImg(newSrc)
 	}
 
 	const showLabel = (body: string, selection: number) => {
@@ -47,7 +48,10 @@ const ProductOptions: FC<Props> = ({ product }) => {
 		<>
 			<Grid container justifyContent="space-between" spacing={4}>
 				<Grid item>
-					<ButtonBase className={classes.buttonBase} onClick={() => handleChange(0)}>
+					<ButtonBase
+						className={classes.buttonBase}
+						onClick={() => handleChange(0, product.default.images[0])}
+					>
 						<Grid container>
 							<Grid item xs={6}>
 								<Avatar
@@ -66,7 +70,7 @@ const ProductOptions: FC<Props> = ({ product }) => {
 					<Grid item>
 						<ButtonBase
 							className={classes.buttonBase}
-							onClick={() => handleChange(index + 1)}
+							onClick={() => handleChange(index + 1, option.image)}
 						>
 							<Grid container spacing={0}>
 								<Grid item xs={4}>
@@ -220,6 +224,7 @@ const ProductOptions: FC<Props> = ({ product }) => {
 
 interface Props {
 	product: Product
+	updateMainImg: (src: string) => void
 }
 
 export default ProductOptions
