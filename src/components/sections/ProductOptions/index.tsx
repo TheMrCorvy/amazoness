@@ -29,13 +29,13 @@ const ProductOptions: FC<Props> = ({ product }) => {
 		<>
 			<Grid container justifyContent="space-between" spacing={4}>
 				<Grid item>
-					<ButtonBase sx={{ padding: "0.5rem", paddingRight: "1rem", borderRadius: 1 }}>
+					<ButtonBase className={classes.buttonBase}>
 						<Grid container>
 							<Grid item xs={6}>
 								<Avatar
 									alt={product.name}
 									src={product.default.images[0]}
-									sx={{ width: 56, height: 56 }}
+									sx={{ width: 65, height: 65 }}
 								/>
 							</Grid>
 							<Grid item xs={6}>
@@ -68,7 +68,7 @@ const ProductOptions: FC<Props> = ({ product }) => {
 							</Grid>
 						</ListItem>
 						<Divider />
-						<ListItem sx={{ marginTop: 3 }}>
+						<ListItem className={classes.marginTop}>
 							<Grid container>
 								<Grid item xs={8} md={4}>
 									<Typography variant="body1">Available Stock:</Typography>
@@ -120,7 +120,7 @@ const ProductOptions: FC<Props> = ({ product }) => {
 									</Grid>
 								</ListItem>
 								<Divider />
-								<ListItem sx={{ marginTop: 3 }}>
+								<ListItem className={classes.marginTop}>
 									<Grid container>
 										<Grid item xs={8} md={4}>
 											<Typography variant="body1">

@@ -15,6 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
 		marginTop: {
 			marginTop: "2rem",
 		},
+		buttonBase: {
+			padding: "0.5rem",
+			paddingRight: "1rem",
+			borderRadius: 1,
+		},
 	})
 )
 
