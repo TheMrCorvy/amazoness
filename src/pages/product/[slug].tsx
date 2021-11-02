@@ -66,7 +66,7 @@ const ProductPage: FC = () => {
 			setProduct(res.data.product)
 			setSimilarProducts(res.data.similarProducts)
 		})
-	}, [router.isReady])
+	}, [router])
 
 	useEffect(() => {
 		if (product.brand && !imagesAreLoaded) {
@@ -185,10 +185,35 @@ const ProductPage: FC = () => {
 									</Grid>
 								</Grid>
 								<Grid item xs={12}>
-									<ProductOptions
-										product={product}
-										updateMainImg={updateMainImg}
-									/>
+									{product.subCategory && product.subCategory.length >= 1 ? (
+										<ProductOptions
+											product={product}
+											updateMainImg={updateMainImg}
+										/>
+									) : (
+										<Grid container spacing={3}>
+											<Grid item xs={6}>
+												<Button
+													variant="outlined"
+													size="large"
+													className={classes.textGreen}
+													color="success"
+												>
+													add to cart
+												</Button>
+											</Grid>
+											<Grid item xs={6} className={classes.textRight}>
+												<Button
+													variant="contained"
+													size="large"
+													color="error"
+													disableElevation
+												>
+													buy now
+												</Button>
+											</Grid>
+										</Grid>
+									)}
 								</Grid>
 								<Grid item xs={12}>
 									<CardLink

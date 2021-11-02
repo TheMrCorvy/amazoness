@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		textInfo: {
 			color: theme.palette.info.main,
 		},
+
+		textRight: {
+			textAlign: "right",
+		},
 	})
 )
 
