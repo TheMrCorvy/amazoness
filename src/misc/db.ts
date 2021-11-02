@@ -22,7 +22,7 @@ connection.on("error", (err) => {
 
 export const dbDisconnect = async () => {
 	if (conn.isConnected) {
-		if (process.env.NODE_ENV === "production") {
+		if (process.env.NODE_ENV !== "development") {
 			await disconnect()
 			conn.isConnected = false
 		} else {
