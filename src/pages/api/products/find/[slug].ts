@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import Product from "../../../../models/Product"
 
-import dbConnect from "../../../../misc/db"
+import { dbConnect, dbDisconnect } from "../../../../misc/db"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const params = req.query
@@ -26,6 +26,8 @@ const findProduct = async (slug: string) => {
 
 	const product = await Product.findOne({ slug })
 	const similarProducts = await Product.find({ category: product.category }).limit(4)
+
+	await dbDisconnect()
 
 	return { product, similarProducts, slug }
 }
