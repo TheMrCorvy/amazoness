@@ -18,7 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		buttonBase: {
 			padding: "0.5rem",
 			paddingRight: "1rem",
-			borderRadius: 1,
+			borderRadius: 10,
+		},
+		textCapitalize: {
+			textTransform: "capitalize",
 		},
 	})
 )

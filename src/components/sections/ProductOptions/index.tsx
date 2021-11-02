@@ -21,15 +21,33 @@ const ProductOptions: FC<Props> = ({ product }) => {
 	const formatPrice = usePriceFormatter
 	const classes = useStyles()
 
+	const [value, setValue] = useState<number>(0)
+
 	if (!product.subCategory || product.subCategory.length < 1) {
 		return null
+	}
+
+	const handleChange = (newValue: number) => {
+		setValue(newValue)
+	}
+
+	const showLabel = (body: string, selection: number) => {
+		if (value === selection) {
+			return <UnderlinedTitle body={body} variant="h6" color="info" length={100} useCaps />
+		}
+
+		return (
+			<Typography variant="h6" className={classes.textCapitalize}>
+				{body}
+			</Typography>
+		)
 	}
 
 	return (
 		<>
 			<Grid container justifyContent="space-between" spacing={4}>
 				<Grid item>
-					<ButtonBase className={classes.buttonBase}>
+					<ButtonBase className={classes.buttonBase} onClick={() => handleChange(0)}>
 						<Grid container>
 							<Grid item xs={6}>
 								<Avatar
@@ -39,23 +57,33 @@ const ProductOptions: FC<Props> = ({ product }) => {
 								/>
 							</Grid>
 							<Grid item xs={6}>
-								{/* <Typography
-									variant="h6"
-									sx={{ borderBottom: "solid", borderColor: "blue" }}
-								>
-									Default
-								</Typography> */}
-								<UnderlinedTitle
-									body="Default"
-									variant="h6"
-									color="info"
-									length={100}
-								/>
+								{showLabel("Default", 0)}
 							</Grid>
 						</Grid>
 					</ButtonBase>
 				</Grid>
-				<Grid item xs={12} sx={{ display: "none" }}>
+				{product.subCategory.map((option, index) => (
+					<Grid item>
+						<ButtonBase
+							className={classes.buttonBase}
+							onClick={() => handleChange(index + 1)}
+						>
+							<Grid container spacing={0}>
+								<Grid item xs={4}>
+									<Avatar
+										alt={product.name}
+										src={option.image}
+										sx={{ width: 56, height: 56 }}
+									/>
+								</Grid>
+								<Grid item xs={8}>
+									{showLabel(`${option.name + ": " + option.title}`, index + 1)}
+								</Grid>
+							</Grid>
+						</ButtonBase>
+					</Grid>
+				))}
+				<Grid item xs={12} sx={{ display: value === 0 ? "block" : "none" }}>
 					<List>
 						<ListItem>
 							<Grid container>
@@ -63,7 +91,13 @@ const ProductOptions: FC<Props> = ({ product }) => {
 									<Typography variant="body1">Price:</Typography>
 								</Grid>
 								<Grid item xs={4} md={8}>
-									{formatPrice(product.default.price)}
+									<Typography
+										variant="body1"
+										className={classes.textGreen}
+										sx={{ fontWeight: "bold" }}
+									>
+										{formatPrice(product.default.price)}
+									</Typography>
 								</Grid>
 							</Grid>
 						</ListItem>
@@ -74,34 +108,46 @@ const ProductOptions: FC<Props> = ({ product }) => {
 									<Typography variant="body1">Available Stock:</Typography>
 								</Grid>
 								<Grid item xs={4} md={8}>
-									{product.default.stock}
+									<Typography
+										variant="body1"
+										className={classes.textInfo}
+										sx={{ fontWeight: "bold" }}
+									>
+										{product.default.stock}
+									</Typography>
 								</Grid>
 							</Grid>
 						</ListItem>
 						<Divider />
+						<ListItem className={classes.marginTop} disablePadding>
+							<Grid container spacing={3}>
+								<Grid item xs={6}>
+									<Button
+										variant="outlined"
+										size="large"
+										className={classes.textGreen}
+										color="success"
+									>
+										add to cart
+									</Button>
+								</Grid>
+								<Grid item xs={6} className={classes.textRight}>
+									<Button
+										variant="contained"
+										size="large"
+										color="error"
+										disableElevation
+									>
+										buy now
+									</Button>
+								</Grid>
+							</Grid>
+						</ListItem>
 					</List>
 				</Grid>
 				{product.subCategory.map((option, index) => (
 					<Fragment key={index}>
-						<Grid item>
-							<ButtonBase sx={{ padding: "0.5rem", borderRadius: 1 }}>
-								<Grid container spacing={0}>
-									<Grid item xs={4}>
-										<Avatar
-											alt={product.name}
-											src={product.default.images[0]}
-											sx={{ width: 56, height: 56 }}
-										/>
-									</Grid>
-									<Grid item xs={8}>
-										<Typography variant="h6">
-											{option.name + ": " + option.title}
-										</Typography>
-									</Grid>
-								</Grid>
-							</ButtonBase>
-						</Grid>
-						<Grid item xs={12}>
+						<Grid item xs={12} sx={{ display: index + 1 === value ? "block" : "none" }}>
 							<List>
 								<ListItem>
 									<Grid container>
@@ -139,8 +185,8 @@ const ProductOptions: FC<Props> = ({ product }) => {
 									</Grid>
 								</ListItem>
 								<Divider />
-								<ListItem className={classes.marginTop}>
-									<Grid container>
+								<ListItem className={classes.marginTop} disablePadding>
+									<Grid container spacing={3}>
 										<Grid item xs={6}>
 											<Button
 												variant="outlined"
