@@ -8,15 +8,19 @@ export interface Product {
 	_id: string
 	name: string
 	category: string
-	images: string[]
-	price: number
 	brand: string
 	rating: number
 	numReviews: number
-	stock: number
 	description: string
 	slug: string
+	default: DefaultProductOption
 	subCategory?: SubCategory[]
+}
+
+export interface DefaultProductOption {
+	images: string[]
+	price: number
+	stock: number
 }
 
 export interface SubCategory {

@@ -13,17 +13,19 @@ const productSchema = new mongoose.Schema(
 		name: { type: String, required: true, unique: true },
 		slug: { type: String, required: true, unique: true },
 		description: { type: String, required: true },
-		price: { type: Number, required: true },
-		images: { type: [String], required: true },
 		brand: { type: String, required: true },
 		category: { type: String, required: true },
 		rating: { type: Number, required: true },
-		stock: { type: Number, required: true },
 		numReviews: { type: Number, required: true },
+		default: {
+			price: { type: Number, required: true },
+			images: { type: [String], required: true },
+			stock: { type: Number, required: true },
+		},
 		subCategory: [
 			{
-				name: { type: String, required: true },
-				title: { type: String, required: true },
+				name: { type: String, required: true }, // example: color || rarity
+				title: { type: String, required: true }, // example: "black" || "ultra rare"
 				image: { type: String, required: true },
 				stock: { type: Number, required: true },
 				price: { type: Number, required: true },

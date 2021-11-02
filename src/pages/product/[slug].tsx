@@ -95,7 +95,7 @@ const ProductPage: FC = () => {
 								<Grid item xs={12} md={9}>
 									{imagesAreLoaded && (
 										<Image
-											src={mainImg ? mainImg : product.images[0]}
+											src={mainImg ? mainImg : product.default.images[0]}
 											alt={product.name}
 											height={640}
 											width={640}
@@ -108,7 +108,7 @@ const ProductPage: FC = () => {
 									<Grid container spacing={3}>
 										{imagesAreLoaded && (
 											<>
-												{product.images.map((image, index) => (
+												{product.default.images.map((image, index) => (
 													<Grid item xs={4} md={12} key={index}>
 														<ButtonBase
 															className={classes.img}
@@ -163,7 +163,7 @@ const ProductPage: FC = () => {
 									<UnderlinedTitle
 										variant="h4"
 										color="info"
-										body={formatPrice(product.price)}
+										body={formatPrice(product.default.price)}
 									/>
 								</Grid>
 								<Grid item xs={12}>
@@ -239,12 +239,14 @@ const placeholder: Product = {
 	name: "0",
 	category: "",
 	description: "",
-	images: [""],
-	price: 0,
 	brand: "",
 	rating: 0,
 	numReviews: 0,
-	stock: 0,
+	default: {
+		stock: 0,
+		price: 0,
+		images: [""],
+	},
 }
 
 export default ProductPage
