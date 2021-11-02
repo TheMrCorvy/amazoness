@@ -18,9 +18,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
-import { toggleLoading, setErrorLoading } from "../../redux/actions/loadingActions"
 
-import { data, urlKeyWords } from "../../misc/staticData"
+import { urlKeyWords } from "../../misc/staticData"
 import { useApi, usePriceFormatter, useSlug } from "../../components/utils"
 import { Product, Req } from "../../misc/types"
 
@@ -47,10 +46,6 @@ const ProductPage: FC = () => {
 	const [imagesAreLoaded, setImagesAreLoaded] = useState(false)
 
 	useEffect(() => {
-		dispatch(toggleLoading(true))
-	}, [])
-
-	useEffect(() => {
 		if (!router.isReady) return
 
 		const { slug } = router.query
@@ -60,19 +55,17 @@ const ProductPage: FC = () => {
 			method: "GET",
 		}
 
-		callApi(req).then((res) => {
+		callApi(req, dispatch).then((res) => {
 			if (res.status !== 200) {
-				dispatch(setErrorLoading(res.message))
+				router.push(urlKeyWords.productNotFound)
 
 				return
 			}
 
 			setProduct(res.data.product)
 			setSimilarProducts(res.data.similarProducts)
-
-			dispatch(toggleLoading(false))
 		})
-	}, [router])
+	}, [router.isReady])
 
 	useEffect(() => {
 		if (product.brand && !imagesAreLoaded) {

@@ -1,3 +1,5 @@
+import { Dispatch } from "redux"
+import { toggleLoading, setErrorLoading } from "../redux/actions/loadingActions"
 import { Req, Res } from "../misc/types"
 
 const formatter = new Intl.NumberFormat("es-AR", {
@@ -9,8 +11,12 @@ export const usePriceFormatter = (price: number) => formatter.format(price)
 
 export const useSlug = (str: string) => str.replace(/\s+/g, "-").toLowerCase()
 
-export const useApi = async (request: Req): Promise<Res> => {
+export const useApi = async (request: Req, dispatch?: Dispatch): Promise<Res> => {
 	const { method, endpoint, body, token, apiUri, headers } = request
+
+	if (dispatch) {
+		dispatch(toggleLoading(true))
+	}
 
 	const headerToken = { Authorization: token ? "Bearer " + token : "" }
 
@@ -27,31 +33,22 @@ export const useApi = async (request: Req): Promise<Res> => {
 
 	return await fetch(reqUrl, { method, headers: reqHeaders, body: JSON.stringify(body) })
 		.then((res) => res.json())
-		.then((data) => data)
-		.catch((error) => error)
-}
+		.then((data) => {
+			if (dispatch) {
+				dispatch(toggleLoading(false))
+			}
 
-export const useFakeApi = async (request: Req): Promise<Res> => {
-	return await new Promise((r) => setTimeout(r, 2000)).then(() => {
-		return {
-			message: "Succes!",
-			status: 200,
-			data: {
-				message: "Succes!",
-				status: 200,
-				data: {
-					name: "",
-					id: 1,
-					category: "",
-					description: "",
-					images: [""],
-					price: 0,
-					brand: "",
-					rating: 0,
-					numReviews: 0,
-					stock: 0,
-				},
-			},
-		}
-	})
+			if (data.status !== 200) {
+				throw new Error(data.message)
+			}
+
+			return data
+		})
+		.catch((error) => {
+			if (dispatch) {
+				dispatch(setErrorLoading(error.message))
+			}
+
+			return error
+		})
 }
