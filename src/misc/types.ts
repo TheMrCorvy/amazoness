@@ -16,6 +16,15 @@ export interface Product {
 	stock: number
 	description: string
 	slug: string
+	subCategory?: SubCategory[]
+}
+
+export interface SubCategory {
+	name: string //example: color || rarity
+	title: string //example: "black" || "ultra rare"
+	price: number
+	stock: number
+	image: string
 }
 
 /********************************************************************************************** URL key words */

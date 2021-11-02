@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import Product from "../../../models/Product"
 
-import dbConnect from "../../../misc/db"
+import { dbConnect, dbDisconnect } from "../../../misc/db"
+// import { data } from "../../../misc/staticData"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	switch (req.method) {
@@ -20,7 +21,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 const getProducts = async () => {
 	await dbConnect()
 
+	// await Product.deleteMany()
+	// await Product.insertMany(data.products)
+
 	const products = await Product.find()
+
+	await dbDisconnect()
 
 	return { products }
 }

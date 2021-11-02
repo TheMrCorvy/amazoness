@@ -20,6 +20,15 @@ const productSchema = new mongoose.Schema(
 		rating: { type: Number, required: true },
 		stock: { type: Number, required: true },
 		numReviews: { type: Number, required: true },
+		subCategory: [
+			{
+				name: { type: String, required: true },
+				title: { type: String, required: true },
+				image: { type: String, required: true },
+				stock: { type: Number, required: true },
+				price: { type: Number, required: true },
+			},
+		],
 	},
 	{
 		timestamps: true,

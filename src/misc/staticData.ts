@@ -13,6 +13,15 @@ export const data: StaticProductData = {
 			stock: 20,
 			description:
 				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod culpa aliquam nobis pariatur quidem.",
+			subCategory: [
+				{
+					name: "color",
+					title: "black",
+					price: 50,
+					stock: 2,
+					image: "/images/black-shirt.jpeg",
+				},
+			],
 		},
 		{
 			name: "Shirt 2",
