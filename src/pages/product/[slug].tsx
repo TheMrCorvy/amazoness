@@ -27,6 +27,7 @@ import BreadCrumbs from "../../components/BreadCrumbs"
 import CardLink from "../../components/CardLink"
 import UnderlinedTitle from "../../components/UnderlinedTitle"
 import SimilarProducts from "../../components/sections/SimilarProducts"
+import ProductOptions from "../../components/sections/ProductOptions"
 
 import useStyles from "../../styles/pages/product/[slug]"
 
@@ -183,25 +184,8 @@ const ProductPage: FC = () => {
 										</Grid>
 									</Grid>
 								</Grid>
-								<Grid item xs={6}>
-									<Button
-										variant="outlined"
-										size="large"
-										className={classes.textGreen}
-										color="success"
-									>
-										add to cart
-									</Button>
-								</Grid>
-								<Grid item xs={6} className={classes.textRight}>
-									<Button
-										variant="contained"
-										size="large"
-										color="error"
-										disableElevation
-									>
-										buy now
-									</Button>
+								<Grid item xs={12}>
+									<ProductOptions product={product} />
 								</Grid>
 								<Grid item xs={12}>
 									<CardLink

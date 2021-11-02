@@ -3,7 +3,7 @@ import { FC } from "react"
 import { Divider, Typography } from "@mui/material"
 import { Theme } from "@mui/material/styles"
 
-const UnderlinedTitle: FC<Props> = ({ variant, bold, body, color, useCaps }) => {
+const UnderlinedTitle: FC<Props> = ({ variant, bold, body, color, useCaps, length }) => {
 	return (
 		<Typography
 			variant={variant}
@@ -17,7 +17,7 @@ const UnderlinedTitle: FC<Props> = ({ variant, bold, body, color, useCaps }) => 
 			<Divider
 				sx={{
 					height: 3,
-					width: "10%",
+					width: length ? length + "%" : "10%",
 					borderRadius: 10,
 					border: "none",
 					backgroundColor: (theme: Theme) => theme.palette[color].light,
@@ -33,6 +33,7 @@ interface Props {
 	color: "primary" | "secondary" | "error" | "info" | "success" | "warning"
 	bold?: boolean
 	useCaps?: boolean
+	length?: number
 }
 
 export default UnderlinedTitle
