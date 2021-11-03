@@ -23,7 +23,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 
 	const [value, setValue] = useState<number>(0)
 
-	if (!product.subCategory || product.subCategory.length < 1) {
+	if (!product.subCategories || product.subCategories.length < 1) {
 		return null
 	}
 
@@ -66,7 +66,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 						</Grid>
 					</ButtonBase>
 				</Grid>
-				{product.subCategory.map((option, index) => (
+				{product.subCategories.map((option, index) => (
 					<Grid item>
 						<ButtonBase
 							className={classes.buttonBase}
@@ -149,7 +149,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 						</ListItem>
 					</List>
 				</Grid>
-				{product.subCategory.map((option, index) => (
+				{product.subCategories.map((option, index) => (
 					<Fragment key={index}>
 						<Grid item xs={12} sx={{ display: index + 1 === value ? "block" : "none" }}>
 							<List>
