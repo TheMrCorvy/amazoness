@@ -101,7 +101,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 						</FormControl>
 					</Grid>
 					<Grid item xs={12} sm={3} lg={2}>
-						{selectedOption && (
+						{subCategories && (
 							<FormControl fullWidth>
 								<Select
 									labelId="options-label"
@@ -133,7 +133,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 						<Grid container justifyContent="space-between" spacing={2}>
 							<Grid item xs={6} md={7} className={classes.textCenter}>
 								<Typography variant="body1" className={classes.textGreen}>
-									{formatPrice(amount * reduxProduct.default.price)}
+									{formatPrice(amount * totalPrice)}
 								</Typography>
 							</Grid>
 							<Grid item>
