@@ -30,6 +30,9 @@ export const setErrorLoading = (errMessage: string): SetErrorAction => {
 export const clearError = (): ClearErrorAction => {
 	return {
 		type: CLEAR_LOADING_ERROR,
-		payload: false,
+		payload: {
+			loading: false,
+			error: "",
+		},
 	}
 }

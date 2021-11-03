@@ -28,7 +28,10 @@ export interface SetErrorAction {
 
 export interface ClearErrorAction {
 	type: typeof CLEAR_LOADING_ERROR
-	payload: boolean
+	payload: {
+		loading: boolean
+		error: string
+	}
 }
 
 export type LoadingAction = ToggleLoadingAction | SetErrorAction | ClearErrorAction
