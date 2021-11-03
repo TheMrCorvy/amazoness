@@ -34,7 +34,7 @@ export interface ClearErrorAction {
 export type LoadingAction = ToggleLoadingAction | SetErrorAction | ClearErrorAction
 
 /******************************************************************************** shopping cart */
-export interface ReduxProduct extends Product {
+export interface ReduxProduct extends Omit<Product, "_id"> {
 	selectedOption?: {
 		title: string
 		name: string
