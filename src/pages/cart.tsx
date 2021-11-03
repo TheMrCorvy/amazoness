@@ -12,8 +12,11 @@ import {
 	Divider,
 	Card,
 	Typography,
+	TextField,
+	IconButton,
 } from "@mui/material"
-
+import AddIcon from "@mui/icons-material/Add"
+import RemoveIcon from "@mui/icons-material/Remove"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 
 import UnderlinedTitle from "../components/UnderlinedTitle"
@@ -61,22 +64,41 @@ const CartPage: FC = () => {
 													{product.category}
 												</Typography>
 											</Grid>
+											<Grid item xs={4} lg={3}>
+												<TextField
+													size="small"
+													value={10}
+													type="number"
+													InputProps={{
+														endAdornment: (
+															<IconButton color="info">
+																<AddIcon />
+															</IconButton>
+														),
+														startAdornment: (
+															<IconButton color="error">
+																<RemoveIcon />
+															</IconButton>
+														),
+													}}
+													inputProps={{
+														style: {
+															textAlign: "center",
+															maxWidth: "2rem",
+														},
+													}}
+												/>
+											</Grid>
 											<Grid item xs={12} sm={3}>
 												{product.subCategories &&
 													product.subCategories.length >= 1 && (
 														<FormControl fullWidth>
-															<InputLabel
-																id="demo-simple-select-label"
-																color="info"
-															>
-																Option
-															</InputLabel>
 															<Select
 																labelId="demo-simple-select-label"
 																id="demo-simple-select"
 																value={age}
-																label="Option"
 																onChange={handleChange}
+																size="small"
 																sx={{
 																	borderRadius: 3,
 																	textTransform: "capitalize",
@@ -86,7 +108,7 @@ const CartPage: FC = () => {
 																<MenuItem value={10}>
 																	Default
 																</MenuItem>
-																{product.subCategory.map(
+																{product.subCategories.map(
 																	(option, index) => (
 																		<MenuItem
 																			value={100}
