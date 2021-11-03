@@ -3,34 +3,24 @@ import { FC, useState, useEffect } from "react"
 import { Grid, List, Card } from "@mui/material"
 import useStyles from "./styles"
 
-import { data } from "../../../misc/staticData"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../redux/store"
 import { ReduxProduct } from "../../../redux/types"
 
 import CartListItem from "../../CartListItem"
-import { useSlug } from "../../utils"
 
 const ShowCartInfo: FC = () => {
 	const classes = useStyles()
-	const createSlug = useSlug
 
-	const [items, setItems] = useState<ReduxProduct[]>([])
+	// const [reduxItems, setReduxItems] = useState<ReduxProduct[]>([])
 
-	useEffect(() => {
-		let newItems: ReduxProduct[] = []
+	const { items } = useSelector((state: RootState) => state.items)
 
-		data.products.forEach((product) => {
-			const reduxProduct: ReduxProduct = {
-				...product,
-				selectedAmount: product.default.stock,
-				slug: createSlug(product.name),
-				totalPrice: product.default.stock * product.default.price,
-			}
-
-			newItems.push(reduxProduct)
-		})
-
-		setItems(newItems)
-	}, [])
+	// useEffect(() => {
+	// 	if (items.length >= 1) {
+	// 		setReduxItems(items)
+	// 	}
+	// }, [items])
 
 	return (
 		<Grid item xs={12}>

@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState } from "react"
+import { FC, Fragment, useState } from "react"
 
 import {
 	Avatar,
@@ -12,6 +12,10 @@ import {
 } from "@mui/material"
 import useStyles from "./styles"
 
+import { useDispatch } from "react-redux"
+import { ReduxProduct } from "../../../redux/types"
+import { addToCart } from "../../../redux/actions/shoppingCartActions"
+
 import { usePriceFormatter } from "../../utils"
 import UnderlinedTitle from "../../UnderlinedTitle"
 
@@ -20,6 +24,7 @@ import { Product } from "../../../misc/types"
 const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 	const formatPrice = usePriceFormatter
 	const classes = useStyles()
+	const dispatch = useDispatch()
 
 	const [value, setValue] = useState<number>(0)
 
@@ -42,6 +47,30 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 				{body}
 			</Typography>
 		)
+	}
+
+	const dispatchAddToCart = () => {
+		let totalPrice = 0
+		let name = ""
+		let title = ""
+
+		if (product.subCategories && value - 1 >= 0) {
+			totalPrice = product.subCategories[value - 1].price
+			name = product.subCategories[value - 1].name
+			title = product.subCategories[value - 1].title
+		}
+
+		const baggage: ReduxProduct = {
+			...product,
+			selectedOption: {
+				name: value === 0 ? "Default" : name,
+				title: value === 0 ? "" : title,
+			},
+			selectedAmount: 1,
+			totalPrice: value === 0 ? product.default.price : totalPrice,
+		}
+
+		dispatch(addToCart(baggage))
 	}
 
 	return (
@@ -91,7 +120,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 					<List>
 						<ListItem>
 							<Grid container>
-								<Grid xs={8} md={4}>
+								<Grid item xs={8} md={4}>
 									<Typography variant="body1">Price:</Typography>
 								</Grid>
 								<Grid item xs={4} md={8}>
@@ -131,6 +160,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 										size="large"
 										className={classes.textGreen}
 										color="success"
+										onClick={dispatchAddToCart}
 									>
 										add to cart
 									</Button>
@@ -155,7 +185,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 							<List>
 								<ListItem>
 									<Grid container>
-										<Grid xs={8} md={4}>
+										<Grid item xs={8} md={4}>
 											<Typography variant="body1">Price:</Typography>
 										</Grid>
 										<Grid item xs={4} md={8}>
@@ -197,6 +227,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 												size="large"
 												className={classes.textGreen}
 												color="success"
+												onClick={dispatchAddToCart}
 											>
 												add to cart
 											</Button>

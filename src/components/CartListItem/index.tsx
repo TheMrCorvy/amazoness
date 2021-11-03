@@ -17,6 +17,8 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { useStyles } from "./styles"
 
+import { useDispatch } from "react-redux"
+import { removeFromCart } from "../../redux/actions/shoppingCartActions"
 import { ReduxProduct } from "../../redux/types"
 import { usePriceFormatter } from "../utils"
 
@@ -26,6 +28,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 
 	const classes = useStyles()
 	const formatPrice = usePriceFormatter
+	const dispatch = useDispatch()
 
 	const [option, setOption] = useState("Default,")
 	const [amount, setAmount] = useState(selectedAmount)
@@ -40,6 +43,10 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 		setAmount(newAmount)
 
 		//dispatch event to redux
+	}
+
+	const dispatchRemoveFromCart = () => {
+		dispatch(removeFromCart(name))
 	}
 
 	useEffect(() => {
@@ -137,7 +144,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 								</Typography>
 							</Grid>
 							<Grid item>
-								<IconButton color="error">
+								<IconButton color="error" onClick={dispatchRemoveFromCart}>
 									<DeleteForeverIcon />
 								</IconButton>
 							</Grid>
