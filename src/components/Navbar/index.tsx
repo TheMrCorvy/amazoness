@@ -21,10 +21,15 @@ import { useStyles } from "./styles"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import LoginIcon from "@mui/icons-material/Login"
 
+import { useSelector } from "react-redux"
+import { RootState } from "../../redux/store"
+
 import { urlKeyWords } from "../../misc/staticData"
 
 const Navbar: FC = () => {
 	const classes = useStyles()
+
+	const { items } = useSelector((state: RootState) => state.items)
 
 	const [open, setOpen] = useState(false)
 
@@ -56,7 +61,7 @@ const Navbar: FC = () => {
 								className={classes.navBtn}
 								color="inherit"
 								endIcon={
-									<Badge badgeContent={4} color="info">
+									<Badge badgeContent={items.length} color="info">
 										<ShoppingCartIcon />
 									</Badge>
 								}
@@ -91,7 +96,7 @@ const Navbar: FC = () => {
 				<NextLink href={urlKeyWords.cart} passHref>
 					<ListItem button key="SHOPPING CART" className={classes.drawerBtn}>
 						<ListItemIcon>
-							<Badge badgeContent={4} color="info">
+							<Badge badgeContent={items.length} color="info">
 								<ShoppingCartIcon />
 							</Badge>
 						</ListItemIcon>
