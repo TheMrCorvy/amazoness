@@ -67,7 +67,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 					</ButtonBase>
 				</Grid>
 				{product.subCategories.map((option, index) => (
-					<Grid item>
+					<Grid item key={index}>
 						<ButtonBase
 							className={classes.buttonBase}
 							onClick={() => handleChange(index + 1, option.image)}
