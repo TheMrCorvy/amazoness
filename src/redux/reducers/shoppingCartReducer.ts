@@ -65,7 +65,7 @@ const updateAmount = (state: ShoppingCartState, action: UpdateItemAmountAction) 
 
 	let newItemList: ReduxProduct[] = [...state.items]
 
-	if (subCategoryId === "Default") {
+	if (subCategoryId === "Default,") {
 		if (selectedAmount <= newItemList[index].default.stock && selectedAmount > 0) {
 			newItemList[index].selectedAmount = selectedAmount
 		}
@@ -93,12 +93,22 @@ const updateSubCategory = (state: ShoppingCartState, action: UpdateSubCategoryAc
 
 	const index = newItemList.findIndex((item) => item.name === itemName)
 
-	if (subCategoryId !== "Default") {
+	const item = state.items[index]
+
+	if (subCategoryId !== "Default," && item.subCategories) {
 		const [name, title] = subCategoryId.split(",") as [string, string]
 
+		const subCategory = item.subCategories.find(
+			(product) => product.name + "," + product.title === subCategoryId
+		)
+
 		newItemList[index].selectedOption = { name, title }
+		newItemList[index].selectedAmount = 1
+		newItemList[index].totalPrice = subCategory ? subCategory.price : 10000
 	} else {
 		newItemList[index].selectedOption = { name: "Default", title: "" }
+		newItemList[index].selectedAmount = 1
+		newItemList[index].totalPrice = newItemList[index].default.price
 	}
 
 	return { ...state, items: newItemList }

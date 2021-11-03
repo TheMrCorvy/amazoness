@@ -1,26 +1,17 @@
-import { FC, useState, useEffect } from "react"
+import { FC } from "react"
 
 import { Grid, List, Card } from "@mui/material"
 import useStyles from "./styles"
 
 import { useSelector } from "react-redux"
 import { RootState } from "../../../redux/store"
-import { ReduxProduct } from "../../../redux/types"
 
 import CartListItem from "../../CartListItem"
 
 const ShowCartInfo: FC = () => {
 	const classes = useStyles()
 
-	// const [reduxItems, setReduxItems] = useState<ReduxProduct[]>([])
-
 	const { items } = useSelector((state: RootState) => state.items)
-
-	// useEffect(() => {
-	// 	if (items.length >= 1) {
-	// 		setReduxItems(items)
-	// 	}
-	// }, [items])
 
 	return (
 		<Grid item xs={12}>

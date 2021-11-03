@@ -18,7 +18,11 @@ import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { useStyles } from "./styles"
 
 import { useDispatch } from "react-redux"
-import { removeFromCart } from "../../redux/actions/shoppingCartActions"
+import {
+	removeFromCart,
+	updateItemAmount,
+	updateSubCategory,
+} from "../../redux/actions/shoppingCartActions"
 import { ReduxProduct } from "../../redux/types"
 import { usePriceFormatter } from "../utils"
 
@@ -31,18 +35,15 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 	const dispatch = useDispatch()
 
 	const [option, setOption] = useState("Default,")
-	const [amount, setAmount] = useState(selectedAmount)
 
 	const handleSelectChange = (event: SelectChangeEvent) => {
 		setOption(event.target.value)
 
-		//dispatch event to redux
+		dispatch(updateSubCategory(event.target.value, name))
 	}
 
 	const handleAmountChange = (newAmount: number) => {
-		setAmount(newAmount)
-
-		//dispatch event to redux
+		dispatch(updateItemAmount(option, newAmount, name))
 	}
 
 	const dispatchRemoveFromCart = () => {
@@ -75,7 +76,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 						<FormControl fullWidth>
 							<TextField
 								size="small"
-								value={amount}
+								value={selectedAmount}
 								disabled
 								onChange={() => handleAmountChange(0)}
 								type="number"
@@ -83,7 +84,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 									endAdornment: (
 										<IconButton
 											color="info"
-											onClick={() => handleAmountChange(amount + 1)}
+											onClick={() => handleAmountChange(selectedAmount + 1)}
 										>
 											<AddIcon />
 										</IconButton>
@@ -91,7 +92,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 									startAdornment: (
 										<IconButton
 											color="error"
-											onClick={() => handleAmountChange(amount - 1)}
+											onClick={() => handleAmountChange(selectedAmount - 1)}
 										>
 											<RemoveIcon />
 										</IconButton>
@@ -140,7 +141,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 						<Grid container justifyContent="space-between" spacing={2}>
 							<Grid item xs={6} md={7} className={classes.textCenter}>
 								<Typography variant="body1" className={classes.textGreen}>
-									{formatPrice(amount * totalPrice)}
+									{formatPrice(selectedAmount * totalPrice)}
 								</Typography>
 							</Grid>
 							<Grid item>
