@@ -15,6 +15,7 @@ import AddIcon from "@mui/icons-material/Add"
 import RemoveIcon from "@mui/icons-material/Remove"
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
+import { useStyles } from "./styles"
 
 import { ReduxProduct } from "../../redux/types"
 import { usePriceFormatter } from "../utils"
@@ -23,6 +24,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 	const { name, totalPrice, selectedAmount, selectedOption, category, subCategories } =
 		reduxProduct
 
+	const classes = useStyles()
 	const formatPrice = usePriceFormatter
 
 	const [option, setOption] = useState("Default")
@@ -49,13 +51,10 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 
 	return (
 		<>
-			<ListItem sx={{ marginTop: "1rem" }}>
+			<ListItem className={classes.marginTop1}>
 				<Grid container spacing={4}>
 					<Grid item xs={3} sm={2} lg={1}>
-						<Avatar
-							src={reduxProduct.default.images[0]}
-							sx={{ width: 56, height: 56, marginRight: 2 }}
-						/>
+						<Avatar src={reduxProduct.default.images[0]} className={classes.avatar} />
 					</Grid>
 					<Grid item xs={6} sm={3}>
 						<Typography variant="subtitle1">{name}</Typography>
@@ -88,9 +87,11 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 									),
 								}}
 								inputProps={{
-									style: {
-										textAlign: "center",
-									},
+									className: classes.textCenter,
+									// style: {
+									// 	// this one has to be here, or else it won't work
+									// 	textAlign: "center",
+									// },
 								}}
 							/>
 						</FormControl>
@@ -99,15 +100,12 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 						{selectedOption && (
 							<FormControl fullWidth>
 								<Select
-									labelId="demo-simple-select-label"
-									id="demo-simple-select"
+									labelId="options-label"
+									id="options"
 									value={option}
 									onChange={handleSelectChange}
 									size="small"
-									sx={{
-										borderRadius: 3,
-										textTransform: "capitalize",
-									}}
+									className={classes.selectInput}
 									color="info"
 								>
 									<MenuItem value="Default">Default</MenuItem>
@@ -128,15 +126,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 					</Grid>
 					<Grid item xs={12} lg={3}>
 						<Grid container justifyContent="space-between" spacing={2}>
-							<Grid
-								item
-								xs={6}
-								md={7}
-								sx={{
-									display: "flex",
-									alignItems: "center",
-								}}
-							>
+							<Grid item xs={6} md={7} className={classes.textCenter}>
 								{formatPrice(totalPrice)}
 							</Grid>
 							<Grid item>
@@ -149,7 +139,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 				</Grid>
 			</ListItem>
 
-			<Divider sx={{ maxWidth: "95%", marginLeft: "2.5%" }} />
+			<Divider className={classes.divider} />
 		</>
 	)
 }
