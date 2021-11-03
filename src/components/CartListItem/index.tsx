@@ -47,6 +47,10 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 			const newOption = selectedOption.name + "," + selectedOption.title
 			setOption(newOption)
 		}
+
+		if (subCategories && subCategories.length >= 1 && !selectedOption) {
+			setOption("Default")
+		}
 	}, [])
 
 	return (
@@ -85,13 +89,13 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 											<RemoveIcon />
 										</IconButton>
 									),
+									style: { color: "black" },
 								}}
 								inputProps={{
-									className: classes.textCenter,
-									// style: {
-									// 	// this one has to be here, or else it won't work
-									// 	textAlign: "center",
-									// },
+									style: {
+										// this one has to be here, or else it won't work
+										textAlign: "center",
+									},
 								}}
 							/>
 						</FormControl>
@@ -127,7 +131,9 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 					<Grid item xs={12} lg={3}>
 						<Grid container justifyContent="space-between" spacing={2}>
 							<Grid item xs={6} md={7} className={classes.textCenter}>
-								{formatPrice(totalPrice)}
+								<Typography variant="body1" className={classes.textGreen}>
+									{formatPrice(amount * reduxProduct.default.price)}
+								</Typography>
 							</Grid>
 							<Grid item>
 								<IconButton color="error">
