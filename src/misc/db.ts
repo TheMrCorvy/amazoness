@@ -1,10 +1,10 @@
-import { connect, connection } from "mongoose"
+import { connect, connection, disconnect } from "mongoose"
 
 const conn = {
 	isConnected: false,
 }
 
-export default async function dbConnect() {
+export const dbConnect = async () => {
 	if (conn.isConnected || !process.env.MONGODB_URI) return
 
 	const db = await connect(process.env.MONGODB_URI)
@@ -18,4 +18,19 @@ connection.on("connected", () => {
 
 connection.on("error", (err) => {
 	console.error(err.message)
+})
+
+export const dbDisconnect = async () => {
+	if (conn.isConnected) {
+		if (process.env.NODE_ENV !== "development") {
+			await disconnect()
+			conn.isConnected = false
+		} else {
+			console.log("not disconnected")
+		}
+	}
+}
+
+connection.on("disconnected", () => {
+	console.log("MongoDB disconnected")
 })

@@ -22,14 +22,14 @@ const ProductCard: FC<Props> = ({ product }) => {
 
 	const slug = useSlug
 
-	if (!product.images[0]) return null
+	if (!product.default.images[0]) return null
 
 	return (
 		<Card elevation={0}>
 			<NextLink href={`${urlKeyWords.product}/${slug(product.name)}`} passHref>
 				<CardActionArea>
 					<CardMedia
-						image={product.images[0]}
+						image={product.default.images[0]}
 						title={product.name}
 						sx={{
 							height: 0,
@@ -50,7 +50,7 @@ const ProductCard: FC<Props> = ({ product }) => {
 				}}
 			>
 				<Typography variant="body1" color="green">
-					{formatPrice(product.price)}
+					{formatPrice(product.default.price)}
 				</Typography>
 				<Button color="info" size="small">
 					Add To Cart

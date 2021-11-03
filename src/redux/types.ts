@@ -1,3 +1,5 @@
+import { Product } from "../misc/types"
+
 /******************************************************************************** show loading animation */
 export const TOGGLE_LOADING = "TOGGLE_LOADING"
 export const SET_LOADING_ERROR = "SET_LOADING_ERROR"
@@ -30,3 +32,13 @@ export interface ClearErrorAction {
 }
 
 export type LoadingAction = ToggleLoadingAction | SetErrorAction | ClearErrorAction
+
+/******************************************************************************** shopping cart */
+export interface ReduxProduct extends Omit<Product, "_id"> {
+	selectedOption?: {
+		title: string
+		name: string
+	}
+	selectedAmount: number
+	totalPrice: number
+}

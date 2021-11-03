@@ -1,6 +1,6 @@
 /********************************************************************************************** Static data for testing locally */
 export interface StaticProductData {
-	products: Product[] | []
+	products: Omit<Product, "slug" | "_id">[] | []
 }
 
 /********************************************************************************************** Products */
@@ -8,14 +8,27 @@ export interface Product {
 	_id: string
 	name: string
 	category: string
-	images: string[]
-	price: number
 	brand: string
 	rating: number
 	numReviews: number
-	stock: number
 	description: string
 	slug: string
+	default: DefaultProductOption
+	subCategories?: SubCategory[]
+}
+
+export interface DefaultProductOption {
+	images: string[]
+	price: number
+	stock: number
+}
+
+export interface SubCategory {
+	name: string //example: color || rarity
+	title: string //example: "black" || "ultra rare"
+	price: number
+	stock: number
+	image: string
 }
 
 /********************************************************************************************** URL key words */

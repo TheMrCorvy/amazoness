@@ -27,8 +27,6 @@ const PopularProducts: FC = () => {
 				setProducts(res.data.products)
 				setLoading(false)
 			}
-
-			console.log(res)
 		})
 	}, [])
 	return (
