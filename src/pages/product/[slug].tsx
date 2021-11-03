@@ -18,6 +18,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
+import { ReduxProduct } from "../../redux/types"
+import { addToCart } from "../../redux/actions/shoppingCartActions"
 
 import { urlKeyWords } from "../../misc/staticData"
 import { useApi, usePriceFormatter, useSlug } from "../../components/utils"
@@ -75,6 +77,20 @@ const ProductPage: FC = () => {
 	}, [product, imagesAreLoaded])
 
 	const updateMainImg = (src: string) => setMainImg(src)
+
+	const dispatchAddToCart = () => {
+		const baggage: ReduxProduct = {
+			...product,
+			selectedOption: {
+				name: "Default",
+				title: "",
+			},
+			selectedAmount: 1,
+			totalPrice: product.default.price,
+		}
+
+		dispatch(addToCart(baggage))
+	}
 
 	return (
 		<Container maxWidth="lg">
@@ -198,6 +214,7 @@ const ProductPage: FC = () => {
 													size="large"
 													className={classes.textGreen}
 													color="success"
+													onClick={dispatchAddToCart}
 												>
 													add to cart
 												</Button>
