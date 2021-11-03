@@ -12,6 +12,10 @@ import {
 	Typography,
 } from "@mui/material"
 
+import { useDispatch } from "react-redux"
+import { addToCart } from "../redux/actions/shoppingCartActions"
+import { ReduxProduct } from "../redux/types"
+
 import { Product } from "../misc/types"
 
 import { usePriceFormatter, useSlug } from "./utils"
@@ -19,10 +23,24 @@ import { urlKeyWords } from "../misc/staticData"
 
 const ProductCard: FC<Props> = ({ product }) => {
 	const formatPrice = usePriceFormatter
-
 	const slug = useSlug
+	const dispatch = useDispatch()
 
 	if (!product.default.images[0]) return null
+
+	const dispatchAddToCart = () => {
+		const baggage: ReduxProduct = {
+			...product,
+			selectedOption: {
+				name: "Default",
+				title: "",
+			},
+			selectedAmount: 1,
+			totalPrice: product.default.price,
+		}
+
+		dispatch(addToCart(baggage))
+	}
 
 	return (
 		<Card elevation={0}>
@@ -52,7 +70,7 @@ const ProductCard: FC<Props> = ({ product }) => {
 				<Typography variant="body1" color="green">
 					{formatPrice(product.default.price)}
 				</Typography>
-				<Button color="info" size="small">
+				<Button color="info" size="small" onClick={dispatchAddToCart}>
 					Add To Cart
 				</Button>
 			</CardActions>
