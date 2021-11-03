@@ -17,6 +17,7 @@ import {
 } from "@mui/material"
 import AddIcon from "@mui/icons-material/Add"
 import RemoveIcon from "@mui/icons-material/Remove"
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 
 import UnderlinedTitle from "../components/UnderlinedTitle"
@@ -32,11 +33,11 @@ const CartPage: FC = () => {
 
 	return (
 		<Container maxWidth="xl" sx={{ marginTop: "-1rem" }}>
-			<Grid container>
-				<Grid item xs={12} sx={{ marginBottom: "32px" }}>
+			<Grid container spacing={4}>
+				<Grid item xs={12}>
 					<UnderlinedTitle body="shopping cart" useCaps bold color="info" variant="h4" />
 				</Grid>
-				<Grid item xs={12} md={8}>
+				<Grid item xs={12} md={8} xl={9}>
 					<Card>
 						<List
 							sx={{
@@ -56,7 +57,7 @@ const CartPage: FC = () => {
 													sx={{ width: 56, height: 56, marginRight: 2 }}
 												/>
 											</Grid>
-											<Grid item xs={6} sm={4} md={3} lg={2}>
+											<Grid item xs={6} sm={3}>
 												<Typography variant="subtitle1">
 													{product.name}
 												</Typography>
@@ -64,32 +65,33 @@ const CartPage: FC = () => {
 													{product.category}
 												</Typography>
 											</Grid>
-											<Grid item xs={4} lg={3}>
-												<TextField
-													size="small"
-													value={10}
-													type="number"
-													InputProps={{
-														endAdornment: (
-															<IconButton color="info">
-																<AddIcon />
-															</IconButton>
-														),
-														startAdornment: (
-															<IconButton color="error">
-																<RemoveIcon />
-															</IconButton>
-														),
-													}}
-													inputProps={{
-														style: {
-															textAlign: "center",
-															maxWidth: "2rem",
-														},
-													}}
-												/>
+											<Grid item xs={12} sm={4} lg={3}>
+												<FormControl fullWidth>
+													<TextField
+														size="small"
+														value={10}
+														type="number"
+														InputProps={{
+															endAdornment: (
+																<IconButton color="info">
+																	<AddIcon />
+																</IconButton>
+															),
+															startAdornment: (
+																<IconButton color="error">
+																	<RemoveIcon />
+																</IconButton>
+															),
+														}}
+														inputProps={{
+															style: {
+																textAlign: "center",
+															},
+														}}
+													/>
+												</FormControl>
 											</Grid>
-											<Grid item xs={12} sm={3}>
+											<Grid item xs={12} sm={3} lg={2}>
 												{product.subCategories &&
 													product.subCategories.length >= 1 && (
 														<FormControl fullWidth>
@@ -118,15 +120,37 @@ const CartPage: FC = () => {
 																					"capitalize",
 																			}}
 																		>
-																			{option.name +
-																				": " +
-																				option.title}
+																			{option.title}
 																		</MenuItem>
 																	)
 																)}
 															</Select>
 														</FormControl>
 													)}
+											</Grid>
+											<Grid item xs={12} lg={3}>
+												<Grid
+													container
+													justifyContent="space-between"
+													spacing={2}
+												>
+													<Grid
+														item
+														xs={6}
+														md={7}
+														sx={{
+															display: "flex",
+															alignItems: "center",
+														}}
+													>
+														$ 400.54
+													</Grid>
+													<Grid item>
+														<IconButton color="error">
+															<DeleteForeverIcon />
+														</IconButton>
+													</Grid>
+												</Grid>
 											</Grid>
 										</Grid>
 									</ListItem>
@@ -137,7 +161,7 @@ const CartPage: FC = () => {
 						</List>
 					</Card>
 				</Grid>
-				<Grid item xs={12} md={4}>
+				<Grid item xs={12} md={4} xl={3}>
 					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus praesentium
 					laudantium quod, itaque aperiam perspiciatis. Fuga, minus explicabo sapiente,
 					delectus esse consectetur dolorum, similique corrupti dignissimos repellat
