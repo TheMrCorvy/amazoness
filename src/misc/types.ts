@@ -14,7 +14,7 @@ export interface Product {
 	description: string
 	slug: string
 	default: DefaultProductOption
-	subCategory?: SubCategory[]
+	subCategories?: SubCategory[]
 }
 
 export interface DefaultProductOption {

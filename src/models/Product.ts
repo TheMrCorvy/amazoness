@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema(
 			images: { type: [String], required: true },
 			stock: { type: Number, required: true },
 		},
-		subCategory: [
+		subCategories: [
 			{
 				name: { type: String, required: true }, // example: color || rarity
 				title: { type: String, required: true }, // example: "black" || "ultra rare"

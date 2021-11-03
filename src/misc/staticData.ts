@@ -15,7 +15,7 @@ export const data: StaticProductData = {
 				price: 17,
 				stock: 20,
 			},
-			subCategory: [
+			subCategories: [
 				{
 					name: "color",
 					title: "black",

@@ -62,8 +62,8 @@ const CartPage: FC = () => {
 												</Typography>
 											</Grid>
 											<Grid item xs={12} sm={3}>
-												{product.subCategory &&
-													product.subCategory.length >= 1 && (
+												{product.subCategories &&
+													product.subCategories.length >= 1 && (
 														<FormControl fullWidth>
 															<InputLabel
 																id="demo-simple-select-label"

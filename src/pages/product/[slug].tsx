@@ -185,7 +185,7 @@ const ProductPage: FC = () => {
 									</Grid>
 								</Grid>
 								<Grid item xs={12}>
-									{product.subCategory && product.subCategory.length >= 1 ? (
+									{product.subCategories && product.subCategories.length >= 1 ? (
 										<ProductOptions
 											product={product}
 											updateMainImg={updateMainImg}
