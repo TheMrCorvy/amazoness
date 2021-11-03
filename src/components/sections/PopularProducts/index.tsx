@@ -2,6 +2,8 @@ import { FC, useEffect, useState } from "react"
 
 import { Container, Grid } from "@mui/material"
 
+import { useDispatch } from "react-redux"
+import { setErrorLoading } from "../../../redux/actions/loadingActions"
 import { useApi } from "../../utils"
 
 import { Product, Req } from "../../../misc/types"
@@ -12,6 +14,7 @@ import SkeletonProductCard from "../../SkeletonProductCard"
 
 const PopularProducts: FC = () => {
 	const callApi = useApi
+	const dispatch = useDispatch()
 
 	const [products, setProducts] = useState<Product[] | any[]>(["", "", "", ""])
 	const [loading, setLoading] = useState(true)
@@ -26,6 +29,8 @@ const PopularProducts: FC = () => {
 			if (res.status === 200) {
 				setProducts(res.data.products)
 				setLoading(false)
+			} else {
+				dispatch(setErrorLoading(res.message))
 			}
 		})
 	}, [])
