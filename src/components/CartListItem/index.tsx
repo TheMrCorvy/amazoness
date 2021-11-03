@@ -27,7 +27,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 	const classes = useStyles()
 	const formatPrice = usePriceFormatter
 
-	const [option, setOption] = useState("Default")
+	const [option, setOption] = useState("Default,")
 	const [amount, setAmount] = useState(selectedAmount)
 
 	const handleSelectChange = (event: SelectChangeEvent) => {
@@ -49,7 +49,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 		}
 
 		if (subCategories && subCategories.length >= 1 && !selectedOption) {
-			setOption("Default")
+			setOption("Default,")
 		}
 	}, [])
 
@@ -112,7 +112,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 									className={classes.selectInput}
 									color="info"
 								>
-									<MenuItem value="Default">Default</MenuItem>
+									<MenuItem value="Default,">Default</MenuItem>
 									{subCategories &&
 										subCategories.map((option, index) => (
 											<MenuItem

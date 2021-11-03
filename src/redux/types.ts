@@ -45,3 +45,45 @@ export interface ReduxProduct extends Omit<Product, "_id"> {
 	selectedAmount: number
 	totalPrice: number
 }
+
+export const ADD_TO_CART = "ADD_TO_CART"
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART"
+export const UPDATE_ITEM_AMOUNT = "UPDATE_ITEM_AMOUNT"
+export const UPDATE_SUBCATEGORY = "UPDATE_SUBCATEGORY"
+
+export interface ShoppingCartState {
+	items: ReduxProduct[]
+}
+
+export interface AddToCartAction {
+	type: typeof ADD_TO_CART
+	payload: ReduxProduct
+}
+
+export interface RemoveFromCartAction {
+	type: typeof REMOVE_FROM_CART
+	payload: string
+}
+
+export interface UpdateItemAmountAction {
+	type: typeof UPDATE_ITEM_AMOUNT
+	payload: {
+		subCategoryId: string // subCategory.name + "," + subCategory.title
+		selectedAmount: number
+		itemName: string
+	}
+}
+
+export interface UpdateSubCategoryAction {
+	type: typeof UPDATE_SUBCATEGORY
+	payload: {
+		subCategoryId: string // subCategory.name + "," + subCategory.title
+		itemName: string
+	}
+}
+
+export type ShoppingCartAction =
+	| AddToCartAction
+	| RemoveFromCartAction
+	| UpdateItemAmountAction
+	| UpdateSubCategoryAction
