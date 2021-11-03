@@ -113,17 +113,18 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 									color="info"
 								>
 									<MenuItem value="Default">Default</MenuItem>
-									{subCategories.map((option, index) => (
-										<MenuItem
-											value={option.name + "," + option.title}
-											key={index}
-											sx={{
-												textTransform: "capitalize",
-											}}
-										>
-											{option.title}
-										</MenuItem>
-									))}
+									{subCategories &&
+										subCategories.map((option, index) => (
+											<MenuItem
+												value={option.name + "," + option.title}
+												key={index}
+												sx={{
+													textTransform: "capitalize",
+												}}
+											>
+												{option.title}
+											</MenuItem>
+										))}
 								</Select>
 							</FormControl>
 						)}
