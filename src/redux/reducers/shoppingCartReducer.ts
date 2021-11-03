@@ -22,7 +22,17 @@ const shoppingCartReducer = (
 		case ADD_TO_CART:
 			let itemList: ReduxProduct[] = [...state.items]
 
-			itemList.push(action.payload)
+			let notInArray = true
+
+			itemList.forEach((item) => {
+				if (item.name === action.payload.name) {
+					notInArray = false
+				}
+			})
+
+			if (notInArray) {
+				itemList.push(action.payload)
+			}
 
 			return {
 				...state,
