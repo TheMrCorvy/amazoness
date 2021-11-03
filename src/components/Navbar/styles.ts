@@ -18,5 +18,28 @@ export const useStyles = makeStyles((theme: Theme) =>
 		grow: {
 			flexGrow: 1,
 		},
+		noDecoration: {
+			textDecoration: "none",
+		},
+		navbarBtn: {
+			display: "block",
+			[theme.breakpoints.down("md")]: {
+				display: "none",
+			},
+		},
+		mobileBtn: {
+			display: "none",
+			color: "white",
+			paddingLeft: "8rem",
+			[theme.breakpoints.down("md")]: {
+				display: "block",
+			},
+		},
+		drawerBtn: {
+			padding: "2rem",
+		},
+		navBtn: {
+			marginRight: 30,
+		},
 	})
 )
