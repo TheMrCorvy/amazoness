@@ -1,6 +1,22 @@
-import { StaticProductData } from "./types"
+import { StaticData } from "./types"
+import { saltWorkFactor } from "./config"
+import bcrypt from "bcrypt"
 
-export const data: StaticProductData = {
+export const data: StaticData = {
+	users: [
+		{
+			name: "jhon doe",
+			email: "example@email.com",
+			password: bcrypt.hashSync("password123", saltWorkFactor),
+			isAdmin: false,
+		},
+		{
+			name: "Gonzalo",
+			email: "mr.corvy@gmail.com",
+			password: bcrypt.hashSync("password123", saltWorkFactor),
+			isAdmin: true,
+		},
+	],
 	products: [
 		{
 			name: "Shirt 1",
