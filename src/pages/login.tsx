@@ -79,7 +79,7 @@ const LoginPage: FC = () => {
 									<Grid item xs={12} md={6}>
 										<NextLink href={urlKeyWords.register} passHref>
 											<Button color="info" size="large" component="a">
-												don't have an account? register
+												{"don't have an account? register"}
 											</Button>
 										</NextLink>
 									</Grid>
@@ -127,7 +127,7 @@ const LoginPage: FC = () => {
 								</ul>
 								<NextLink href={urlKeyWords.register} passHref>
 									<Button size="large" color="info" component="a">
-										don't have an account? register
+										{"don't have an account? register"}
 									</Button>
 								</NextLink>
 							</CardContent>
