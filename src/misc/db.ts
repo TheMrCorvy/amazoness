@@ -1,13 +1,14 @@
 import { connect, connection, disconnect } from "mongoose"
+import { mongoDbUri } from "./config"
 
 const conn = {
 	isConnected: false,
 }
 
 export const dbConnect = async () => {
-	if (conn.isConnected || !process.env.MONGODB_URI) return
+	if (conn.isConnected || !mongoDbUri) return
 
-	const db = await connect(process.env.MONGODB_URI)
+	const db = await connect(mongoDbUri)
 
 	conn.isConnected = db.connections[0].readyState ? true : false
 }

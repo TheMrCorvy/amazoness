@@ -15,7 +15,7 @@ export const useStyles = makeStyles((theme: Theme) =>
 			marginRight: 2,
 		},
 		selectInput: {
-			borderRadius: 3,
+			borderRadius: 30,
 			textTransform: "capitalize",
 		},
 		textCenter: {

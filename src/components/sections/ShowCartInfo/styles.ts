@@ -9,6 +9,17 @@ const useStyles = makeStyles((theme: Theme) =>
 			height: "65vh",
 			overflowY: "scroll",
 		},
+		mainCardAlter: {
+			width: "100%",
+			bgcolor: "background.paper",
+			height: "65vh",
+			overflowY: "scroll",
+			display: "flex",
+			justifyContent: "center",
+			alignItems: "center",
+			verticalAlign: "center",
+			textAlign: "center",
+		},
 	})
 )
 

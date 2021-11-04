@@ -56,3 +56,10 @@ export interface Res {
 	status: number
 	request?: object
 }
+
+/********************************************************************************************** User */
+export interface User {
+	email: string
+	name: string
+	password: string
+}

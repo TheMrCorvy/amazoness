@@ -27,7 +27,8 @@ const loadingReducer = (state = initialState, action: LoadingAction) => {
 
 		case CLEAR_LOADING_ERROR:
 			return {
-				loading: action.payload,
+				loading: action.payload.loading,
+				error: action.payload.error,
 			}
 
 		default:

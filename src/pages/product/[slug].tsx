@@ -15,11 +15,14 @@ import {
 	Link,
 } from "@mui/material"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
+import useStyles from "../../styles/pages/product/[slug]"
 
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
+import { ReduxProduct } from "../../redux/types"
+import { addToCart } from "../../redux/actions/shoppingCartActions"
 
-import { urlKeyWords } from "../../misc/staticData"
+import { urlKeyWords } from "../../misc/config"
 import { useApi, usePriceFormatter, useSlug } from "../../components/utils"
 import { Product, Req } from "../../misc/types"
 
@@ -29,7 +32,7 @@ import UnderlinedTitle from "../../components/UnderlinedTitle"
 import SimilarProducts from "../../components/sections/SimilarProducts"
 import ProductOptions from "../../components/sections/ProductOptions"
 
-import useStyles from "../../styles/pages/product/[slug]"
+import { appName } from "../../misc/config"
 
 const ProductPage: FC = () => {
 	const dispatch = useDispatch()
@@ -65,6 +68,8 @@ const ProductPage: FC = () => {
 
 			setProduct(res.data.product)
 			setSimilarProducts(res.data.similarProducts)
+
+			document.title = res.data.product.name + " - " + appName
 		})
 	}, [router])
 
@@ -75,6 +80,24 @@ const ProductPage: FC = () => {
 	}, [product, imagesAreLoaded])
 
 	const updateMainImg = (src: string) => setMainImg(src)
+
+	const dispatchAddToCart = (buyNow?: "now") => {
+		const baggage: ReduxProduct = {
+			...product,
+			selectedOption: {
+				name: "Default",
+				title: "",
+			},
+			selectedAmount: 1,
+			totalPrice: product.default.price,
+		}
+
+		dispatch(addToCart(baggage))
+
+		if (buyNow) {
+			router.push(urlKeyWords.login)
+		}
+	}
 
 	return (
 		<Container maxWidth="lg">
@@ -102,6 +125,7 @@ const ProductPage: FC = () => {
 											width={640}
 											layout="responsive"
 											className={classes.img}
+											priority
 										/>
 									)}
 								</Grid>
@@ -198,6 +222,7 @@ const ProductPage: FC = () => {
 													size="large"
 													className={classes.textGreen}
 													color="success"
+													onClick={() => dispatchAddToCart()}
 												>
 													add to cart
 												</Button>
@@ -208,6 +233,7 @@ const ProductPage: FC = () => {
 													size="large"
 													color="error"
 													disableElevation
+													onClick={() => dispatchAddToCart("now")}
 												>
 													buy now
 												</Button>

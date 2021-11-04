@@ -6,7 +6,7 @@ const SkeletonProductCard: FC = () => {
 	return (
 		<Card elevation={0}>
 			<CardActionArea>
-				<Skeleton variant="rectangular" width={500} height={175} animation="wave" />
+				<Skeleton variant="rectangular" width={1000} height={175} animation="wave" />
 				<CardContent>
 					<Skeleton variant="text" animation="wave" />
 					<Skeleton variant="text" animation="wave" width={120} />
