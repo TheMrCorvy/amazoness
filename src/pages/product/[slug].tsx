@@ -81,7 +81,7 @@ const ProductPage: FC = () => {
 
 	const updateMainImg = (src: string) => setMainImg(src)
 
-	const dispatchAddToCart = () => {
+	const dispatchAddToCart = (buyNow?: "now") => {
 		const baggage: ReduxProduct = {
 			...product,
 			selectedOption: {
@@ -93,6 +93,10 @@ const ProductPage: FC = () => {
 		}
 
 		dispatch(addToCart(baggage))
+
+		if (buyNow) {
+			router.push(urlKeyWords.login)
+		}
 	}
 
 	return (
@@ -218,7 +222,7 @@ const ProductPage: FC = () => {
 													size="large"
 													className={classes.textGreen}
 													color="success"
-													onClick={dispatchAddToCart}
+													onClick={() => dispatchAddToCart()}
 												>
 													add to cart
 												</Button>
@@ -229,6 +233,7 @@ const ProductPage: FC = () => {
 													size="large"
 													color="error"
 													disableElevation
+													onClick={() => dispatchAddToCart("now")}
 												>
 													buy now
 												</Button>

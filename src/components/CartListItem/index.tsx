@@ -1,4 +1,5 @@
 import { FC, useState, useEffect } from "react"
+import NextLink from "next/link"
 
 import {
 	Grid,
@@ -10,6 +11,7 @@ import {
 	Typography,
 	TextField,
 	IconButton,
+	ButtonBase,
 } from "@mui/material"
 import AddIcon from "@mui/icons-material/Add"
 import RemoveIcon from "@mui/icons-material/Remove"
@@ -25,9 +27,10 @@ import {
 } from "../../redux/actions/shoppingCartActions"
 import { ReduxProduct } from "../../redux/types"
 import { usePriceFormatter } from "../utils"
+import { urlKeyWords } from "../../misc/staticData"
 
 const CartListItem: FC<Props> = ({ reduxProduct }) => {
-	const { name, totalPrice, selectedAmount, selectedOption, category, subCategories } =
+	const { name, totalPrice, selectedAmount, selectedOption, category, subCategories, slug } =
 		reduxProduct
 
 	const classes = useStyles()
@@ -66,11 +69,22 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 			<ListItem className={classes.marginTop1}>
 				<Grid container spacing={4}>
 					<Grid item xs={3} sm={2} lg={1}>
-						<Avatar src={reduxProduct.default.images[0]} className={classes.avatar} />
+						<NextLink passHref href={urlKeyWords.product + "/" + slug}>
+							<ButtonBase sx={{ borderRadius: 3 }}>
+								<Avatar
+									src={reduxProduct.default.images[0]}
+									className={classes.avatar}
+								/>
+							</ButtonBase>
+						</NextLink>
 					</Grid>
 					<Grid item xs={6} sm={3}>
-						<Typography variant="subtitle1">{name}</Typography>
-						<Typography variant="body2">{category}</Typography>
+						<NextLink href={urlKeyWords.product + "/" + slug} passHref>
+							<Typography variant="subtitle1">{name}</Typography>
+						</NextLink>
+						<NextLink href={"/" + category} passHref>
+							<Typography variant="body2">{category}</Typography>
+						</NextLink>
 					</Grid>
 					<Grid item xs={12} sm={4} lg={3}>
 						<FormControl fullWidth>

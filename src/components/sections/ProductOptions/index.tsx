@@ -1,4 +1,5 @@
 import { FC, Fragment, useState } from "react"
+import { useRouter } from "next/router"
 
 import {
 	Avatar,
@@ -20,11 +21,13 @@ import { usePriceFormatter } from "../../utils"
 import UnderlinedTitle from "../../UnderlinedTitle"
 
 import { Product } from "../../../misc/types"
+import { urlKeyWords } from "../../../misc/staticData"
 
 const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 	const formatPrice = usePriceFormatter
 	const classes = useStyles()
 	const dispatch = useDispatch()
+	const router = useRouter()
 
 	const [value, setValue] = useState<number>(0)
 
@@ -49,7 +52,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 		)
 	}
 
-	const dispatchAddToCart = () => {
+	const dispatchAddToCart = (buyNow?: "now") => {
 		let totalPrice = 0
 		let name = ""
 		let title = ""
@@ -71,6 +74,10 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 		}
 
 		dispatch(addToCart(baggage))
+
+		if (buyNow) {
+			router.push(urlKeyWords.login)
+		}
 	}
 
 	return (
@@ -160,7 +167,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 										size="large"
 										className={classes.textGreen}
 										color="success"
-										onClick={dispatchAddToCart}
+										onClick={() => dispatchAddToCart()}
 									>
 										add to cart
 									</Button>
@@ -171,6 +178,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 										size="large"
 										color="error"
 										disableElevation
+										onClick={() => dispatchAddToCart("now")}
 									>
 										buy now
 									</Button>
@@ -227,7 +235,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 												size="large"
 												className={classes.textGreen}
 												color="success"
-												onClick={dispatchAddToCart}
+												onClick={() => dispatchAddToCart()}
 											>
 												add to cart
 											</Button>
@@ -238,6 +246,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 												size="large"
 												color="error"
 												disableElevation
+												onClick={() => dispatchAddToCart("now")}
 											>
 												buy now
 											</Button>
