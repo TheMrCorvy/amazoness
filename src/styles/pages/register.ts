@@ -8,6 +8,7 @@ const useStyles = makeStyles({
 		width: "100%",
 		minHeight: "80vh",
 		borderRadius: 25,
+		marginTop: "1rem",
 	},
 	mainGridContainer: {
 		width: "100%",
@@ -25,6 +26,7 @@ const useStyles = makeStyles({
 		verticalAlign: "center",
 		alignItems: "center",
 		justifyContent: "center",
+		padding: "1rem",
 	},
 	smallPadding: {
 		padding: "0.5rem",
