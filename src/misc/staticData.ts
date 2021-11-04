@@ -124,3 +124,5 @@ export const urlKeyWords: UrlKeyWords = {
 }
 
 export const appName = "Amazoness"
+
+export const saltWorkFactor = 10
