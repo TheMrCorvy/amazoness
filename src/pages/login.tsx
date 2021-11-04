@@ -1,4 +1,5 @@
 import { FC } from "react"
+import NextLink from "next/link"
 
 import {
 	Button,
@@ -14,7 +15,7 @@ import useStyles from "../styles/pages/login"
 
 import UnderlinedTitle from "../components/UnderlinedTitle"
 
-import { appName } from "../misc/staticData"
+import { appName, urlKeyWords } from "../misc/staticData"
 
 const LoginPage: FC = () => {
 	const classes = useStyles()
@@ -69,9 +70,11 @@ const LoginPage: FC = () => {
 									</Button>
 								</Grid>
 								<Grid item xs={12} md={6}>
-									<Button color="info" size="large">
-										Already have an account? login
-									</Button>
+									<NextLink href={urlKeyWords.register} passHref>
+										<Button color="info" size="large" component="a">
+											don't have an account? register
+										</Button>
+									</NextLink>
 								</Grid>
 							</Grid>
 						</CardActions>
@@ -112,9 +115,11 @@ const LoginPage: FC = () => {
 									</Typography>
 								</li>
 							</ul>
-							<Button size="large" color="info">
-								Already have an account? Login
-							</Button>
+							<NextLink href={urlKeyWords.register} passHref>
+								<Button size="large" color="info" component="a">
+									don't have an account? register
+								</Button>
+							</NextLink>
 						</CardContent>
 					</Card>
 				</Grid>

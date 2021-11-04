@@ -118,6 +118,7 @@ export const urlKeyWords: UrlKeyWords = {
 	productNotFound: "/product-was-not-found",
 	cart: "/cart",
 	login: "/login",
+	register: "/register",
 	shippingInfo: "/about-shippings",
 	faq: "/frequently-asked-questions",
 }
