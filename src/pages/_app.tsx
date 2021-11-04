@@ -14,6 +14,7 @@ import { Provider } from "react-redux"
 import store from "../redux/store"
 
 import Layout from "../components/Layout"
+import { appName } from "../misc/staticData"
 
 function MyApp({ Component, pageProps }: AppProps) {
 	useEffect(() => {
@@ -28,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<>
 			<Head>
-				<title>Amazoness</title>
+				<title>{appName}</title>
 
 				<meta
 					name="viewport"

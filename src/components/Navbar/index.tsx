@@ -24,7 +24,7 @@ import LoginIcon from "@mui/icons-material/Login"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 
-import { urlKeyWords } from "../../misc/staticData"
+import { urlKeyWords, appName } from "../../misc/staticData"
 
 const Navbar: FC = () => {
 	const classes = useStyles()
@@ -51,7 +51,7 @@ const Navbar: FC = () => {
 				<Toolbar>
 					<NextLink href="/" passHref>
 						<Link className={classes.noDecoration}>
-							<Typography className={classes.brand}>Amazoness</Typography>
+							<Typography className={classes.brand}>{appName}</Typography>
 						</Link>
 					</NextLink>
 					<div className={classes.grow} />

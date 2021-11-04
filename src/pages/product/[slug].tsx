@@ -15,6 +15,7 @@ import {
 	Link,
 } from "@mui/material"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
+import useStyles from "../../styles/pages/product/[slug]"
 
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
@@ -31,7 +32,7 @@ import UnderlinedTitle from "../../components/UnderlinedTitle"
 import SimilarProducts from "../../components/sections/SimilarProducts"
 import ProductOptions from "../../components/sections/ProductOptions"
 
-import useStyles from "../../styles/pages/product/[slug]"
+import { appName } from "../../misc/staticData"
 
 const ProductPage: FC = () => {
 	const dispatch = useDispatch()
@@ -67,6 +68,8 @@ const ProductPage: FC = () => {
 
 			setProduct(res.data.product)
 			setSimilarProducts(res.data.similarProducts)
+
+			document.title = res.data.product.name + " - " + appName
 		})
 	}, [router])
 
@@ -118,6 +121,7 @@ const ProductPage: FC = () => {
 											width={640}
 											layout="responsive"
 											className={classes.img}
+											priority
 										/>
 									)}
 								</Grid>
