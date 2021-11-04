@@ -27,7 +27,7 @@ import {
 } from "../../redux/actions/shoppingCartActions"
 import { ReduxProduct } from "../../redux/types"
 import { usePriceFormatter } from "../utils"
-import { urlKeyWords } from "../../misc/staticData"
+import { urlKeyWords } from "../../misc/config"
 
 const CartListItem: FC<Props> = ({ reduxProduct }) => {
 	const { name, totalPrice, selectedAmount, selectedOption, category, subCategories, slug } =

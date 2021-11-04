@@ -16,7 +16,7 @@ import useStyles from "../styles/pages/register"
 import UnderlinedTitle from "../components/UnderlinedTitle"
 import BreadCrumbs from "../components/BreadCrumbs"
 
-import { appName, urlKeyWords } from "../misc/staticData"
+import { appName, urlKeyWords } from "../misc/config"
 
 const RegisterPage: FC = () => {
 	const classes = useStyles()

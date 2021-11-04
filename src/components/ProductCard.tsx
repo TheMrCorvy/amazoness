@@ -19,7 +19,7 @@ import { ReduxProduct } from "../redux/types"
 import { Product } from "../misc/types"
 
 import { usePriceFormatter, useSlug } from "./utils"
-import { urlKeyWords } from "../misc/staticData"
+import { urlKeyWords } from "../misc/config"
 
 const ProductCard: FC<Props> = ({ product }) => {
 	const formatPrice = usePriceFormatter

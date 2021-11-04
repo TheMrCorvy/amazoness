@@ -14,7 +14,7 @@ import { Provider } from "react-redux"
 import store from "../redux/store"
 
 import Layout from "../components/Layout"
-import { appName } from "../misc/staticData"
+import { appName } from "../misc/config"
 
 function MyApp({ Component, pageProps }: AppProps) {
 	useEffect(() => {

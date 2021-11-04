@@ -21,7 +21,7 @@ import { usePriceFormatter } from "../../utils"
 import UnderlinedTitle from "../../UnderlinedTitle"
 
 import { Product } from "../../../misc/types"
-import { urlKeyWords } from "../../../misc/staticData"
+import { urlKeyWords } from "../../../misc/config"
 
 const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 	const formatPrice = usePriceFormatter

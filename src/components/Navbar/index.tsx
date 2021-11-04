@@ -24,7 +24,7 @@ import LoginIcon from "@mui/icons-material/Login"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 
-import { urlKeyWords, appName } from "../../misc/staticData"
+import { urlKeyWords, appName } from "../../misc/config"
 
 const Navbar: FC = () => {
 	const classes = useStyles()

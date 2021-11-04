@@ -22,7 +22,7 @@ import { RootState } from "../../redux/store"
 import { ReduxProduct } from "../../redux/types"
 import { addToCart } from "../../redux/actions/shoppingCartActions"
 
-import { urlKeyWords } from "../../misc/staticData"
+import { urlKeyWords } from "../../misc/config"
 import { useApi, usePriceFormatter, useSlug } from "../../components/utils"
 import { Product, Req } from "../../misc/types"
 
@@ -32,7 +32,7 @@ import UnderlinedTitle from "../../components/UnderlinedTitle"
 import SimilarProducts from "../../components/sections/SimilarProducts"
 import ProductOptions from "../../components/sections/ProductOptions"
 
-import { appName } from "../../misc/staticData"
+import { appName } from "../../misc/config"
 
 const ProductPage: FC = () => {
 	const dispatch = useDispatch()
