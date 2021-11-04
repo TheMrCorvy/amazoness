@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 
-import { saltWorkFactor } from "../misc/staticData"
+import { saltWorkFactor } from "../misc/config"
 import { User } from "../misc/types"
 
 export interface UserDocument extends User, mongoose.Document {
