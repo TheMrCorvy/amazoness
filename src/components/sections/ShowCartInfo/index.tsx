@@ -7,6 +7,7 @@ import { useSelector } from "react-redux"
 import { RootState } from "../../../redux/store"
 
 import CartListItem from "../../CartListItem"
+import UnderlinedTitle from "../../UnderlinedTitle"
 
 const ShowCartInfo: FC = () => {
 	const classes = useStyles()
@@ -18,10 +19,21 @@ const ShowCartInfo: FC = () => {
 			<Grid container spacing={4}>
 				<Grid item xs={12} md={8} xl={9}>
 					<Card>
-						<List className={classes.mainCard}>
-							{items.map((product, index) => (
-								<CartListItem key={index} reduxProduct={product} />
-							))}
+						<List
+							className={items.length > 0 ? classes.mainCard : classes.mainCardAlter}
+						>
+							{items.length >= 1 ? (
+								items.map((product, index) => (
+									<CartListItem key={index} reduxProduct={product} />
+								))
+							) : (
+								<UnderlinedTitle
+									body="You have 0 items in your ShoppingCart..."
+									color="error"
+									variant="h5"
+									length={25}
+								/>
+							)}
 						</List>
 					</Card>
 				</Grid>
