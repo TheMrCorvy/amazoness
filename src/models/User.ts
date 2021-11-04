@@ -1,7 +1,5 @@
 import mongoose from "mongoose"
 import bcrypt from "bcrypt"
-
-import { saltWorkFactor } from "../misc/config"
 import { User } from "../misc/types"
 
 export interface UserDocument extends User, mongoose.Document {
@@ -15,27 +13,12 @@ const userSchema = new mongoose.Schema(
 		email: { type: String, required: true, unique: true },
 		name: { type: String, required: true },
 		password: { type: String, required: true },
+		isAdmin: { type: Boolean, required: false, default: false },
 	},
 	{
 		timestamps: true,
 	}
 )
-
-userSchema.pre("save", async function (next) {
-	let user = this as UserDocument
-
-	if (!user.isModified("password")) {
-		return next()
-	}
-
-	const salt = await bcrypt.genSalt(saltWorkFactor)
-
-	const hash = await bcrypt.hashSync(user.password, salt)
-
-	user.password = hash
-
-	return next()
-})
 
 userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
 	const user = this as UserDocument
@@ -43,6 +26,6 @@ userSchema.methods.comparePassword = async function (candidatePassword: string):
 	return bcrypt.compare(candidatePassword, user.password).catch((e) => false)
 }
 
-const UserModel = mongoose.model<UserDocument>("User", userSchema)
+const UserModel = mongoose.models.User || mongoose.model<UserDocument>("User", userSchema)
 
 export default UserModel
