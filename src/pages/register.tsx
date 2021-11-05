@@ -42,6 +42,15 @@ const RegisterPage: FC = () => {
 										<FormControl fullWidth color="info">
 											<TextField
 												color="info"
+												label="Name"
+												variant="standard"
+											/>
+										</FormControl>
+									</Grid>
+									<Grid item xs={12}>
+										<FormControl fullWidth color="info">
+											<TextField
+												color="info"
 												label="Email"
 												variant="standard"
 											/>

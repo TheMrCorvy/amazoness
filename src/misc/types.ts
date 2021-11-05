@@ -1,6 +1,7 @@
 /********************************************************************************************** Static data for testing locally */
-export interface StaticProductData {
+export interface StaticData {
 	products: Omit<Product, "slug" | "_id">[] | []
+	users: User[]
 }
 
 /********************************************************************************************** Products */
@@ -62,4 +63,5 @@ export interface User {
 	email: string
 	name: string
 	password: string
+	isAdmin?: boolean
 }

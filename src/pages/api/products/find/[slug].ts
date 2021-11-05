@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import Product from "../../../../models/Product"
+import Product from "../../../../database/models/Product"
 
-import { dbConnect, dbDisconnect } from "../../../../misc/db"
+import { dbConnect, dbDisconnect } from "../../../../database"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const params = req.query
