@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import Product from "../../../database/models/Product"
-import User from "../../../database/models/User"
 
 import { dbConnect, dbDisconnect } from "../../../database"
 
