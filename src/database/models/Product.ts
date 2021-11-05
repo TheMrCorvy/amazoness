@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
-import { Product } from "../misc/types"
-import { useSlug } from "../components/utils"
+import { Product } from "../../misc/types"
+import { useSlug } from "../../components/utils"
 
 export interface ProductDocument extends Omit<Product, "_id" | "slug">, mongoose.Document {
 	slug: string

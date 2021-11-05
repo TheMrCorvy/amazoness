@@ -1,5 +1,5 @@
 import { connect, connection, disconnect } from "mongoose"
-import { mongoDbUri } from "./config"
+import { mongoDbUri } from "../misc/config"
 
 const conn = {
 	isConnected: false,

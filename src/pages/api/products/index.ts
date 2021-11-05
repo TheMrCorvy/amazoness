@@ -1,9 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import Product from "../../../models/Product"
-import User from "../../../models/User"
+import Product from "../../../database/models/Product"
+import User from "../../../database/models/User"
 
-import { dbConnect, dbDisconnect } from "../../../misc/db"
-import { data } from "../../../misc/staticData"
+import { dbConnect, dbDisconnect } from "../../../database"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	switch (req.method) {
@@ -22,16 +21,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 const getProducts = async () => {
 	await dbConnect()
 
-	await Product.deleteMany()
-	await Product.insertMany(data.products)
-
-	await User.deleteMany()
-	await User.insertMany(data.users)
-
 	const products = await Product.find()
-	const users = await User.find()
 
 	await dbDisconnect()
 
-	return { products, users }
+	return { products }
 }

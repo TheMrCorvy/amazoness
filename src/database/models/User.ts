@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import bcrypt from "bcrypt"
-import { User } from "../misc/types"
+import { User } from "../../misc/types"
 
 export interface UserDocument extends User, mongoose.Document {
 	createdAt: Date

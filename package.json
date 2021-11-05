@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"seeder": "mongoimport --jsonArray --db amazoness --collection products --drop --file ./src/database/productSeeder.json && mongoimport --jsonArray --db amazoness --collection users --drop --file ./src/database/userSeeder.json"
+		"seeder": "mongoimport --jsonArray --db amazoness --collection products --drop --file ./src/database/seeders/productSeeder.json && mongoimport --jsonArray --db amazoness --collection users --drop --file ./src/database/seeders/userSeeder.json"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.5.0",
