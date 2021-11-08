@@ -12,6 +12,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		case "POST":
 			const data = await login(req.body.email, req.body.password)
 
+			if (data.status === 401 || data.status === 404) {
+				return res.status(data.status).json({ request: req.body, ...data })
+			}
+
 			return res.status(200).json(data)
 
 		default:
