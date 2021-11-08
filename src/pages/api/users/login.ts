@@ -56,5 +56,16 @@ const login = async (email: string, password: string) => {
 		{ expiresIn: jwtConfig.refreshTokenTtl }
 	)
 
-	return { status: 200, message: "successfully logged in", data: { accessToken, refreshToken } }
+	const resUser = {
+		_id: user._id,
+		email: user.email,
+		name: user.name,
+		isAdmin: user.isAdmin,
+	}
+
+	return {
+		status: 200,
+		message: "successfully logged in",
+		data: { accessToken, refreshToken, user: resUser },
+	}
 }
