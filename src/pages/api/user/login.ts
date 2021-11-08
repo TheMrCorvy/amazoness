@@ -10,7 +10,7 @@ import { dbConnect, dbDisconnect } from "../../../database"
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	switch (req.method) {
 		case "POST":
-			const data = await login(req)
+			const data = await login(req.body.email, req.body.password)
 
 			return res.status(200).json(data)
 
@@ -19,23 +19,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 }
 
-const login = async (req: NextApiRequest) => {
+const login = async (email: string, password: string) => {
 	await dbConnect()
 
-	const user: UserDocument | undefined = await User.findOne({ email: req.body.email })
+	const user: UserDocument | null = await User.findOne({ email })
+
+	console.log(user)
 
 	if (!user) {
 		await dbDisconnect()
 
-		return { satus: 404, message: "user was not found", request: req.body }
+		return { satus: 404, message: "user was not found" }
 	}
 
-	const isValid = await user.comparePassword(req.body.password)
+	const isValid = await user.comparePassword(password)
 
 	if (!isValid) {
 		await dbDisconnect()
 
-		return { status: 401, message: "password was incorrect", request: req.body }
+		return { status: 401, message: "password was incorrect" }
 	}
 
 	const session: SessionDocument = await Session.create(user._id)
