@@ -24,8 +24,6 @@ const login = async (email: string, password: string) => {
 
 	const user: UserDocument | null = await User.findOne({ email })
 
-	console.log(user)
-
 	if (!user) {
 		await dbDisconnect()
 
