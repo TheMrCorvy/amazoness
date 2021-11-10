@@ -93,18 +93,23 @@ export type ShoppingCartAction =
 export const SET_USER_DATA = "SET_USER_DATA"
 export const LOG_OUT = "LOG_OUT"
 
+export interface ReduxUser extends User {
+	accessToken: string
+	refreshToken: string
+}
+
 export interface UserState {
-	user: User | null
+	user: ReduxUser | null
 }
 
 export interface SetUserDataAction {
 	type: typeof SET_USER_DATA
-	payload: User
+	payload: ReduxUser
 }
 
 export interface LogOutAction {
 	type: typeof LOG_OUT
-	payload: undefined
+	payload: null
 }
 
 export type UserActions = SetUserDataAction | LogOutAction

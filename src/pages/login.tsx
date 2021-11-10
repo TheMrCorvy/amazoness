@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState, ChangeEvent } from "react"
 import NextLink from "next/link"
 
 import {
@@ -16,10 +16,51 @@ import useStyles from "../styles/pages/login"
 import UnderlinedTitle from "../components/UnderlinedTitle"
 import BreadCrumbs from "../components/BreadCrumbs"
 
+import { useDispatch } from "react-redux"
+import { login } from "../redux/actions/userActions"
+import { ReduxUser } from "../redux/types"
+
 import { appName, urlKeyWords } from "../misc/config"
+import { Req, Res } from "../misc/types"
+import { useApi } from "../components/utils"
 
 const LoginPage: FC = () => {
+	const [formData, setFormData] = useState({
+		email: "",
+		password: "",
+	})
+
 	const classes = useStyles()
+	const callApi = useApi
+	const dispatch = useDispatch()
+
+	const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
+		const target = event.target as HTMLInputElement
+
+		setFormData({
+			...formData,
+			[target.name]: target.value,
+		})
+	}
+
+	const callLogin = () => {
+		const request: Req = {
+			endpoint: "/users/login",
+			method: "POST",
+			body: formData,
+		}
+
+		callApi(request, dispatch).then((res: Res) => {
+			if (res.status == 200) {
+				const reduxUser: ReduxUser = {
+					...res.data.user,
+					accessToken: res.data.accessToken,
+					refreshToken: res.data.refreshToken,
+				}
+				dispatch(login(reduxUser))
+			}
+		})
+	}
 
 	return (
 		<>
@@ -49,6 +90,8 @@ const LoginPage: FC = () => {
 												color="info"
 												label="Email"
 												variant="standard"
+												name="email"
+												onChange={handleChange}
 											/>
 										</FormControl>
 									</Grid>
@@ -58,6 +101,8 @@ const LoginPage: FC = () => {
 												color="info"
 												label="Password"
 												variant="standard"
+												name="password"
+												onChange={handleChange}
 											/>
 										</FormControl>
 									</Grid>
@@ -72,6 +117,7 @@ const LoginPage: FC = () => {
 											variant="contained"
 											disableElevation
 											fullWidth
+											onClick={callLogin}
 										>
 											Login
 										</Button>
