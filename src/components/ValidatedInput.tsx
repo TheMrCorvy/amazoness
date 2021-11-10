@@ -41,7 +41,7 @@ const ValidatedInput: FC<Props> = (props) => {
 		<Controller
 			name={input.name}
 			control={control}
-			defaultValue={controller.defaultValue}
+			defaultValue={controller.defaultValue ? controller.defaultValue : ""}
 			rules={controller.rules}
 			render={({ field }) => (
 				<FormControl fullWidth color={input.color}>
@@ -79,7 +79,7 @@ interface Props {
 			maxLength?: number
 			pattern?: RegExp
 		}
-		defaultValue: number | string
+		defaultValue?: number | string
 	}
 }
 
