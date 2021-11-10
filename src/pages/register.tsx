@@ -1,25 +1,56 @@
 import { FC } from "react"
 import NextLink from "next/link"
+import { useRouter } from "next/router"
 
-import {
-	Button,
-	Card,
-	CardContent,
-	TextField,
-	Grid,
-	Typography,
-	FormControl,
-	CardActions,
-} from "@mui/material"
+import { Button, Card, CardContent, Grid, Typography, CardActions } from "@mui/material"
 import useStyles from "../styles/pages/register"
 
 import UnderlinedTitle from "../components/UnderlinedTitle"
 import BreadCrumbs from "../components/BreadCrumbs"
+import ValidatedInput from "../components/ValidatedInput"
 
 import { appName, urlKeyWords } from "../misc/config"
+import { useApi } from "../components/utils"
+import { Req, Res } from "../misc/types"
+
+import { useForm } from "react-hook-form"
+
+import { useDispatch } from "react-redux"
+import { ReduxUser } from "../redux/types"
+import { login } from "../redux/actions/userActions"
 
 const RegisterPage: FC = () => {
+	const {
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm()
+
+	const callApi = useApi
 	const classes = useStyles()
+	const dispatch = useDispatch()
+	const router = useRouter()
+
+	const onSubmit = (formData: FormData) => {
+		const request: Req = {
+			endpoint: "/users/register",
+			method: "POST",
+			body: formData,
+		}
+
+		callApi(request, dispatch).then((res: Res) => {
+			if (res.status == 200) {
+				const reduxUser: ReduxUser = {
+					...res.data.user,
+					accessToken: res.data.accessToken,
+					refreshToken: res.data.refreshToken,
+				}
+				dispatch(login(reduxUser))
+
+				router.push(urlKeyWords.home)
+			}
+		})
+	}
 
 	return (
 		<>
@@ -28,76 +59,128 @@ const RegisterPage: FC = () => {
 				<Grid container justifyContent="center" className={classes.mainGridContainer}>
 					<Grid item xs={12} md={6} className={classes.mainGridItem}>
 						<Card elevation={0} className={classes.smallPadding}>
-							<CardContent>
-								<Grid container justifyContent="space-between" spacing={4}>
-									<Grid item xs={12}>
-										<UnderlinedTitle
-											variant="h4"
-											color="success"
-											body="register your account"
-											useCaps
-										/>
-									</Grid>
-									<Grid item xs={12}>
-										<FormControl fullWidth color="info">
+							<form onSubmit={handleSubmit(onSubmit)}>
+								<CardContent>
+									<Grid container justifyContent="space-between" spacing={4}>
+										<Grid item xs={12}>
+											<UnderlinedTitle
+												variant="h4"
+												color="success"
+												body="register your account"
+												useCaps
+											/>
+										</Grid>
+										<Grid item xs={12}>
+											{/* <FormControl fullWidth color="info">
 											<TextField
 												color="info"
 												label="Name"
 												variant="standard"
 											/>
-										</FormControl>
-									</Grid>
-									<Grid item xs={12}>
-										<FormControl fullWidth color="info">
-											<TextField
-												color="info"
-												label="Email"
-												variant="standard"
+										</FormControl> */}
+											<ValidatedInput
+												input={{
+													name: "name",
+													label: "Name",
+													color: "info",
+													type: "text",
+												}}
+												controller={{
+													rules: {
+														required: true,
+														minLength: 3,
+														maxLength: 190,
+													},
+													control,
+													errors,
+												}}
 											/>
-										</FormControl>
-									</Grid>
-									<Grid item xs={12}>
-										<FormControl fullWidth color="info">
-											<TextField
-												color="info"
-												label="Password"
-												variant="standard"
+										</Grid>
+										<Grid item xs={12}>
+											<ValidatedInput
+												input={{
+													name: "email",
+													label: "Email",
+													color: "info",
+													type: "email",
+												}}
+												controller={{
+													rules: {
+														required: true,
+														minLength: 3,
+														maxLength: 190,
+														pattern:
+															/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+													},
+													control,
+													errors,
+												}}
 											/>
-										</FormControl>
-									</Grid>
-									<Grid item xs={12}>
-										<FormControl fullWidth color="info">
-											<TextField
-												color="info"
-												label="Confirm Password"
-												variant="standard"
+										</Grid>
+										<Grid item xs={12}>
+											<ValidatedInput
+												input={{
+													name: "password",
+													label: "Password",
+													color: "info",
+													type: "password",
+												}}
+												controller={{
+													rules: {
+														required: true,
+														minLength: 8,
+														maxLength: 190,
+													},
+													control,
+													errors,
+												}}
 											/>
-										</FormControl>
+										</Grid>
+										<Grid item xs={12}>
+											<ValidatedInput
+												input={{
+													name: "confirmPassword",
+													label: "Confirm Password",
+													color: "info",
+													type: "password",
+												}}
+												controller={{
+													rules: {
+														required: true,
+														minLength: 8,
+														maxLength: 190,
+													},
+													control,
+													errors,
+												}}
+											/>
+										</Grid>
 									</Grid>
-								</Grid>
-							</CardContent>
-							<CardActions>
-								<Grid justifyContent="space-between" container spacing={3}>
-									<Grid item xs={12} md={6}>
-										<NextLink href={urlKeyWords.login} passHref>
-											<Button color="info" size="large" component="a">
-												already have an account? login
+								</CardContent>
+								<CardActions>
+									<Grid justifyContent="space-between" container spacing={3}>
+										<Grid item xs={12} md={6}>
+											<NextLink href={urlKeyWords.login} passHref>
+												<Button color="info" size="large" component="a">
+													already have an account? login
+												</Button>
+											</NextLink>
+										</Grid>
+										<Grid item xs={12} md={6} xl={4}>
+											<Button
+												size="large"
+												color="info"
+												variant="contained"
+												disableElevation
+												fullWidth
+												type="submit"
+											>
+												register
 											</Button>
-										</NextLink>
+										</Grid>
 									</Grid>
-									<Grid item xs={12} md={6} xl={4}>
-										<Button
-											size="large"
-											color="info"
-											variant="contained"
-											disableElevation
-											fullWidth
-										>
-											register
-										</Button>
-									</Grid>
-								</Grid>
-							</CardActions>
+								</CardActions>
+							</form>
 						</Card>
 					</Grid>
 					<Grid item xs={12} md={6} className={classes.mainGridItem}>
@@ -150,6 +233,13 @@ const RegisterPage: FC = () => {
 			</div>
 		</>
 	)
+}
+
+interface FormData {
+	name: string
+	password: string
+	confirmerPassword: string
+	email: string
 }
 
 export default RegisterPage
