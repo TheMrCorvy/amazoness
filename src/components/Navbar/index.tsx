@@ -1,6 +1,7 @@
 import { FC, KeyboardEvent, MouseEvent, useState } from "react"
 
 import NextLink from "next/link"
+import { useRouter } from "next/router"
 
 import {
 	AppBar,
@@ -36,6 +37,7 @@ const Navbar: FC = () => {
 	const classes = useStyles()
 	const dispatch = useDispatch()
 	const callApi = useApi
+	const router = useRouter()
 
 	const { items } = useSelector((state: RootState) => state.items)
 	const { user } = useSelector((state: RootState) => state.user)
@@ -77,6 +79,7 @@ const Navbar: FC = () => {
 			callApi(request, dispatch).then((res: Res) => {
 				if (res.status === 200) {
 					dispatch(logout())
+					router.push("/")
 				}
 			})
 		}
