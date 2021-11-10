@@ -4,19 +4,14 @@ import { TextField, FormControl } from "@mui/material"
 import { Theme } from "@mui/material/styles"
 import { SxProps } from "@mui/system"
 
-import { Controller, useForm } from "react-hook-form"
+import { Controller } from "react-hook-form"
 
 const ValidatedInput: FC<Props> = (props) => {
 	const { input, controller } = props
 
-	const {
-		control,
-		formState: { errors },
-	} = useForm()
-
 	const helperText = () => {
-		if (errors[input.name]) {
-			switch (errors[input.name].type) {
+		if (controller.errors[input.name]) {
+			switch (controller.errors[input.name].type) {
 				case "pattern":
 					return `The field ${input.label} doesn't have a valid value.`
 
@@ -40,17 +35,17 @@ const ValidatedInput: FC<Props> = (props) => {
 	return (
 		<Controller
 			name={input.name}
-			control={control}
+			control={controller.control}
 			defaultValue={controller.defaultValue ? controller.defaultValue : ""}
 			rules={controller.rules}
 			render={({ field }) => (
-				<FormControl fullWidth color={input.color}>
+				<FormControl fullWidth color={input.color ? input.color : "primary"}>
 					<TextField
 						color={input.color ? input.color : "primary"}
 						label={input.label}
 						sx={input.sx}
 						variant={input.variant ? input.variant : "standard"}
-						error={Boolean(errors[input.name])}
+						error={Boolean(controller.errors[input.name])}
 						helperText={helperText()}
 						id={input.id}
 						type={input.type}
@@ -81,6 +76,8 @@ interface Props {
 			pattern?: RegExp
 		}
 		defaultValue?: number | string
+		errors: any
+		control: any
 	}
 }
 
