@@ -29,10 +29,13 @@ import { RootState } from "../../redux/store"
 import { logout } from "../../redux/actions/userActions"
 
 import { urlKeyWords, appName } from "../../misc/config"
+import { useApi } from "../utils"
+import { Req, Res } from "../../misc/types"
 
 const Navbar: FC = () => {
 	const classes = useStyles()
 	const dispatch = useDispatch()
+	const callApi = useApi
 
 	const { items } = useSelector((state: RootState) => state.items)
 	const { user } = useSelector((state: RootState) => state.user)
@@ -64,8 +67,18 @@ const Navbar: FC = () => {
 
 		setOpen({ ...open, [target]: false })
 
-		if (action === "logout") {
-			dispatch(logout())
+		if (action === "logout" && user) {
+			const request: Req = {
+				method: "GET",
+				endpoint: "/users/logout",
+				token: user.accessToken,
+			}
+
+			callApi(request, dispatch).then((res: Res) => {
+				if (res.status === 200) {
+					dispatch(logout())
+				}
+			})
 		}
 	}
 
