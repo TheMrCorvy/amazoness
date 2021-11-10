@@ -1,21 +1,13 @@
-import { FC, useState, ChangeEvent } from "react"
+import { FC } from "react"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 
-import {
-	Button,
-	Card,
-	CardContent,
-	TextField,
-	Grid,
-	Typography,
-	FormControl,
-	CardActions,
-} from "@mui/material"
+import { Button, Card, CardContent, Grid, Typography, CardActions } from "@mui/material"
 import useStyles from "../../styles/pages/login"
 
 import UnderlinedTitle from "../../components/UnderlinedTitle"
 import BreadCrumbs from "../../components/BreadCrumbs"
+import ValidatedInput from "../../components/ValidatedInput"
 
 import { useDispatch } from "react-redux"
 import { login } from "../../redux/actions/userActions"
@@ -25,27 +17,22 @@ import { appName, urlKeyWords } from "../../misc/config"
 import { Req, Res } from "../../misc/types"
 import { useApi } from "../../components/utils"
 
-const LoginPage: FC = () => {
-	const [formData, setFormData] = useState({
-		email: "",
-		password: "",
-	})
+import { useForm } from "react-hook-form"
 
+const LoginPage: FC = () => {
 	const classes = useStyles()
 	const callApi = useApi
 	const dispatch = useDispatch()
 	const router = useRouter()
+	const {
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm()
 
-	const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
-		const target = event.target as HTMLInputElement
+	const callLogin = (formData: FormData) => {
+		console.log(formData)
 
-		setFormData({
-			...formData,
-			[target.name]: target.value,
-		})
-	}
-
-	const callLogin = () => {
 		const request: Req = {
 			endpoint: "/users/login",
 			method: "POST",
@@ -88,63 +75,83 @@ const LoginPage: FC = () => {
 				>
 					<Grid item xs={12} md={6} className={classes.mainGridItem}>
 						<Card elevation={0} className={classes.smallPadding}>
-							<CardContent>
-								<Grid container justifyContent="space-between" spacing={4}>
-									<Grid item xs={12}>
-										<UnderlinedTitle
-											variant="h4"
-											color="info"
-											body="Login with your account"
-											useCaps
-										/>
-									</Grid>
-									<Grid item xs={12}>
-										<FormControl fullWidth color="info">
-											<TextField
+							<form onSubmit={handleSubmit(callLogin)}>
+								<CardContent>
+									<Grid container justifyContent="space-between" spacing={4}>
+										<Grid item xs={12}>
+											<UnderlinedTitle
+												variant="h4"
 												color="info"
-												label="Email"
-												variant="standard"
-												name="email"
-												onChange={handleChange}
+												body="Login with your account"
+												useCaps
 											/>
-										</FormControl>
-									</Grid>
-									<Grid item xs={12}>
-										<FormControl fullWidth color="info">
-											<TextField
-												color="info"
-												label="Password"
-												variant="standard"
-												name="password"
-												onChange={handleChange}
+										</Grid>
+										<Grid item xs={12}>
+											<ValidatedInput
+												input={{
+													name: "email",
+													label: "Email",
+													color: "info",
+													type: "email",
+												}}
+												controller={{
+													rules: {
+														required: true,
+														minLength: 3,
+														maxLength: 190,
+														pattern:
+															/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+													},
+													control,
+													errors,
+												}}
 											/>
-										</FormControl>
+										</Grid>
+										<Grid item xs={12}>
+											<ValidatedInput
+												input={{
+													name: "password",
+													label: "Password",
+													color: "info",
+													type: "password",
+												}}
+												controller={{
+													rules: {
+														required: true,
+														minLength: 8,
+														maxLength: 190,
+													},
+													control,
+													errors,
+												}}
+											/>
+										</Grid>
 									</Grid>
-								</Grid>
-							</CardContent>
-							<CardActions>
-								<Grid justifyContent="space-between" container spacing={3}>
-									<Grid item xs={12} md={6} xl={4}>
-										<Button
-											size="large"
-											color="success"
-											variant="contained"
-											disableElevation
-											fullWidth
-											onClick={callLogin}
-										>
-											Login
-										</Button>
-									</Grid>
-									<Grid item xs={12} md={6}>
-										<NextLink href={urlKeyWords.register} passHref>
-											<Button color="info" size="large" component="a">
-												{"don't have an account? register"}
+								</CardContent>
+								<CardActions>
+									<Grid justifyContent="space-between" container spacing={3}>
+										<Grid item xs={12} md={6} xl={4}>
+											<Button
+												size="large"
+												color="success"
+												variant="contained"
+												disableElevation
+												fullWidth
+												type="submit"
+											>
+												Login
 											</Button>
-										</NextLink>
+										</Grid>
+										<Grid item xs={12} md={6}>
+											<NextLink href={urlKeyWords.register} passHref>
+												<Button color="info" size="large" component="a">
+													{"don't have an account? register"}
+												</Button>
+											</NextLink>
+										</Grid>
 									</Grid>
-								</Grid>
-							</CardActions>
+								</CardActions>
+							</form>
 						</Card>
 					</Grid>
 					<Grid item xs={12} md={6} className={classes.mainGridItem}>
@@ -197,6 +204,11 @@ const LoginPage: FC = () => {
 			</div>
 		</>
 	)
+}
+
+interface FormData {
+	email: string
+	password: string
 }
 
 export default LoginPage
