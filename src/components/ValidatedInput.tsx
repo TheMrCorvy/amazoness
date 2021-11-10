@@ -53,6 +53,7 @@ const ValidatedInput: FC<Props> = (props) => {
 						error={Boolean(errors[input.name])}
 						helperText={helperText()}
 						id={input.id}
+						type={input.type}
 						{...field}
 					/>
 				</FormControl>
