@@ -31,7 +31,7 @@ const login = async (email: string, password: string) => {
 	if (!user) {
 		await dbDisconnect()
 
-		return { satus: 404, message: "user was not found" }
+		return { satus: 404, message: "User was not found" }
 	}
 
 	const isValid = await user.comparePassword(password)
@@ -39,7 +39,7 @@ const login = async (email: string, password: string) => {
 	if (!isValid) {
 		await dbDisconnect()
 
-		return { status: 401, message: "password was incorrect" }
+		return { status: 401, message: "Password was incorrect" }
 	}
 
 	const session: SessionDocument = await Session.create(user._id)
@@ -65,7 +65,7 @@ const login = async (email: string, password: string) => {
 
 	return {
 		status: 200,
-		message: "successfully logged in",
+		message: "Successfully logged in",
 		data: { accessToken, refreshToken, user: resUser },
 	}
 }
