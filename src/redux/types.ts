@@ -1,4 +1,4 @@
-import { Product } from "../misc/types"
+import { Product, User } from "../misc/types"
 
 /******************************************************************************** show loading animation */
 export const TOGGLE_LOADING = "TOGGLE_LOADING"
@@ -87,3 +87,24 @@ export type ShoppingCartAction =
 	| RemoveFromCartAction
 	| UpdateItemAmountAction
 	| UpdateSubCategoryAction
+
+/******************************************************************************** user */
+
+export const SET_USER_DATA = "SET_USER_DATA"
+export const LOG_OUT = "LOG_OUT"
+
+export interface UserState {
+	user: User | null
+}
+
+export interface SetUserDataAction {
+	type: typeof SET_USER_DATA
+	payload: User
+}
+
+export interface LogOutAction {
+	type: typeof LOG_OUT
+	payload: undefined
+}
+
+export type UserActions = SetUserDataAction | LogOutAction
