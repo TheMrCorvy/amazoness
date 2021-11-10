@@ -10,6 +10,7 @@ export const urlKeyWords: UrlKeyWords = {
 	shippingInfo: "/about-shippings",
 	faq: "/frequently-asked-questions",
 	home: "/home",
+	account: "/account",
 }
 
 export const appName = "Amazoness"
