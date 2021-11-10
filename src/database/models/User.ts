@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 import { User } from "../../misc/types"
 
-export interface UserDocument extends User, mongoose.Document {
+export interface UserDocument extends Omit<User, "_id">, mongoose.Document {
 	createdAt: Date
 	updatedAt: Date
 	comparePassword(candidatePassword: string): Promise<Boolean>
