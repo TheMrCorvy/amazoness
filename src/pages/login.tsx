@@ -1,5 +1,6 @@
 import { FC, useState, ChangeEvent } from "react"
 import NextLink from "next/link"
+import { useRouter } from "next/router"
 
 import {
 	Button,
@@ -33,6 +34,7 @@ const LoginPage: FC = () => {
 	const classes = useStyles()
 	const callApi = useApi
 	const dispatch = useDispatch()
+	const router = useRouter()
 
 	const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
 		const target = event.target as HTMLInputElement
@@ -58,6 +60,8 @@ const LoginPage: FC = () => {
 					refreshToken: res.data.refreshToken,
 				}
 				dispatch(login(reduxUser))
+
+				router.push(urlKeyWords.home)
 			}
 		})
 	}

@@ -9,6 +9,7 @@ export const urlKeyWords: UrlKeyWords = {
 	register: "/register",
 	shippingInfo: "/about-shippings",
 	faq: "/frequently-asked-questions",
+	home: "/home",
 }
 
 export const appName = "Amazoness"
