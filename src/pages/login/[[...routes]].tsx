@@ -12,18 +12,18 @@ import {
 	FormControl,
 	CardActions,
 } from "@mui/material"
-import useStyles from "../styles/pages/login"
+import useStyles from "../../styles/pages/login"
 
-import UnderlinedTitle from "../components/UnderlinedTitle"
-import BreadCrumbs from "../components/BreadCrumbs"
+import UnderlinedTitle from "../../components/UnderlinedTitle"
+import BreadCrumbs from "../../components/BreadCrumbs"
 
 import { useDispatch } from "react-redux"
-import { login } from "../redux/actions/userActions"
-import { ReduxUser } from "../redux/types"
+import { login } from "../../redux/actions/userActions"
+import { ReduxUser } from "../../redux/types"
 
-import { appName, urlKeyWords } from "../misc/config"
-import { Req, Res } from "../misc/types"
-import { useApi } from "../components/utils"
+import { appName, urlKeyWords } from "../../misc/config"
+import { Req, Res } from "../../misc/types"
+import { useApi } from "../../components/utils"
 
 const LoginPage: FC = () => {
 	const [formData, setFormData] = useState({
@@ -61,7 +61,17 @@ const LoginPage: FC = () => {
 				}
 				dispatch(login(reduxUser))
 
-				router.push(urlKeyWords.home)
+				if (router.query.routes) {
+					if (router.query.routes.length > 0) {
+						const route: string = Array.isArray(router.query.routes)
+							? router.query.routes.join("/")
+							: router.query.routes
+
+						router.push("/" + route)
+					}
+				} else {
+					router.push(urlKeyWords.home)
+				}
 			}
 		})
 	}
