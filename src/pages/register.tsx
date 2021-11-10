@@ -65,6 +65,15 @@ const RegisterPage: FC = () => {
 											/>
 										</FormControl>
 									</Grid>
+									<Grid item xs={12}>
+										<FormControl fullWidth color="info">
+											<TextField
+												color="info"
+												label="Confirm Password"
+												variant="standard"
+											/>
+										</FormControl>
+									</Grid>
 								</Grid>
 							</CardContent>
 							<CardActions>
