@@ -31,8 +31,6 @@ const LoginPage: FC = () => {
 	} = useForm()
 
 	const callLogin = (formData: FormData) => {
-		console.log(formData)
-
 		const request: Req = {
 			endpoint: "/users/login",
 			method: "POST",
