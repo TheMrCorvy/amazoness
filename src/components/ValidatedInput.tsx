@@ -26,7 +26,7 @@ const ValidatedInput: FC<Props> = (props) => {
 				return `The field ${input.label} is required.`
 
 			case "validate":
-				return controller.validationMessage
+				return controller.errors[input.name].message
 
 			default:
 				return ""
@@ -78,10 +78,9 @@ interface Props {
 			pattern?: RegExp
 			validate?: (value: any) => string | true
 		}
-		defaultValue?: number | string
 		errors: any
 		control: any
-		validationMessage?: string
+		defaultValue?: number | string
 	}
 }
 

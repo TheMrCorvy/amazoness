@@ -29,7 +29,7 @@ const RegisterForm: FC = () => {
 	const dispatch = useDispatch()
 	const router = useRouter()
 
-	const [passwordmessage, setPasswordMessage] = useState("")
+	// const [passwordmessage, setPasswordMessage] = useState("")
 
 	const onSubmit = (formData: FormData) => {
 		const request: Req = {
@@ -56,20 +56,12 @@ const RegisterForm: FC = () => {
 	 * Here we have to check if passwords are the same.
 	 *
 	 * In order to do that, we have to pass this function to the "confirmPassword" input, asking the function to check if the value
-	 * given as a param (the confirmPassword value) is the same as the password input value
+	 * given as a param (confirmPassword value) is the same as the password's input value
 	 *
 	 * if you wnated give as valid the case when the two values are different, change === to !==
 	 */
 	const validatePassword = (value: FormData) => {
-		const isValid = value === getValues().password || "Passwords do not match."
-
-		if (typeof isValid === "string") {
-			setPasswordMessage(isValid)
-		} else {
-			setPasswordMessage("")
-		}
-
-		return isValid
+		return value === getValues().password || "Passwords do not match."
 	}
 	return (
 		<Card elevation={0} sx={{ padding: "0.5rem" }}>
@@ -159,7 +151,6 @@ const RegisterForm: FC = () => {
 									},
 									control,
 									errors,
-									validationMessage: passwordmessage,
 								}}
 							/>
 						</Grid>
