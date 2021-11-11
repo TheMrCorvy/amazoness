@@ -37,6 +37,7 @@ export const useStyles = makeStyles((theme: Theme) =>
 		},
 		drawerBtn: {
 			padding: "2rem",
+			textTransform: "uppercase",
 		},
 		navBtn: {
 			marginRight: 30,

@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import Product from "../../../database/models/Product"
-import User from "../../../database/models/User"
 
 import { dbConnect, dbDisconnect } from "../../../database"
 
@@ -14,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 				.json({ status: 200, message: "products loaded successfully", data })
 
 		default:
-			return res.status(400).json({ msg: "This method is not supported", data: {} })
+			return res.status(400).json({ message: "This method is not supported", data: {} })
 	}
 }
 

@@ -1,6 +1,7 @@
 import { FC, KeyboardEvent, MouseEvent, useState } from "react"
 
 import NextLink from "next/link"
+import { useRouter } from "next/router"
 
 import {
 	AppBar,
@@ -15,25 +16,39 @@ import {
 	SwipeableDrawer,
 	Divider,
 	Badge,
+	Menu,
+	MenuItem,
 } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu"
 import { useStyles } from "./styles"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import LoginIcon from "@mui/icons-material/Login"
+import LogoutIcon from "@mui/icons-material/Logout"
 
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { RootState } from "../../redux/store"
+import { logout } from "../../redux/actions/userActions"
 
 import { urlKeyWords, appName } from "../../misc/config"
+import { useApi } from "../utils"
+import { Req, Res } from "../../misc/types"
 
 const Navbar: FC = () => {
 	const classes = useStyles()
+	const dispatch = useDispatch()
+	const callApi = useApi
+	const router = useRouter()
 
 	const { items } = useSelector((state: RootState) => state.items)
+	const { user } = useSelector((state: RootState) => state.user)
 
-	const [open, setOpen] = useState(false)
+	const [open, setOpen] = useState({
+		drawer: false,
+		menu: false,
+	})
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-	const toggleDrawer = (open: boolean) => (event: KeyboardEvent | MouseEvent) => {
+	const toggleDrawer = (openDrawer: boolean) => (event: KeyboardEvent | MouseEvent) => {
 		if (
 			event &&
 			event.type === "keydown" &&
@@ -42,7 +57,32 @@ const Navbar: FC = () => {
 			return
 		}
 
-		setOpen(open)
+		setOpen({ ...open, drawer: openDrawer })
+	}
+
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget)
+		setOpen({ ...open, menu: true })
+	}
+	const handleClose = (target: "menu" | "drawer", action?: string) => {
+		setAnchorEl(null)
+
+		setOpen({ ...open, [target]: false })
+
+		if (action === "logout" && user) {
+			const request: Req = {
+				method: "GET",
+				endpoint: "/users/logout",
+				token: user.accessToken,
+			}
+
+			callApi(request, dispatch).then((res: Res) => {
+				if (res.status === 200) {
+					dispatch(logout())
+					router.push("/")
+				}
+			})
+		}
 	}
 
 	return (
@@ -69,11 +109,51 @@ const Navbar: FC = () => {
 								Shopping Cart
 							</Button>
 						</NextLink>
-						<NextLink href={urlKeyWords.login} passHref>
-							<Button color="inherit" endIcon={<LoginIcon />}>
-								Login
-							</Button>
-						</NextLink>
+						{!user ? (
+							<NextLink href={urlKeyWords.login} passHref>
+								<Button color="inherit" endIcon={<LoginIcon />}>
+									Login
+								</Button>
+							</NextLink>
+						) : (
+							<>
+								<Button
+									color="inherit"
+									sx={{ color: "white" }}
+									onClick={handleClick}
+									endIcon={<LogoutIcon />}
+								>
+									{user.name}
+								</Button>
+								<Menu
+									id="user-menu"
+									aria-labelledby="user-menu"
+									anchorEl={anchorEl}
+									open={open.menu}
+									onClose={() => handleClose("menu")}
+									anchorOrigin={{
+										vertical: "top",
+										horizontal: "left",
+									}}
+									transformOrigin={{
+										vertical: "top",
+										horizontal: "left",
+									}}
+								>
+									<MenuItem onClick={() => handleClose("menu", urlKeyWords.home)}>
+										Profile
+									</MenuItem>
+									<MenuItem
+										onClick={() => handleClose("menu", urlKeyWords.account)}
+									>
+										My account
+									</MenuItem>
+									<MenuItem onClick={() => handleClose("menu", "logout")}>
+										Logout
+									</MenuItem>
+								</Menu>
+							</>
+						)}
 					</div>
 					<IconButton
 						size="large"
@@ -89,12 +169,17 @@ const Navbar: FC = () => {
 			</AppBar>
 			<SwipeableDrawer
 				anchor="right"
-				open={open}
+				open={open.drawer}
 				onClose={toggleDrawer(false)}
 				onOpen={toggleDrawer(true)}
 			>
 				<NextLink href={urlKeyWords.cart} passHref>
-					<ListItem button key="SHOPPING CART" className={classes.drawerBtn}>
+					<ListItem
+						button
+						key="SHOPPING CART"
+						onClick={() => handleClose("drawer")}
+						className={classes.drawerBtn}
+					>
 						<ListItemIcon>
 							<Badge badgeContent={items.length} color="info">
 								<ShoppingCartIcon />
@@ -104,14 +189,60 @@ const Navbar: FC = () => {
 					</ListItem>
 				</NextLink>
 				<Divider />
-				<NextLink href={urlKeyWords.login} passHref>
-					<ListItem button key="LOGIN" className={classes.drawerBtn}>
-						<ListItemIcon>
-							<LoginIcon />
-						</ListItemIcon>
-						<ListItemText primary="LOGIN" />
-					</ListItem>
-				</NextLink>
+				{!user ? (
+					<NextLink href={urlKeyWords.login} passHref>
+						<ListItem
+							button
+							onClick={() => handleClose("drawer")}
+							key="LOGIN"
+							className={classes.drawerBtn}
+						>
+							<ListItemIcon>
+								<LoginIcon />
+							</ListItemIcon>
+							<ListItemText primary="LOGIN" />
+						</ListItem>
+					</NextLink>
+				) : (
+					<>
+						<ListItem
+							button
+							onClick={() => handleClose("drawer")}
+							key="profile"
+							className={classes.drawerBtn}
+						>
+							<ListItemIcon>
+								<LogoutIcon />
+							</ListItemIcon>
+							<ListItemText primary="profile" />
+						</ListItem>
+						<Divider />
+						<ListItem
+							button
+							onClick={() => handleClose("drawer")}
+							key="account"
+							className={classes.drawerBtn}
+						>
+							<ListItemIcon>
+								<LogoutIcon />
+							</ListItemIcon>
+							<ListItemText primary="account" />
+						</ListItem>
+						<Divider />
+						<ListItem
+							button
+							onClick={() => handleClose("drawer", "logout")}
+							key="logout"
+							className={classes.drawerBtn}
+						>
+							<ListItemIcon>
+								<LogoutIcon />
+							</ListItemIcon>
+							<ListItemText primary="logout" />
+						</ListItem>
+						<Divider />
+					</>
+				)}
 			</SwipeableDrawer>
 		</>
 	)

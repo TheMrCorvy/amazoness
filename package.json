@@ -7,7 +7,8 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"seeder": "mongoimport --jsonArray --db amazoness --collection products --drop --file ./src/database/seeders/productSeeder.json && mongoimport --jsonArray --db amazoness --collection users --drop --file ./src/database/seeders/userSeeder.json"
+		"seed": "mongoimport --jsonArray --db amazoness --collection products --drop --file ./src/database/seeders/productSeeder.json && mongoimport --jsonArray --db amazoness --collection users --drop --file ./src/database/seeders/userSeeder.json && mongoimport --jsonArray --db amazoness --collection sessions --drop --file ./src/database/seeders/sessionSeeder.json",
+		"generate-secret-keys": "node ./src/misc/generateKeys.js"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.5.0",
@@ -16,16 +17,19 @@
 		"@mui/material": "^5.0.5",
 		"@mui/styles": "^5.0.2",
 		"@types/bcrypt": "^5.0.0",
+		"@types/jsonwebtoken": "^8.5.5",
 		"@types/material-ui": "^0.21.12",
 		"bcrypt": "^5.0.1",
+		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.0.12",
 		"next": "^12.0.1",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
+		"react-hook-form": "^7.19.3",
 		"react-redux": "^7.2.6"
 	},
 	"devDependencies": {
-		"@types/node": "16.11.6",
+		"@types/node": "^16.11.6",
 		"@types/react": "17.0.33",
 		"eslint": "7.32.0",
 		"eslint-config-next": "12.0.0",

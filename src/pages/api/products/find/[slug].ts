@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 				.json({ status: 200, message: "product loaded successfully", data })
 
 		default:
-			return res.status(400).json({ msg: "This method is not supported", data: {} })
+			return res.status(400).json({ message: "This method is not supported", data: {} })
 	}
 }
 

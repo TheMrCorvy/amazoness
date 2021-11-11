@@ -2,13 +2,13 @@
 	{
 		"name": "jhon doe",
 		"email": "example@email.com",
-		"password": "password123",
+		"password": "$2b$10$BSJiec3C8356UH7iUP69yOfxdw/AjRq/i8LsW7.axLt5QfENSkqrO",
 		"isAdmin": false
 	},
 	{
 		"name": "Gonzalo",
 		"email": "mr.corvy@gmail.com",
-		"password": "password123",
+		"password": "$2b$10$BSJiec3C8356UH7iUP69yOfxdw/AjRq/i8LsW7.axLt5QfENSkqrO",
 		"isAdmin": true
 	}
 ]

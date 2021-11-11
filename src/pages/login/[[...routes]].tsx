@@ -1,22 +1,15 @@
 import { FC } from "react"
 import NextLink from "next/link"
 
-import {
-	Button,
-	Card,
-	CardContent,
-	TextField,
-	Grid,
-	Typography,
-	FormControl,
-	CardActions,
-} from "@mui/material"
-import useStyles from "../styles/pages/login"
+import { Button, Card, CardContent, Grid, Typography } from "@mui/material"
+import useStyles from "../../styles/pages/login"
 
-import UnderlinedTitle from "../components/UnderlinedTitle"
-import BreadCrumbs from "../components/BreadCrumbs"
+import UnderlinedTitle from "../../components/UnderlinedTitle"
+import BreadCrumbs from "../../components/BreadCrumbs"
 
-import { appName, urlKeyWords } from "../misc/config"
+import { appName, urlKeyWords } from "../../misc/config"
+
+import LoginForm from "../../components/sections/LoginForm"
 
 const LoginPage: FC = () => {
 	const classes = useStyles()
@@ -32,60 +25,7 @@ const LoginPage: FC = () => {
 					className={classes.mainGridContainer}
 				>
 					<Grid item xs={12} md={6} className={classes.mainGridItem}>
-						<Card elevation={0} className={classes.smallPadding}>
-							<CardContent>
-								<Grid container justifyContent="space-between" spacing={4}>
-									<Grid item xs={12}>
-										<UnderlinedTitle
-											variant="h4"
-											color="info"
-											body="Login with your account"
-											useCaps
-										/>
-									</Grid>
-									<Grid item xs={12}>
-										<FormControl fullWidth color="info">
-											<TextField
-												color="info"
-												label="Email"
-												variant="standard"
-											/>
-										</FormControl>
-									</Grid>
-									<Grid item xs={12}>
-										<FormControl fullWidth color="info">
-											<TextField
-												color="info"
-												label="Password"
-												variant="standard"
-											/>
-										</FormControl>
-									</Grid>
-								</Grid>
-							</CardContent>
-							<CardActions>
-								<Grid justifyContent="space-between" container spacing={3}>
-									<Grid item xs={12} md={6} xl={4}>
-										<Button
-											size="large"
-											color="success"
-											variant="contained"
-											disableElevation
-											fullWidth
-										>
-											Login
-										</Button>
-									</Grid>
-									<Grid item xs={12} md={6}>
-										<NextLink href={urlKeyWords.register} passHref>
-											<Button color="info" size="large" component="a">
-												{"don't have an account? register"}
-											</Button>
-										</NextLink>
-									</Grid>
-								</Grid>
-							</CardActions>
-						</Card>
+						<LoginForm />
 					</Grid>
 					<Grid item xs={12} md={6} className={classes.mainGridItem}>
 						<Card elevation={0} className={classes.glassEffect}>

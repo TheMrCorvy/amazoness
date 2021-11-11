@@ -10,7 +10,7 @@ const initialState: LoadingStateI = {
 	loading: false,
 }
 
-const loadingReducer = (state = initialState, action: LoadingAction) => {
+const loadingReducer = (state = initialState, action: LoadingAction): LoadingStateI => {
 	switch (action.type) {
 		case TOGGLE_LOADING:
 			return {
@@ -21,18 +21,20 @@ const loadingReducer = (state = initialState, action: LoadingAction) => {
 
 		case SET_LOADING_ERROR:
 			return {
-				loading: action.payload.loading,
+				...state,
+				loading: false,
 				error: action.payload.error,
 			}
 
 		case CLEAR_LOADING_ERROR:
 			return {
-				loading: action.payload.loading,
-				error: action.payload.error,
+				...state,
+				loading: false,
+				error: "",
 			}
 
 		default:
-			return state
+			return { ...state }
 	}
 }
 
