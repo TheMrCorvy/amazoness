@@ -74,6 +74,7 @@ interface Props {
 			minLength?: number
 			maxLength?: number
 			pattern?: RegExp
+			validate?: (value: any) => string | true
 		}
 		defaultValue?: number | string
 		errors: any
