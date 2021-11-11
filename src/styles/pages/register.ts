@@ -28,9 +28,6 @@ const useStyles = makeStyles({
 		justifyContent: "center",
 		padding: "1rem",
 	},
-	smallPadding: {
-		padding: "0.5rem",
-	},
 	glassEffect: {
 		width: "100%",
 		background: "rgba(255,255,255,0.2)",
