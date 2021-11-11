@@ -10,29 +10,27 @@ const ValidatedInput: FC<Props> = (props) => {
 	const { input, controller } = props
 
 	const helperText = () => {
-		if (controller.errors[input.name]) {
-			switch (controller.errors[input.name].type) {
-				case "pattern":
-					return `The field ${input.label} doesn't have a valid value.`
+		if (!controller.errors[input.name]) return ""
 
-				case "minLength":
-					return `The field ${input.label} must contain at least ${controller.rules.minLength} characters.`
+		switch (controller.errors[input.name].type) {
+			case "pattern":
+				return `The field ${input.label} doesn't have a valid value.`
 
-				case "maxLength":
-					return `The field ${input.label} must not contain more than ${controller.rules.maxLength} characters.`
+			case "minLength":
+				return `The field ${input.label} must contain at least ${controller.rules.minLength} characters.`
 
-				case "required":
-					return `The field ${input.label} is required.`
+			case "maxLength":
+				return `The field ${input.label} must not contain more than ${controller.rules.maxLength} characters.`
 
-				case "validate":
-					return controller.validationMessage
+			case "required":
+				return `The field ${input.label} is required.`
 
-				default:
-					return ""
-			}
+			case "validate":
+				return controller.validationMessage
+
+			default:
+				return ""
 		}
-
-		return ""
 	}
 
 	return (
