@@ -50,6 +50,7 @@ const ValidatedInput: FC<Props> = (props) => {
 						helperText={helperText()}
 						id={input.id}
 						type={input.type}
+						disabled={input.disabled}
 						{...field}
 					/>
 				</FormControl>
