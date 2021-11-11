@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 
@@ -32,6 +32,8 @@ const RegisterPage: FC = () => {
 	const dispatch = useDispatch()
 	const router = useRouter()
 
+	const [passwordmessage, setPasswordMessage] = useState("")
+
 	const onSubmit = (formData: FormData) => {
 		const request: Req = {
 			endpoint: "/users/register",
@@ -62,7 +64,15 @@ const RegisterPage: FC = () => {
 	 * if you wnated give as valid the case when the two values are different, change === to !==
 	 */
 	const validatePassword = (value: FormData) => {
-		return value === getValues().password || "The passwords do not match."
+		const isValid = value === getValues().password || "Passwords do not match."
+
+		if (typeof isValid === "string") {
+			setPasswordMessage(isValid)
+		} else {
+			setPasswordMessage("")
+		}
+
+		return isValid
 	}
 
 	return (
@@ -160,6 +170,7 @@ const RegisterPage: FC = () => {
 													},
 													control,
 													errors,
+													validationMessage: passwordmessage,
 												}}
 											/>
 										</Grid>

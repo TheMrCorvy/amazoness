@@ -24,6 +24,9 @@ const ValidatedInput: FC<Props> = (props) => {
 				case "required":
 					return `The field ${input.label} is required.`
 
+				case "validate":
+					return controller.validationMessage
+
 				default:
 					return ""
 			}
@@ -79,6 +82,7 @@ interface Props {
 		defaultValue?: number | string
 		errors: any
 		control: any
+		validationMessage?: string
 	}
 }
 
