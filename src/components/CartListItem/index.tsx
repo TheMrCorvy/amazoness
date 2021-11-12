@@ -123,7 +123,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 						</FormControl>
 					</Grid>
 					<Grid item xs={12} sm={3} lg={2}>
-						{subCategories && (
+						{subCategories && subCategories.length > 0 && (
 							<FormControl fullWidth>
 								<Select
 									labelId="options-label"
