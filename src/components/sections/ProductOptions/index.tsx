@@ -76,7 +76,7 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 		dispatch(addToCart(baggage))
 
 		if (buyNow) {
-			router.push(urlKeyWords.login)
+			router.push(urlKeyWords.cart)
 		}
 	}
 

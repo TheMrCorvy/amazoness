@@ -1,18 +1,23 @@
 import { FC } from "react"
+import NextLink from "next/link"
 
-import { Grid, List, Card } from "@mui/material"
+import { Grid, List, Card, CardContent, Button } from "@mui/material"
 import useStyles from "./styles"
 
 import { useSelector } from "react-redux"
 import { RootState } from "../../../redux/store"
 
+import { urlKeyWords } from "../../../misc/config"
+
 import CartListItem from "../../CartListItem"
 import UnderlinedTitle from "../../UnderlinedTitle"
+import PurchaseSteps from "../PurchaseSteps"
 
 const ShowCartInfo: FC = () => {
 	const classes = useStyles()
 
 	const { items } = useSelector((state: RootState) => state.items)
+	const { user } = useSelector((state: RootState) => state.user)
 
 	return (
 		<Grid item xs={12}>
@@ -28,7 +33,7 @@ const ShowCartInfo: FC = () => {
 								))
 							) : (
 								<UnderlinedTitle
-									body="You have 0 items in your ShoppingCart..."
+									body="You have 0 items in your Shopping Cart..."
 									color="error"
 									variant="h5"
 									length={25}
@@ -38,10 +43,40 @@ const ShowCartInfo: FC = () => {
 					</Card>
 				</Grid>
 				<Grid item xs={12} md={4} xl={3}>
-					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus praesentium
-					laudantium quod, itaque aperiam perspiciatis. Fuga, minus explicabo sapiente,
-					delectus esse consectetur dolorum, similique corrupti dignissimos repellat
-					perferendis quas blanditiis.
+					<Card>
+						{user ? (
+							<PurchaseSteps />
+						) : (
+							<CardContent className={classes.secondaryCardAlter}>
+								<UnderlinedTitle
+									body="You need to login to continue with your purchase."
+									color="info"
+									variant="h5"
+									length={100}
+								/>
+								<NextLink href={urlKeyWords.login + urlKeyWords.cart} passHref>
+									<Button
+										variant="contained"
+										disableElevation
+										color="success"
+										fullWidth
+									>
+										login
+									</Button>
+								</NextLink>
+								<NextLink href={urlKeyWords.register} passHref>
+									<Button
+										variant="contained"
+										disableElevation
+										color="info"
+										fullWidth
+									>
+										register
+									</Button>
+								</NextLink>
+							</CardContent>
+						)}
+					</Card>
 				</Grid>
 			</Grid>
 		</Grid>

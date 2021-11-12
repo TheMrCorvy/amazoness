@@ -61,6 +61,8 @@ const login = async (email: string, password: string) => {
 		email: user.email,
 		name: user.name,
 		isAdmin: user.isAdmin,
+		billingAddress: user.billingAddress,
+		shippingAddress: user.shippingAddress,
 	}
 
 	return {

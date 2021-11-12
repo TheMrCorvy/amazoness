@@ -65,4 +65,22 @@ export interface User {
 	password: string
 	isAdmin?: boolean
 	_id: string
+	shippingAddress: {
+		streetOne: string,
+		streetTwo?: string,
+		number: number,
+		postalCode: string,
+		apartment: string,
+		description?: string,
+		zone: string,
+		city: string,
+		country: string,
+	}
+	billingAddress: {
+		streetOne: string,
+		number: number,
+		postalCode: string,
+		city: string,
+		country: string
+	}
 }

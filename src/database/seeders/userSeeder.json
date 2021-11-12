@@ -9,6 +9,24 @@
 		"name": "Gonzalo",
 		"email": "mr.corvy@gmail.com",
 		"password": "$2b$10$BSJiec3C8356UH7iUP69yOfxdw/AjRq/i8LsW7.axLt5QfENSkqrO",
-		"isAdmin": true
+		"isAdmin": true,
+		"shippingAddress": {
+			"streetOne": "santos dumont",
+			"streetTwo": "cramer",
+			"number": 2719,
+			"postalCode": "C1426",
+			"apartment": "torre roja, 7A",
+			"description": "Las torres de colores en colegiales",
+			"zone": "colegiales",
+			"city": "CABA",
+			"country": "argentina"
+		},
+		"billingAddress": {
+			"streetOne": "santos dumont",
+			"number": 2719,
+			"postalCode": "C1426",
+			"city": "CABA",
+			"country": "argentina"
+		}
 	}
 ]
