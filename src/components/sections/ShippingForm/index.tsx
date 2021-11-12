@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 
 import ValidatedInput from "../../ValidatedInput"
 
-const ShippingForm: FC = () => {
+const ShippingForm: FC<Props> = ({ onSubmit }) => {
 	const [useShipping, setUseShipping] = useState(true)
 
 	const {
@@ -77,6 +77,10 @@ const ShippingForm: FC = () => {
 			</form>
 		</Grid>
 	)
+}
+
+interface Props {
+	onSubmit: () => void
 }
 
 export default ShippingForm

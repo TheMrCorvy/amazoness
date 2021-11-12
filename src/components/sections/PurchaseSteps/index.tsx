@@ -10,6 +10,24 @@ const PurchaseSteps: FC = () => {
 
 	const classes = useStyles()
 
+	const renderSteps = () => {
+		switch (activeStep) {
+			case 0:
+				return <ShippingForm onSubmit={handleSubmit} />
+			case 1:
+				return null
+			case 2:
+				return null
+
+			default:
+				return null
+		}
+	}
+
+	const handleSubmit = () => {
+		setActiveStep(activeStep + 1)
+	}
+
 	return (
 		<CardContent className={classes.secondaryCard}>
 			<Grid container spacing={4} justifyContent="space-between">
@@ -26,7 +44,7 @@ const PurchaseSteps: FC = () => {
 						</Step>
 					</Stepper>
 				</Grid>
-				<ShippingForm />
+				{renderSteps()}
 			</Grid>
 		</CardContent>
 	)
