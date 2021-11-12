@@ -1,10 +1,13 @@
 import { FC } from "react"
+import NextLink from "next/link"
 
-import { Grid, List, Card } from "@mui/material"
+import { Grid, List, Card, CardContent, Button } from "@mui/material"
 import useStyles from "./styles"
 
 import { useSelector } from "react-redux"
 import { RootState } from "../../../redux/store"
+
+import { urlKeyWords } from "../../../misc/config"
 
 import CartListItem from "../../CartListItem"
 import UnderlinedTitle from "../../UnderlinedTitle"
@@ -39,10 +42,45 @@ const ShowCartInfo: FC = () => {
 					</Card>
 				</Grid>
 				<Grid item xs={12} md={4} xl={3}>
-					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus praesentium
-					laudantium quod, itaque aperiam perspiciatis. Fuga, minus explicabo sapiente,
-					delectus esse consectetur dolorum, similique corrupti dignissimos repellat
-					perferendis quas blanditiis.
+					<Card>
+						{user ? (
+							<CardContent className={classes.secondaryCard}>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
+								assumenda, eius asperiores ducimus odit in numquam ad commodi non
+								minus illo facilis nihil et neque. Sunt, quisquam. Omnis, iure
+								recusandae?
+							</CardContent>
+						) : (
+							<CardContent className={classes.secondaryCardAlter}>
+								<UnderlinedTitle
+									body="You need to login to continue with your purchase."
+									color="info"
+									variant="h5"
+									length={100}
+								/>
+								<NextLink href={urlKeyWords.login + urlKeyWords.cart} passHref>
+									<Button
+										variant="contained"
+										disableElevation
+										color="success"
+										fullWidth
+									>
+										login
+									</Button>
+								</NextLink>
+								<NextLink href={urlKeyWords.register} passHref>
+									<Button
+										variant="contained"
+										disableElevation
+										color="info"
+										fullWidth
+									>
+										register
+									</Button>
+								</NextLink>
+							</CardContent>
+						)}
+					</Card>
 				</Grid>
 			</Grid>
 		</Grid>
