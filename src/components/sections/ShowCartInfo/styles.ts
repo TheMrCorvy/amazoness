@@ -18,10 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			verticalAlign: "center",
 			textAlign: "center",
 		},
-		secondaryCard: {
-			width: "100%",
-			minHeight: "65vh",
-		},
 		secondaryCardAlter: {
 			width: "100%",
 			minHeight: "65vh",

@@ -11,6 +11,7 @@ import { urlKeyWords } from "../../../misc/config"
 
 import CartListItem from "../../CartListItem"
 import UnderlinedTitle from "../../UnderlinedTitle"
+import PurchaseSteps from "../PurchaseSteps"
 
 const ShowCartInfo: FC = () => {
 	const classes = useStyles()
@@ -44,12 +45,7 @@ const ShowCartInfo: FC = () => {
 				<Grid item xs={12} md={4} xl={3}>
 					<Card>
 						{user ? (
-							<CardContent className={classes.secondaryCard}>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
-								assumenda, eius asperiores ducimus odit in numquam ad commodi non
-								minus illo facilis nihil et neque. Sunt, quisquam. Omnis, iure
-								recusandae?
-							</CardContent>
+							<PurchaseSteps />
 						) : (
 							<CardContent className={classes.secondaryCardAlter}>
 								<UnderlinedTitle
