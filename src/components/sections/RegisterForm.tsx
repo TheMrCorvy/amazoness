@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC } from "react"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 
@@ -28,8 +28,6 @@ const RegisterForm: FC = () => {
 	const callApi = useApi
 	const dispatch = useDispatch()
 	const router = useRouter()
-
-	// const [passwordmessage, setPasswordMessage] = useState("")
 
 	const onSubmit = (formData: FormData) => {
 		const request: Req = {

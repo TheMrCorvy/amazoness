@@ -65,4 +65,6 @@ export interface User {
 	password: string
 	isAdmin?: boolean
 	_id: string
+	shippingAddress: {}
+	billingAddress: {}
 }

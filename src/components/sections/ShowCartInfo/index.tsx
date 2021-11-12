@@ -13,6 +13,7 @@ const ShowCartInfo: FC = () => {
 	const classes = useStyles()
 
 	const { items } = useSelector((state: RootState) => state.items)
+	const { user } = useSelector((state: RootState) => state.user)
 
 	return (
 		<Grid item xs={12}>
@@ -28,7 +29,7 @@ const ShowCartInfo: FC = () => {
 								))
 							) : (
 								<UnderlinedTitle
-									body="You have 0 items in your ShoppingCart..."
+									body="You have 0 items in your Shopping Cart..."
 									color="error"
 									variant="h5"
 									length={25}
