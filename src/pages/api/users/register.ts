@@ -41,6 +41,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		email: user.email,
 		name: user.name,
 		isAdmin: user.isAdmin,
+		billingAddress: user.billingAddress,
+		shippingAddress: user.shippingAddress,
 	}
 
 	return res.status(200).json({
