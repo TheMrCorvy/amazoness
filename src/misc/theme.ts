@@ -45,6 +45,10 @@ const theme = createTheme({
 			default: "#eeeeee",
 			paper: "#fff",
 		},
+		// background: {
+		// 	default: "#171941",
+		// 	paper: "#fff",
+		// },
 	},
 	shape: {
 		borderRadius: 10,
@@ -61,6 +65,17 @@ const theme = createTheme({
 			margin: "1rem 0",
 		},
 	},
+	// components: {
+	// 	MuiCssBaseline: {
+	// 		styleOverrides: {
+	// 			body: {
+	// 				backgroundImage:
+	// 					"url(https://demos.creative-tim.com/blk-design-system-pro-react/static/media/dots.e29a7d7d.png)",
+	// 				backgroundSize: "contain",
+	// 			},
+	// 		},
+	// 	},
+	// },
 })
 
 export default theme
