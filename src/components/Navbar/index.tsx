@@ -3,22 +3,15 @@ import { FC, KeyboardEvent, MouseEvent, useState } from "react"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 
-import {
-	AppBar,
-	Link,
-	Toolbar,
-	Typography,
-	Button,
-	IconButton,
-	Badge,
-	Menu,
-	MenuItem,
-} from "@mui/material"
-import MenuIcon from "@mui/icons-material/Menu"
-import { useStyles } from "./styles"
+import { AppBar, Link, Toolbar, Typography, Button, Badge, Menu, MenuItem } from "@mui/material"
+
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import LoginIcon from "@mui/icons-material/Login"
 import LogoutIcon from "@mui/icons-material/Logout"
+
+import DivFlexGrow from "../custom-components/DivFlexGrow"
+import NavbarBtnContainer from "../custom-components/NavbarBtnContainer"
+import HamburgerBtn from "../HamburgerBtn"
 
 import { useSelector, useDispatch } from "react-redux"
 import { RootState } from "../../redux/store"
@@ -30,7 +23,6 @@ import { Req, Res } from "../../misc/types"
 import Drawer from "../Drawer"
 
 const Navbar: FC = () => {
-	const classes = useStyles()
 	const dispatch = useDispatch()
 	const callApi = useApi
 	const router = useRouter()
@@ -83,18 +75,41 @@ const Navbar: FC = () => {
 
 	return (
 		<>
-			<AppBar position="fixed" className={classes.navbar}>
+			<AppBar
+				position="fixed"
+				sx={{
+					backgroundColor: (theme) => theme.palette.grey.A200,
+					paddingRight: "1rem",
+					"& a": {
+						color: "#fff",
+						marginLeft: "1rem",
+					},
+				}}
+			>
 				<Toolbar>
 					<NextLink href="/" passHref>
-						<Link className={classes.noDecoration}>
-							<Typography className={classes.brand}>{appName}</Typography>
+						<Link
+							sx={{
+								textDecoration: "none",
+							}}
+						>
+							<Typography
+								sx={{
+									fontWeight: "bold",
+									fontSize: "1.5rem",
+								}}
+							>
+								{appName}
+							</Typography>
 						</Link>
 					</NextLink>
-					<div className={classes.grow} />
-					<div className={classes.navbarBtn}>
+					<DivFlexGrow />
+					<NavbarBtnContainer>
 						<NextLink href={urlKeyWords.cart} passHref>
 							<Button
-								className={classes.navBtn}
+								sx={{
+									marginRight: 30,
+								}}
 								color="inherit"
 								endIcon={
 									<Badge badgeContent={items.length} color="info">
@@ -150,17 +165,8 @@ const Navbar: FC = () => {
 								</Menu>
 							</>
 						)}
-					</div>
-					<IconButton
-						size="large"
-						edge="start"
-						color="inherit"
-						aria-label="menu"
-						className={classes.mobileBtn}
-						onClick={toggleDrawer(true)}
-					>
-						<MenuIcon />
-					</IconButton>
+					</NavbarBtnContainer>
+					<HamburgerBtn toggleDrawer={toggleDrawer} />
 				</Toolbar>
 			</AppBar>
 			<Drawer
