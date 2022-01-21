@@ -18,6 +18,8 @@ import RemoveIcon from "@mui/icons-material/Remove"
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 
+import ColoredText from "../custom-components/ColoredText"
+
 import { useDispatch } from "react-redux"
 import {
 	removeFromCart,
@@ -170,14 +172,9 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 									alignItems: "center",
 								}}
 							>
-								<Typography
-									variant="body1"
-									sx={{
-										color: (theme) => theme.palette.success.light,
-									}}
-								>
+								<ColoredText variant="body1" textColor="success">
 									{formatPrice(selectedAmount * totalPrice)}
-								</Typography>
+								</ColoredText>
 							</Grid>
 							<Grid item>
 								<IconButton color="error" onClick={dispatchRemoveFromCart}>
