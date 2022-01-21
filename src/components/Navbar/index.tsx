@@ -10,11 +10,6 @@ import {
 	Typography,
 	Button,
 	IconButton,
-	ListItem,
-	ListItemIcon,
-	ListItemText,
-	SwipeableDrawer,
-	Divider,
 	Badge,
 	Menu,
 	MenuItem,
@@ -32,6 +27,7 @@ import { logout } from "../../redux/actions/userActions"
 import { urlKeyWords, appName } from "../../misc/config"
 import { useApi } from "../utils"
 import { Req, Res } from "../../misc/types"
+import Drawer from "../Drawer"
 
 const Navbar: FC = () => {
 	const classes = useStyles()
@@ -167,83 +163,13 @@ const Navbar: FC = () => {
 					</IconButton>
 				</Toolbar>
 			</AppBar>
-			<SwipeableDrawer
-				anchor="right"
+			<Drawer
+				user={user}
+				toggleDrawer={toggleDrawer}
 				open={open.drawer}
-				onClose={toggleDrawer(false)}
-				onOpen={toggleDrawer(true)}
-			>
-				<NextLink href={urlKeyWords.cart} passHref>
-					<ListItem
-						button
-						key="SHOPPING CART"
-						onClick={() => handleClose("drawer")}
-						className={classes.drawerBtn}
-					>
-						<ListItemIcon>
-							<Badge badgeContent={items.length} color="info">
-								<ShoppingCartIcon />
-							</Badge>
-						</ListItemIcon>
-						<ListItemText primary="SHOPPING CART" />
-					</ListItem>
-				</NextLink>
-				<Divider />
-				{!user ? (
-					<NextLink href={urlKeyWords.login} passHref>
-						<ListItem
-							button
-							onClick={() => handleClose("drawer")}
-							key="LOGIN"
-							className={classes.drawerBtn}
-						>
-							<ListItemIcon>
-								<LoginIcon />
-							</ListItemIcon>
-							<ListItemText primary="LOGIN" />
-						</ListItem>
-					</NextLink>
-				) : (
-					<>
-						<ListItem
-							button
-							onClick={() => handleClose("drawer")}
-							key="profile"
-							className={classes.drawerBtn}
-						>
-							<ListItemIcon>
-								<LogoutIcon />
-							</ListItemIcon>
-							<ListItemText primary="profile" />
-						</ListItem>
-						<Divider />
-						<ListItem
-							button
-							onClick={() => handleClose("drawer")}
-							key="account"
-							className={classes.drawerBtn}
-						>
-							<ListItemIcon>
-								<LogoutIcon />
-							</ListItemIcon>
-							<ListItemText primary="account" />
-						</ListItem>
-						<Divider />
-						<ListItem
-							button
-							onClick={() => handleClose("drawer", "logout")}
-							key="logout"
-							className={classes.drawerBtn}
-						>
-							<ListItemIcon>
-								<LogoutIcon />
-							</ListItemIcon>
-							<ListItemText primary="logout" />
-						</ListItem>
-						<Divider />
-					</>
-				)}
-			</SwipeableDrawer>
+				handleClose={handleClose}
+				amountOfItems={items.length}
+			/>
 		</>
 	)
 }
