@@ -3,17 +3,13 @@ import { FC, ReactChild } from "react"
 import { Container, Typography, Backdrop, CircularProgress } from "@mui/material"
 
 import { useSelector } from "react-redux"
-import { RootState } from "../../redux/store"
+import { RootState } from "../redux/store"
 
-import Navbar from "../Navbar"
-import Snackbar from "../Snackbar"
-
-import { useStyles } from "./styles"
+import Navbar from "./Navbar"
+import Snackbar from "./Snackbar"
 
 const Layout: FC<Props> = ({ children }) => {
 	const { loading, error } = useSelector((state: RootState) => state.loading)
-
-	const classes = useStyles()
 
 	return (
 		<>
@@ -37,11 +33,22 @@ const Layout: FC<Props> = ({ children }) => {
 			)}
 			<Navbar />
 
-			<Container maxWidth="xl" className={classes.mainContainer}>
+			<Container
+				maxWidth="xl"
+				sx={{
+					paddingTop: "7rem",
+					paddingBottom: "7rem",
+					minHeight: "80vh",
+				}}
+			>
 				{children}
 			</Container>
 
-			<footer className={classes.footer}>
+			<footer
+				style={{
+					textAlign: "center",
+				}}
+			>
 				<Typography variant="body1" color="warning">
 					Amazoness 2021 All rights recerved.
 				</Typography>
