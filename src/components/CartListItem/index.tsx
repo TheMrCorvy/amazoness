@@ -17,7 +17,6 @@ import AddIcon from "@mui/icons-material/Add"
 import RemoveIcon from "@mui/icons-material/Remove"
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
-import { useStyles } from "./styles"
 
 import { useDispatch } from "react-redux"
 import {
@@ -33,7 +32,6 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 	const { name, totalPrice, selectedAmount, selectedOption, category, subCategories, slug } =
 		reduxProduct
 
-	const classes = useStyles()
 	const formatPrice = usePriceFormatter
 	const dispatch = useDispatch()
 
@@ -66,14 +64,22 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 
 	return (
 		<>
-			<ListItem className={classes.marginTop1}>
+			<ListItem
+				sx={{
+					marginTop: "1rem",
+				}}
+			>
 				<Grid container spacing={4}>
 					<Grid item xs={3} sm={2} lg={1}>
 						<NextLink passHref href={urlKeyWords.product + "/" + slug}>
 							<ButtonBase sx={{ borderRadius: 3 }}>
 								<Avatar
 									src={reduxProduct.default.images[0]}
-									className={classes.avatar}
+									sx={{
+										width: 56,
+										height: 56,
+										marginRight: 2,
+									}}
 								/>
 							</ButtonBase>
 						</NextLink>
@@ -115,7 +121,6 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 								}}
 								inputProps={{
 									style: {
-										// this one has to be here, or else it won't work
 										textAlign: "center",
 									},
 								}}
@@ -131,7 +136,10 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 									value={option}
 									onChange={handleSelectChange}
 									size="small"
-									className={classes.selectInput}
+									sx={{
+										borderRadius: 30,
+										textTransform: "capitalize",
+									}}
 									color="info"
 								>
 									<MenuItem value="Default,">Default</MenuItem>
@@ -153,8 +161,21 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 					</Grid>
 					<Grid item xs={12} lg={3}>
 						<Grid container justifyContent="space-between" spacing={2}>
-							<Grid item xs={6} md={7} className={classes.textCenter}>
-								<Typography variant="body1" className={classes.textGreen}>
+							<Grid
+								item
+								xs={6}
+								md={7}
+								sx={{
+									display: "flex",
+									alignItems: "center",
+								}}
+							>
+								<Typography
+									variant="body1"
+									sx={{
+										color: (theme) => theme.palette.success.light,
+									}}
+								>
 									{formatPrice(selectedAmount * totalPrice)}
 								</Typography>
 							</Grid>
@@ -168,7 +189,12 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 				</Grid>
 			</ListItem>
 
-			<Divider className={classes.divider} />
+			<Divider
+				sx={{
+					maxWidth: "95%",
+					marginLeft: "2.5%",
+				}}
+			/>
 		</>
 	)
 }
