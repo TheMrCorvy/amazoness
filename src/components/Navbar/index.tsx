@@ -108,7 +108,7 @@ const Navbar: FC = () => {
 						<NextLink href={urlKeyWords.cart} passHref>
 							<Button
 								sx={{
-									marginRight: 30,
+									marginRight: 2,
 								}}
 								color="inherit"
 								endIcon={
