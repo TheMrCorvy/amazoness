@@ -15,6 +15,10 @@ const { privateKey, publicKey } = generateKeyPairSync("rsa", {
 console.log(publicKey)
 console.log(privateKey)
 
+console.log(" ")
+console.log("Now you can copy-paste these keys into .env file.")
+console.log(" ")
+
 module.exports = {
 	privateKey,
 	publicKey,
