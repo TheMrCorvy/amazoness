@@ -11,7 +11,6 @@ import {
 	ButtonBase,
 	Button,
 } from "@mui/material"
-import useStyles from "./styles"
 
 import { useDispatch } from "react-redux"
 import { ReduxProduct } from "../../../redux/types"
@@ -23,9 +22,10 @@ import UnderlinedTitle from "../../UnderlinedTitle"
 import { Product } from "../../../misc/types"
 import { urlKeyWords } from "../../../misc/config"
 
+import StyledText from "../../custom-styles/StyledText"
+
 const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 	const formatPrice = usePriceFormatter
-	const classes = useStyles()
 	const dispatch = useDispatch()
 	const router = useRouter()
 
@@ -46,9 +46,9 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 		}
 
 		return (
-			<Typography variant="h6" className={classes.textCapitalize}>
+			<StyledText variant="h6" textTransform="capitalize">
 				{body}
-			</Typography>
+			</StyledText>
 		)
 	}
 
@@ -85,7 +85,11 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 			<Grid container justifyContent="space-between" spacing={4}>
 				<Grid item>
 					<ButtonBase
-						className={classes.buttonBase}
+						sx={{
+							padding: "0.5rem",
+							paddingRight: "1rem",
+							borderRadius: 1,
+						}}
 						onClick={() => handleChange(0, product.default.images[0])}
 					>
 						<Grid container>
@@ -105,7 +109,11 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 				{product.subCategories.map((option, index) => (
 					<Grid item key={index}>
 						<ButtonBase
-							className={classes.buttonBase}
+							sx={{
+								padding: "0.5rem",
+								paddingRight: "1rem",
+								borderRadius: 1,
+							}}
 							onClick={() => handleChange(index + 1, option.image)}
 						>
 							<Grid container spacing={0}>
@@ -131,48 +139,61 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 									<Typography variant="body1">Price:</Typography>
 								</Grid>
 								<Grid item xs={4} md={8}>
-									<Typography
+									<StyledText
 										variant="body1"
-										className={classes.textGreen}
-										sx={{ fontWeight: "bold" }}
+										textColor="success"
+										fontWeight="bold"
 									>
 										{formatPrice(product.default.price)}
-									</Typography>
+									</StyledText>
 								</Grid>
 							</Grid>
 						</ListItem>
 						<Divider />
-						<ListItem className={classes.marginTop}>
+						<ListItem
+							sx={{
+								marginTop: "2rem",
+							}}
+						>
 							<Grid container>
 								<Grid item xs={8} md={4}>
 									<Typography variant="body1">Available Stock:</Typography>
 								</Grid>
 								<Grid item xs={4} md={8}>
-									<Typography
-										variant="body1"
-										className={classes.textInfo}
-										sx={{ fontWeight: "bold" }}
-									>
+									<StyledText variant="body1" textColor="info" fontWeight="bold">
 										{product.default.stock}
-									</Typography>
+									</StyledText>
 								</Grid>
 							</Grid>
 						</ListItem>
 						<Divider />
-						<ListItem className={classes.marginTop} disablePadding>
+						<ListItem
+							sx={{
+								marginTop: "2rem",
+							}}
+							disablePadding
+						>
 							<Grid container spacing={3}>
 								<Grid item xs={6}>
 									<Button
 										variant="outlined"
 										size="large"
-										className={classes.textGreen}
+										sx={{
+											color: (theme) => theme.palette.success.light,
+										}}
 										color="success"
 										onClick={() => dispatchAddToCart()}
 									>
 										add to cart
 									</Button>
 								</Grid>
-								<Grid item xs={6} className={classes.textRight}>
+								<Grid
+									item
+									xs={6}
+									sx={{
+										textAlign: "right",
+									}}
+								>
 									<Button
 										variant="contained"
 										size="large"
@@ -197,18 +218,22 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 											<Typography variant="body1">Price:</Typography>
 										</Grid>
 										<Grid item xs={4} md={8}>
-											<Typography
+											<StyledText
 												variant="body1"
-												className={classes.textGreen}
-												sx={{ fontWeight: "bold" }}
+												textColor="success"
+												fontWeight="bold"
 											>
 												{formatPrice(option.price)}
-											</Typography>
+											</StyledText>
 										</Grid>
 									</Grid>
 								</ListItem>
 								<Divider />
-								<ListItem className={classes.marginTop}>
+								<ListItem
+									sx={{
+										marginTop: "2rem",
+									}}
+								>
 									<Grid container>
 										<Grid item xs={8} md={4}>
 											<Typography variant="body1">
@@ -216,31 +241,44 @@ const ProductOptions: FC<Props> = ({ product, updateMainImg }) => {
 											</Typography>
 										</Grid>
 										<Grid item xs={4} md={8}>
-											<Typography
+											<StyledText
 												variant="body1"
-												sx={{ fontWeight: "bold" }}
-												className={classes.textInfo}
+												fontWeight="bold"
+												textColor="info"
 											>
 												{option.stock}
-											</Typography>
+											</StyledText>
 										</Grid>
 									</Grid>
 								</ListItem>
 								<Divider />
-								<ListItem className={classes.marginTop} disablePadding>
+								<ListItem
+									sx={{
+										marginTop: "2rem",
+									}}
+									disablePadding
+								>
 									<Grid container spacing={3}>
 										<Grid item xs={6}>
 											<Button
 												variant="outlined"
 												size="large"
-												className={classes.textGreen}
+												sx={{
+													color: (theme) => theme.palette.success.light,
+												}}
 												color="success"
 												onClick={() => dispatchAddToCart()}
 											>
 												add to cart
 											</Button>
 										</Grid>
-										<Grid item xs={6} className={classes.textRight}>
+										<Grid
+											item
+											xs={6}
+											sx={{
+												textAlign: "right",
+											}}
+										>
 											<Button
 												variant="contained"
 												size="large"
