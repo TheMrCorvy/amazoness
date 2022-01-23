@@ -1,14 +1,11 @@
 import { FC, useState } from "react"
 
 import { CardContent, Stepper, Step, StepLabel, Grid } from "@mui/material"
-import useStyles from "./styles"
 
 import ShippingForm from "../ShippingForm"
 
 const PurchaseSteps: FC = () => {
 	const [activeStep, setActiveStep] = useState(0)
-
-	const classes = useStyles()
 
 	const renderSteps = () => {
 		switch (activeStep) {
@@ -29,7 +26,12 @@ const PurchaseSteps: FC = () => {
 	}
 
 	return (
-		<CardContent className={classes.secondaryCard}>
+		<CardContent
+			sx={{
+				width: "100%",
+				minHeight: "65vh",
+			}}
+		>
 			<Grid container spacing={4} justifyContent="space-between">
 				<Grid item xs={12}>
 					<Stepper color="info" alternativeLabel activeStep={activeStep}>
