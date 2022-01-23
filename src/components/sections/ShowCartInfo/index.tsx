@@ -2,7 +2,6 @@ import { FC } from "react"
 import NextLink from "next/link"
 
 import { Grid, List, Card, CardContent, Button } from "@mui/material"
-import useStyles from "./styles"
 
 import { useSelector } from "react-redux"
 import { RootState } from "../../../redux/store"
@@ -14,8 +13,6 @@ import UnderlinedTitle from "../../UnderlinedTitle"
 import PurchaseSteps from "../PurchaseSteps"
 
 const ShowCartInfo: FC = () => {
-	const classes = useStyles()
-
 	const { items } = useSelector((state: RootState) => state.items)
 	const { user } = useSelector((state: RootState) => state.user)
 
@@ -25,7 +22,18 @@ const ShowCartInfo: FC = () => {
 				<Grid item xs={12} md={8} xl={9}>
 					<Card>
 						<List
-							className={items.length > 0 ? classes.mainCard : classes.mainCardAlter}
+							sx={{
+								width: "100%",
+								height: "65vh",
+								overflowY: "scroll",
+								...(items.length <= 0 && {
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									verticalAlign: "center",
+									textAlign: "center",
+								}),
+							}}
 						>
 							{items.length >= 1 ? (
 								items.map((product, index) => (
@@ -47,7 +55,17 @@ const ShowCartInfo: FC = () => {
 						{user ? (
 							<PurchaseSteps />
 						) : (
-							<CardContent className={classes.secondaryCardAlter}>
+							<CardContent
+								sx={{
+									width: "100%",
+									minHeight: "65vh",
+									display: "flex",
+									justifyContent: "space-around",
+									flexDirection: "column",
+									alignItems: "center",
+									textAlign: "center",
+								}}
+							>
 								<UnderlinedTitle
 									body="You need to login to continue with your purchase."
 									color="info"

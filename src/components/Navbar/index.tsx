@@ -3,27 +3,15 @@ import { FC, KeyboardEvent, MouseEvent, useState } from "react"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 
-import {
-	AppBar,
-	Link,
-	Toolbar,
-	Typography,
-	Button,
-	IconButton,
-	ListItem,
-	ListItemIcon,
-	ListItemText,
-	SwipeableDrawer,
-	Divider,
-	Badge,
-	Menu,
-	MenuItem,
-} from "@mui/material"
-import MenuIcon from "@mui/icons-material/Menu"
-import { useStyles } from "./styles"
+import { AppBar, Link, Toolbar, Typography, Button, Badge, Menu, MenuItem } from "@mui/material"
+
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import LoginIcon from "@mui/icons-material/Login"
 import LogoutIcon from "@mui/icons-material/Logout"
+
+import DivFlexGrow from "../custom-styles/DivFlexGrow"
+import NavbarBtnContainer from "../custom-styles/NavbarBtnContainer"
+import HamburgerBtn from "../HamburgerBtn"
 
 import { useSelector, useDispatch } from "react-redux"
 import { RootState } from "../../redux/store"
@@ -32,9 +20,9 @@ import { logout } from "../../redux/actions/userActions"
 import { urlKeyWords, appName } from "../../misc/config"
 import { useApi } from "../utils"
 import { Req, Res } from "../../misc/types"
+import Drawer from "../Drawer"
 
 const Navbar: FC = () => {
-	const classes = useStyles()
 	const dispatch = useDispatch()
 	const callApi = useApi
 	const router = useRouter()
@@ -87,18 +75,41 @@ const Navbar: FC = () => {
 
 	return (
 		<>
-			<AppBar position="fixed" className={classes.navbar}>
+			<AppBar
+				position="fixed"
+				sx={{
+					backgroundColor: (theme) => theme.palette.grey.A200,
+					paddingRight: "1rem",
+					"& a": {
+						color: "#fff",
+						marginLeft: "1rem",
+					},
+				}}
+			>
 				<Toolbar>
 					<NextLink href="/" passHref>
-						<Link className={classes.noDecoration}>
-							<Typography className={classes.brand}>{appName}</Typography>
+						<Link
+							sx={{
+								textDecoration: "none",
+							}}
+						>
+							<Typography
+								sx={{
+									fontWeight: "bold",
+									fontSize: "1.5rem",
+								}}
+							>
+								{appName}
+							</Typography>
 						</Link>
 					</NextLink>
-					<div className={classes.grow} />
-					<div className={classes.navbarBtn}>
+					<DivFlexGrow />
+					<NavbarBtnContainer>
 						<NextLink href={urlKeyWords.cart} passHref>
 							<Button
-								className={classes.navBtn}
+								sx={{
+									marginRight: 2,
+								}}
 								color="inherit"
 								endIcon={
 									<Badge badgeContent={items.length} color="info">
@@ -154,96 +165,17 @@ const Navbar: FC = () => {
 								</Menu>
 							</>
 						)}
-					</div>
-					<IconButton
-						size="large"
-						edge="start"
-						color="inherit"
-						aria-label="menu"
-						className={classes.mobileBtn}
-						onClick={toggleDrawer(true)}
-					>
-						<MenuIcon />
-					</IconButton>
+					</NavbarBtnContainer>
+					<HamburgerBtn toggleDrawer={toggleDrawer} />
 				</Toolbar>
 			</AppBar>
-			<SwipeableDrawer
-				anchor="right"
+			<Drawer
+				user={user}
+				toggleDrawer={toggleDrawer}
 				open={open.drawer}
-				onClose={toggleDrawer(false)}
-				onOpen={toggleDrawer(true)}
-			>
-				<NextLink href={urlKeyWords.cart} passHref>
-					<ListItem
-						button
-						key="SHOPPING CART"
-						onClick={() => handleClose("drawer")}
-						className={classes.drawerBtn}
-					>
-						<ListItemIcon>
-							<Badge badgeContent={items.length} color="info">
-								<ShoppingCartIcon />
-							</Badge>
-						</ListItemIcon>
-						<ListItemText primary="SHOPPING CART" />
-					</ListItem>
-				</NextLink>
-				<Divider />
-				{!user ? (
-					<NextLink href={urlKeyWords.login} passHref>
-						<ListItem
-							button
-							onClick={() => handleClose("drawer")}
-							key="LOGIN"
-							className={classes.drawerBtn}
-						>
-							<ListItemIcon>
-								<LoginIcon />
-							</ListItemIcon>
-							<ListItemText primary="LOGIN" />
-						</ListItem>
-					</NextLink>
-				) : (
-					<>
-						<ListItem
-							button
-							onClick={() => handleClose("drawer")}
-							key="profile"
-							className={classes.drawerBtn}
-						>
-							<ListItemIcon>
-								<LogoutIcon />
-							</ListItemIcon>
-							<ListItemText primary="profile" />
-						</ListItem>
-						<Divider />
-						<ListItem
-							button
-							onClick={() => handleClose("drawer")}
-							key="account"
-							className={classes.drawerBtn}
-						>
-							<ListItemIcon>
-								<LogoutIcon />
-							</ListItemIcon>
-							<ListItemText primary="account" />
-						</ListItem>
-						<Divider />
-						<ListItem
-							button
-							onClick={() => handleClose("drawer", "logout")}
-							key="logout"
-							className={classes.drawerBtn}
-						>
-							<ListItemIcon>
-								<LogoutIcon />
-							</ListItemIcon>
-							<ListItemText primary="logout" />
-						</ListItem>
-						<Divider />
-					</>
-				)}
-			</SwipeableDrawer>
+				handleClose={handleClose}
+				amountOfItems={items.length}
+			/>
 		</>
 	)
 }

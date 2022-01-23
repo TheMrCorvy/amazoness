@@ -2,7 +2,6 @@ import { FC } from "react"
 import NextLink from "next/link"
 
 import { Button, Card, CardContent, Grid, Typography } from "@mui/material"
-import useStyles from "../../styles/pages/login"
 
 import UnderlinedTitle from "../../components/UnderlinedTitle"
 import BreadCrumbs from "../../components/BreadCrumbs"
@@ -12,24 +11,17 @@ import { appName, urlKeyWords } from "../../misc/config"
 import LoginForm from "../../components/sections/LoginForm"
 
 const LoginPage: FC = () => {
-	const classes = useStyles()
-
 	return (
 		<>
 			<BreadCrumbs title="Login" steps={{}} />
-			<div className={classes.mainBgImage}>
-				<Grid
-					container
-					spacing={4}
-					justifyContent="center"
-					className={classes.mainGridContainer}
-				>
-					<Grid item xs={12} md={6} className={classes.mainGridItem}>
+			<div className="main-bg-image">
+				<Grid container justifyContent="center" className="main-grid-container">
+					<Grid item xs={12} md={6} className="main-grid-item">
 						<LoginForm />
 					</Grid>
-					<Grid item xs={12} md={6} className={classes.mainGridItem}>
-						<Card elevation={0} className={classes.glassEffect}>
-							<CardContent className={classes.bigCardContent}>
+					<Grid item xs={12} md={6} className="main-grid-item">
+						<Card elevation={0} className="glass-effect">
+							<CardContent className="big-card-content">
 								<UnderlinedTitle
 									variant="h5"
 									length={20}
@@ -42,7 +34,9 @@ const LoginPage: FC = () => {
 									variant="subtitle1"
 									paragraph
 									gutterBottom
-									className={classes.marginTop}
+									sx={{
+										marginTop: "1rem",
+									}}
 								>
 									Lorem ipsum dolor sit amet consectetur, adipisicing elit.
 									Deleniti, quasi nemo. Eveniet, pariatur numquam incidunt
