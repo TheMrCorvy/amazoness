@@ -1,19 +1,9 @@
 import { FC, useEffect, useState } from "react"
 
 import { useRouter } from "next/router"
-import Image from "next/image"
 import NextLink from "next/link"
 
-import {
-	Button,
-	ButtonBase,
-	Container,
-	Grid,
-	IconButton,
-	Typography,
-	Rating,
-	Link,
-} from "@mui/material"
+import { Button, Container, Grid, IconButton, Typography, Rating, Link } from "@mui/material"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 import useStyles from "../../styles/pages/product/[slug]"
 
@@ -31,6 +21,7 @@ import CardLink from "../../components/CardLink"
 import UnderlinedTitle from "../../components/UnderlinedTitle"
 import SimilarProducts from "../../components/sections/SimilarProducts"
 import ProductOptions from "../../components/sections/ProductOptions"
+import ProductImages from "../../components/sections/ProductImages"
 
 import { appName } from "../../misc/config"
 
@@ -45,9 +36,8 @@ const ProductPage: FC = () => {
 	const formatPrice = usePriceFormatter
 
 	const [product, setProduct] = useState<Product>(placeholder)
-	const [mainImg, setMainImg] = useState("")
 	const [similarProducts, setSimilarProducts] = useState<Product[]>([placeholder])
-	const [imagesAreLoaded, setImagesAreLoaded] = useState(false)
+	const [mainImg, setMainImg] = useState("")
 
 	useEffect(() => {
 		if (!router.isReady) return
@@ -72,12 +62,6 @@ const ProductPage: FC = () => {
 			document.title = res.data.product.name + " - " + appName
 		})
 	}, [router])
-
-	useEffect(() => {
-		if (product.brand && !imagesAreLoaded) {
-			setImagesAreLoaded(true)
-		}
-	}, [product, imagesAreLoaded])
 
 	const updateMainImg = (src: string) => setMainImg(src)
 
@@ -114,49 +98,14 @@ const ProductPage: FC = () => {
 								/>
 							)}
 						</Grid>
-						<Grid item xs={12} md={6}>
-							<Grid container spacing={3}>
-								<Grid item xs={12} md={9}>
-									{imagesAreLoaded && (
-										<Image
-											src={mainImg ? mainImg : product.default.images[0]}
-											alt={product.name}
-											height={640}
-											width={640}
-											layout="responsive"
-											className={classes.img}
-											priority
-										/>
-									)}
-								</Grid>
-								<Grid item xs={12} md={3}>
-									<Grid container spacing={3}>
-										{imagesAreLoaded && (
-											<>
-												{product.default.images.map((image, index) => (
-													<Grid item xs={4} md={12} key={index}>
-														<ButtonBase
-															className={classes.img}
-															onClick={() => updateMainImg(image)}
-														>
-															<Image
-																src={image}
-																title={product.name}
-																alt={product.name}
-																width={150}
-																height={150}
-																className={classes.img}
-															/>
-														</ButtonBase>
-													</Grid>
-												))}
-											</>
-										)}
-									</Grid>
-								</Grid>
-								<SimilarProducts products={similarProducts} layoutOption={1} />
-							</Grid>
-						</Grid>
+
+						<ProductImages
+							mainImg={mainImg ? mainImg : product.default.images[0]}
+							similarProducts={similarProducts}
+							product={product}
+							updateMainImg={updateMainImg}
+						/>
+
 						<Grid item xs={12} md={6}>
 							<Grid container spacing={4}>
 								<Grid item xs={10}>
