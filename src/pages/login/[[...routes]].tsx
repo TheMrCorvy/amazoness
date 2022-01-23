@@ -18,12 +18,7 @@ const LoginPage: FC = () => {
 		<>
 			<BreadCrumbs title="Login" steps={{}} />
 			<div className={classes.mainBgImage}>
-				<Grid
-					container
-					spacing={4}
-					justifyContent="center"
-					className={classes.mainGridContainer}
-				>
+				<Grid container justifyContent="center" className={classes.mainGridContainer}>
 					<Grid item xs={12} md={6} className={classes.mainGridItem}>
 						<LoginForm />
 					</Grid>
