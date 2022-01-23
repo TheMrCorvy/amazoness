@@ -9,8 +9,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import LoginIcon from "@mui/icons-material/Login"
 import LogoutIcon from "@mui/icons-material/Logout"
 
-import DivFlexGrow from "../custom-components/DivFlexGrow"
-import NavbarBtnContainer from "../custom-components/NavbarBtnContainer"
+import DivFlexGrow from "../custom-styles/DivFlexGrow"
+import NavbarBtnContainer from "../custom-styles/NavbarBtnContainer"
 import HamburgerBtn from "../HamburgerBtn"
 
 import { useSelector, useDispatch } from "react-redux"

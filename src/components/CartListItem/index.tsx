@@ -18,7 +18,7 @@ import RemoveIcon from "@mui/icons-material/Remove"
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 
-import ColoredText from "../custom-components/ColoredText"
+import ColoredText from "../custom-styles/ColoredText"
 
 import { useDispatch } from "react-redux"
 import {
