@@ -1,14 +1,8 @@
 import type { GetServerSidePropsContext } from "next"
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 
-import { useRouter } from "next/router"
+import { Container, Grid } from "@mui/material"
 
-import { Container, Grid, Typography } from "@mui/material"
-
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../../redux/store"
-
-import { urlKeyWords } from "../../misc/config"
 import { useApi, useSlug } from "../../components/utils"
 import { Product, Req } from "../../misc/types"
 
@@ -19,40 +13,9 @@ import { appName } from "../../misc/config"
 import ProductDetails from "../../components/sections/ProductDetails"
 
 const ProductPage: FC<Props> = ({ product, similarProducts }) => {
-	// const dispatch = useDispatch()
-	// const { loading } = useSelector((state: RootState) => state.loading)
-
-	// const router = useRouter()
 	const createSlug = useSlug
-	// const callApi = useApi
 
-	// const [product, setProduct] = useState<Product>(placeholder)
-	// const [similarProducts, setSimilarProducts] = useState<Product[]>([placeholder])
 	const [mainImg, setMainImg] = useState(product.default.images[0])
-
-	// useEffect(() => {
-	// 	if (!router.isReady) return
-
-	// 	const { slug } = router.query
-
-	// 	const req: Req = {
-	// 		endpoint: "/products/find/" + slug,
-	// 		method: "GET",
-	// 	}
-
-	// 	callApi(req, dispatch).then((res) => {
-	// 		if (res.status !== 200) {
-	// 			router.push(urlKeyWords.productNotFound)
-
-	// 			return
-	// 		}
-
-	// 		setProduct(res.data.product)
-	// 		setSimilarProducts(res.data.similarProducts)
-
-	// 		document.title = res.data.product.name + " - " + appName
-	// 	})
-	// }, [router])
 
 	const updateMainImg = (src: string) => setMainImg(src)
 
@@ -112,6 +75,7 @@ export async function getStaticProps(context: GetServerSidePropsContext) {
 				product: res.data.product,
 				similarProducts: res.data.similarProducts,
 			},
+			revalidate: 60 * 60 * 24,
 		}
 	})
 }
