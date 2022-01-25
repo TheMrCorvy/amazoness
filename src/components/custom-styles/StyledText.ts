@@ -8,15 +8,15 @@ interface StyledTypographyProps extends TypographyProps {
 	textTransform?: "capitalize"
 }
 
-const StyledText = styled(Typography)<StyledTypographyProps>(
-	({ textColor, textAlign, fontWeight, textTransform, theme }) => ({
-		...(textColor && {
-			color: theme.palette[textColor].light,
-		}),
-		textAlign,
-		fontWeight,
-		textTransform,
-	})
-)
+const StyledText = styled(Typography, {
+	shouldForwardProp: () => true,
+})<StyledTypographyProps>(({ textColor, textAlign, fontWeight, textTransform, theme }) => ({
+	...(textColor && {
+		color: theme.palette[textColor].light,
+	}),
+	textAlign,
+	fontWeight,
+	textTransform,
+}))
 
 export default StyledText
