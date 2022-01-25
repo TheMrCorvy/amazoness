@@ -55,7 +55,8 @@ interface Props {
 	similarProducts: Product[]
 }
 
-export async function getStaticProps(context: GetServerSidePropsContext) {
+// remember to update this to "getStaticProps" & uncomment "getStaticPaths"
+export async function getServerSideProps(context: GetServerSidePropsContext) {
 	const callApi = useApi
 
 	const slug = context.params?.slug
@@ -80,26 +81,26 @@ export async function getStaticProps(context: GetServerSidePropsContext) {
 	})
 }
 
-export async function getStaticPaths() {
-	const callApi = useApi
+// export async function getStaticPaths() {
+// 	const callApi = useApi
 
-	const request: Req = {
-		endpoint: "/products/get-all-slugs",
-		method: "GET",
-	}
+// 	const request: Req = {
+// 		endpoint: "/products/get-all-slugs",
+// 		method: "GET",
+// 	}
 
-	return await callApi(request).then((res) => {
-		if (res.status !== 200) return { notFound: true }
+// 	return await callApi(request).then((res) => {
+// 		if (res.status !== 200) return { notFound: true }
 
-		return {
-			paths: res.data.products.map((product: Product) => ({
-				params: {
-					slug: product.slug,
-				},
-			})),
-			fallback: true,
-		}
-	})
-}
+// 		return {
+// 			paths: res.data.products.map((product: Product) => ({
+// 				params: {
+// 					slug: product.slug,
+// 				},
+// 			})),
+// 			fallback: true,
+// 		}
+// 	})
+// }
 
 export default ProductPage
