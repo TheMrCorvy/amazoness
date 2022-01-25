@@ -7,8 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"seed": "mongoimport --jsonArray --db amazoness --collection products --drop --file ./src/database/seeders/productSeeder.json && mongoimport --jsonArray --db amazoness --collection users --drop --file ./src/database/seeders/userSeeder.json && mongoimport --jsonArray --db amazoness --collection sessions --drop --file ./src/database/seeders/sessionSeeder.json",
-		"generate-secret-keys": "node ./src/misc/generateKeys.js"
+		"key:generate": "node ./src/misc/generateKeys.js"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.5.0",
