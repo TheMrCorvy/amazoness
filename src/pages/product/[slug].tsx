@@ -1,3 +1,4 @@
+import type { GetServerSidePropsContext } from "next"
 import { FC, useEffect, useState } from "react"
 
 import { useRouter } from "next/router"
@@ -17,99 +18,124 @@ import ProductImages from "../../components/sections/ProductImages"
 import { appName } from "../../misc/config"
 import ProductDetails from "../../components/sections/ProductDetails"
 
-const ProductPage: FC = () => {
-	const dispatch = useDispatch()
-	const { loading } = useSelector((state: RootState) => state.loading)
+const ProductPage: FC<Props> = ({ product, similarProducts }) => {
+	// const dispatch = useDispatch()
+	// const { loading } = useSelector((state: RootState) => state.loading)
 
-	const router = useRouter()
+	// const router = useRouter()
 	const createSlug = useSlug
-	const callApi = useApi
+	// const callApi = useApi
 
-	const [product, setProduct] = useState<Product>(placeholder)
-	const [similarProducts, setSimilarProducts] = useState<Product[]>([placeholder])
-	const [mainImg, setMainImg] = useState("")
+	// const [product, setProduct] = useState<Product>(placeholder)
+	// const [similarProducts, setSimilarProducts] = useState<Product[]>([placeholder])
+	const [mainImg, setMainImg] = useState(product.default.images[0])
 
-	useEffect(() => {
-		if (!router.isReady) return
+	// useEffect(() => {
+	// 	if (!router.isReady) return
 
-		const { slug } = router.query
+	// 	const { slug } = router.query
 
-		const req: Req = {
-			endpoint: "/products/find/" + slug,
-			method: "GET",
-		}
+	// 	const req: Req = {
+	// 		endpoint: "/products/find/" + slug,
+	// 		method: "GET",
+	// 	}
 
-		callApi(req, dispatch).then((res) => {
-			if (res.status !== 200) {
-				router.push(urlKeyWords.productNotFound)
+	// 	callApi(req, dispatch).then((res) => {
+	// 		if (res.status !== 200) {
+	// 			router.push(urlKeyWords.productNotFound)
 
-				return
-			}
+	// 			return
+	// 		}
 
-			setProduct(res.data.product)
-			setSimilarProducts(res.data.similarProducts)
+	// 		setProduct(res.data.product)
+	// 		setSimilarProducts(res.data.similarProducts)
 
-			document.title = res.data.product.name + " - " + appName
-		})
-	}, [router])
+	// 		document.title = res.data.product.name + " - " + appName
+	// 	})
+	// }, [router])
 
 	const updateMainImg = (src: string) => setMainImg(src)
 
 	return (
 		<Container maxWidth="lg">
 			<Grid container justifyContent="space-around" spacing={6}>
-				{!loading ? (
-					<>
-						<Grid item xs={12}>
-							{product.category && (
-								<BreadCrumbs
-									title={product.name}
-									steps={{
-										[product.category]: "/" + createSlug(product.category),
-									}}
-								/>
-							)}
-						</Grid>
-
-						<ProductImages
-							mainImg={mainImg ? mainImg : product.default.images[0]}
-							similarProducts={similarProducts}
-							product={product}
-							updateMainImg={updateMainImg}
+				<Grid item xs={12}>
+					{product.category && (
+						<BreadCrumbs
+							title={product.name}
+							steps={{
+								[product.category]: "/" + createSlug(product.category),
+							}}
 						/>
+					)}
+				</Grid>
 
-						<ProductDetails
-							updateMainImg={updateMainImg}
-							product={product}
-							similarProducts={similarProducts}
-						/>
-					</>
-				) : (
-					<Grid item xs={12}>
-						<Typography variant="h3" sx={{ textAlign: "center", marginTop: "10vh" }}>
-							We are almost done. Please wait for a few more seconds...
-						</Typography>
-					</Grid>
-				)}
+				<ProductImages
+					mainImg={mainImg}
+					similarProducts={similarProducts}
+					product={product}
+					updateMainImg={updateMainImg}
+				/>
+
+				<ProductDetails
+					updateMainImg={updateMainImg}
+					product={product}
+					similarProducts={similarProducts}
+				/>
 			</Grid>
 		</Container>
 	)
 }
 
-const placeholder: Product = {
-	_id: "loading",
-	slug: "",
-	name: "0",
-	category: "",
-	description: "",
-	brand: "",
-	rating: 0,
-	numReviews: 0,
-	default: {
-		stock: 0,
-		price: 0,
-		images: [""],
-	},
+interface Props {
+	product: Product
+	similarProducts: Product[]
+}
+
+export async function getStaticProps(context: GetServerSidePropsContext) {
+	const callApi = useApi
+
+	const slug = context.params?.slug
+
+	if (!slug) return { notFound: true }
+
+	const request: Req = {
+		endpoint: "/products/find/" + slug,
+		method: "GET",
+	}
+
+	return await callApi(request).then((res) => {
+		if (res.status === 404) return { notFound: true }
+
+		return {
+			props: {
+				product: res.data.product,
+				similarProducts: res.data.similarProducts,
+			},
+		}
+	})
+}
+
+export async function getStaticPaths() {
+	const callApi = useApi
+
+	const request: Req = {
+		endpoint: "/products/get-all-slugs",
+		method: "GET",
+	}
+
+	return await callApi(request).then((res) => {
+		if (res.status !== 200) return { notFound: true }
+
+		return {
+			paths: res.data.products.map((product: Product) => ({
+				params: {
+					slug: product.slug,
+				},
+			})),
+			fallback: true,
+		}
+	})
 }
 
 export default ProductPage
