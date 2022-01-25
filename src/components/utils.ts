@@ -1,5 +1,6 @@
 import { Dispatch } from "redux"
 import { toggleLoading, setErrorLoading } from "../redux/actions/loadingActions"
+import { baseApiUri } from "../misc/config"
 import { Req, Res } from "../misc/types"
 
 const formatter = new Intl.NumberFormat("es-AR", {
@@ -29,7 +30,7 @@ export const useApi = async (request: Req, dispatch?: Dispatch): Promise<Res> =>
 				...headerToken,
 		  })
 
-	const reqUrl = apiUri ? apiUri + endpoint : "/api" + endpoint
+	const reqUrl = apiUri ? apiUri + endpoint : baseApiUri + endpoint
 
 	return await fetch(reqUrl, { method, headers: reqHeaders, body: JSON.stringify(body) })
 		.then((res) => res.json())
