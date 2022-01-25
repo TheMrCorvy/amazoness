@@ -3,7 +3,7 @@ import Product from "../../../database/models/Product"
 
 import { dbConnect, dbDisconnect } from "../../../database"
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handle(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method !== "GET") {
 		return res
 			.status(400)

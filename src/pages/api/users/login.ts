@@ -7,7 +7,7 @@ import { jwtConfig } from "../../../misc/config"
 
 import { dbConnect, dbDisconnect } from "../../../database"
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handle(req: NextApiRequest, res: NextApiResponse) {
 	switch (req.method) {
 		case "POST":
 			const data = await login(req.body.email, req.body.password)
