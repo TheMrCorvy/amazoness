@@ -1,7 +1,6 @@
 /********************************************************************************************** Static data for testing locally */
 export interface StaticData {
 	products: Omit<Product, "slug" | "_id">[] | []
-	users: User[]
 }
 
 /********************************************************************************************** Products */
@@ -59,28 +58,28 @@ export interface Res {
 }
 
 /********************************************************************************************** User */
-export interface User {
-	email: string
-	name: string
-	password: string
-	isAdmin?: boolean
-	_id: string
-	shippingAddress: {
-		streetOne: string,
-		streetTwo?: string,
-		number: number,
-		postalCode: string,
-		apartment: string,
-		description?: string,
-		zone: string,
-		city: string,
-		country: string,
-	}
-	billingAddress: {
-		streetOne: string,
-		number: number,
-		postalCode: string,
-		city: string,
-		country: string
-	}
-}
+// export interface User {
+// 	email: string
+// 	name: string
+// 	password: string
+// 	isAdmin?: boolean
+// 	_id: string
+// 	shippingAddress: {
+// 		streetOne: string,
+// 		streetTwo?: string,
+// 		number: number,
+// 		postalCode: string,
+// 		apartment: string,
+// 		description?: string,
+// 		zone: string,
+// 		city: string,
+// 		country: string,
+// 	}
+// 	billingAddress: {
+// 		streetOne: string,
+// 		number: number,
+// 		postalCode: string,
+// 		city: string,
+// 		country: string
+// 	}
+// }
