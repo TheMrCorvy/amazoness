@@ -76,7 +76,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 				product: res.data.product,
 				similarProducts: res.data.similarProducts,
 			},
-			revalidate: 60 * 60 * 24,
+			// revalidate: 60 * 60 * 24,
 		}
 	})
 }
