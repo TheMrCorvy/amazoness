@@ -27,7 +27,6 @@ const Navbar: FC = () => {
 	const router = useRouter()
 
 	const { items } = useSelector((state: RootState) => state.items)
-	const { user } = useSelector((state: RootState) => state.user)
 
 	const [open, setOpen] = useState({
 		drawer: false,
@@ -119,57 +118,46 @@ const Navbar: FC = () => {
 								Shopping Cart
 							</Button>
 						</NextLink>
-						{!user ? (
-							<NextLink href={urlKeyWords.login} passHref>
-								<Button color="inherit" endIcon={<LoginIcon />}>
-									Login
-								</Button>
-							</NextLink>
-						) : (
-							<>
-								<Button
-									color="inherit"
-									sx={{ color: "white" }}
-									onClick={handleClick}
-									endIcon={<LogoutIcon />}
-								>
-									{"user.name"}
-								</Button>
-								<Menu
-									id="user-menu"
-									aria-labelledby="user-menu"
-									anchorEl={anchorEl}
-									open={open.menu}
-									onClose={() => handleClose("menu")}
-									anchorOrigin={{
-										vertical: "top",
-										horizontal: "left",
-									}}
-									transformOrigin={{
-										vertical: "top",
-										horizontal: "left",
-									}}
-								>
-									<MenuItem onClick={() => handleClose("menu", urlKeyWords.home)}>
-										Profile
-									</MenuItem>
-									<MenuItem
-										onClick={() => handleClose("menu", urlKeyWords.account)}
-									>
-										My account
-									</MenuItem>
-									<MenuItem onClick={() => handleClose("menu", "logout")}>
-										Logout
-									</MenuItem>
-								</Menu>
-							</>
-						)}
+
+						<Button
+							color="inherit"
+							sx={{ color: "white" }}
+							onClick={handleClick}
+							endIcon={<LogoutIcon />}
+						>
+							{"user.name"}
+						</Button>
+						<Menu
+							id="user-menu"
+							aria-labelledby="user-menu"
+							anchorEl={anchorEl}
+							open={open.menu}
+							onClose={() => handleClose("menu")}
+							anchorOrigin={{
+								vertical: "top",
+								horizontal: "left",
+							}}
+							transformOrigin={{
+								vertical: "top",
+								horizontal: "left",
+							}}
+						>
+							<MenuItem onClick={() => handleClose("menu", urlKeyWords.home)}>
+								Profile
+							</MenuItem>
+							<MenuItem onClick={() => handleClose("menu", urlKeyWords.account)}>
+								My account
+							</MenuItem>
+							<MenuItem onClick={() => handleClose("menu", "logout")}>
+								Logout
+							</MenuItem>
+						</Menu>
 					</NavbarBtnContainer>
 					<HamburgerBtn toggleDrawer={toggleDrawer} />
 				</Toolbar>
 			</AppBar>
 			<Drawer
-				user={user}
+				user={null}
 				toggleDrawer={toggleDrawer}
 				open={open.drawer}
 				handleClose={handleClose}

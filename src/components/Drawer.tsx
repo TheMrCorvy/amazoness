@@ -15,7 +15,6 @@ import LoginIcon from "@mui/icons-material/Login"
 import LogoutIcon from "@mui/icons-material/Logout"
 
 import { urlKeyWords } from "../misc/config"
-import { ReduxUser } from "../redux/types"
 
 const Drawer: FC<Props> = ({ open, amountOfItems, user, toggleDrawer, handleClose }) => {
 	return (
@@ -117,7 +116,7 @@ const Drawer: FC<Props> = ({ open, amountOfItems, user, toggleDrawer, handleClos
 interface Props {
 	open: boolean
 	amountOfItems: number
-	user: ReduxUser | null
+	user: null
 	toggleDrawer: (arg: boolean) => ReactEventHandler<{}>
 	handleClose: (target: "menu" | "drawer", action?: string) => void
 }
