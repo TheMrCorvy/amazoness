@@ -14,7 +14,6 @@ import PurchaseSteps from "../PurchaseSteps"
 
 const ShowCartInfo: FC = () => {
 	const { items } = useSelector((state: RootState) => state.items)
-	const { user } = useSelector((state: RootState) => state.user)
 
 	return (
 		<Grid item xs={12}>
@@ -52,48 +51,43 @@ const ShowCartInfo: FC = () => {
 				</Grid>
 				<Grid item xs={12} md={4} xl={3}>
 					<Card>
-						{user ? (
+						{/* {user ? (
 							<PurchaseSteps />
-						) : (
-							<CardContent
-								sx={{
-									width: "100%",
-									minHeight: "65vh",
-									display: "flex",
-									justifyContent: "space-around",
-									flexDirection: "column",
-									alignItems: "center",
-									textAlign: "center",
-								}}
-							>
-								<UnderlinedTitle
-									body="You need to login to continue with your purchase."
-									color="info"
-									variant="h5"
-									length={100}
-								/>
-								<NextLink href={urlKeyWords.login + urlKeyWords.cart} passHref>
-									<Button
-										variant="contained"
-										disableElevation
-										color="success"
-										fullWidth
-									>
-										login
-									</Button>
-								</NextLink>
-								<NextLink href={urlKeyWords.register} passHref>
-									<Button
-										variant="contained"
-										disableElevation
-										color="info"
-										fullWidth
-									>
-										register
-									</Button>
-								</NextLink>
-							</CardContent>
-						)}
+						) : ( */}
+						<CardContent
+							sx={{
+								width: "100%",
+								minHeight: "65vh",
+								display: "flex",
+								justifyContent: "space-around",
+								flexDirection: "column",
+								alignItems: "center",
+								textAlign: "center",
+							}}
+						>
+							<UnderlinedTitle
+								body="You need to login to continue with your purchase."
+								color="info"
+								variant="h5"
+								length={100}
+							/>
+							<NextLink href={urlKeyWords.login + urlKeyWords.cart} passHref>
+								<Button
+									variant="contained"
+									disableElevation
+									color="success"
+									fullWidth
+								>
+									login
+								</Button>
+							</NextLink>
+							<NextLink href={urlKeyWords.register} passHref>
+								<Button variant="contained" disableElevation color="info" fullWidth>
+									register
+								</Button>
+							</NextLink>
+						</CardContent>
+						{/* )} */}
 					</Card>
 				</Grid>
 			</Grid>
