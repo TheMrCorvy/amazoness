@@ -62,7 +62,7 @@ const CartListItem: FC<Props> = ({ reduxProduct }) => {
 		if (subCategories && subCategories.length >= 1 && !selectedOption) {
 			setOption("Default,")
 		}
-	}, [])
+	}, [selectedOption, subCategories])
 
 	return (
 		<>

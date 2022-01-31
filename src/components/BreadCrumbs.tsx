@@ -16,7 +16,7 @@ const BreadCrumbs: FC<Props> = ({ title, steps }) => {
 		let getSteps = Object.entries(steps)
 
 		setUrlSteps(getSteps)
-	}, [])
+	}, [steps])
 
 	return (
 		<Card

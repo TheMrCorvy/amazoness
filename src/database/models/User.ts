@@ -70,3 +70,5 @@
 // const UserModel = mongoose.models.User || mongoose.model<UserDocument>("User", userSchema)
 
 // export default UserModel
+
+export default {}
