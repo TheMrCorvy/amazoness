@@ -7,8 +7,8 @@ import { Button, Card, CardContent, Grid, CardActions } from "@mui/material"
 import { useForm } from "react-hook-form"
 
 import { useDispatch } from "react-redux"
-import { login } from "../../redux/actions/userActions"
-import { ReduxUser } from "../../redux/types"
+// import { login } from "../../redux/actions/userActions"
+// import { ReduxUser } from "../../redux/types"
 
 import { Req, Res } from "../../misc/types"
 import { useApi } from "../utils"
@@ -36,12 +36,12 @@ const LoginForm: FC = () => {
 
 		callApi(request, dispatch).then((res: Res) => {
 			if (res.status == 200) {
-				const reduxUser: ReduxUser = {
-					...res.data.user,
-					accessToken: res.data.accessToken,
-					refreshToken: res.data.refreshToken,
-				}
-				dispatch(login(reduxUser))
+				// const reduxUser: ReduxUser = {
+				// 	...res.data.user,
+				// 	accessToken: res.data.accessToken,
+				// 	refreshToken: res.data.refreshToken,
+				// }
+				// dispatch(login(reduxUser))
 
 				if (router.query.routes) {
 					if (router.query.routes.length > 0) {

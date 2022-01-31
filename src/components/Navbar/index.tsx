@@ -15,7 +15,6 @@ import HamburgerBtn from "../HamburgerBtn"
 
 import { useSelector, useDispatch } from "react-redux"
 import { RootState } from "../../redux/store"
-import { logout } from "../../redux/actions/userActions"
 
 import { urlKeyWords, appName } from "../../misc/config"
 import { useApi } from "../utils"
@@ -57,20 +56,20 @@ const Navbar: FC = () => {
 
 		setOpen({ ...open, [target]: false })
 
-		if (action === "logout" && user) {
-			const request: Req = {
-				method: "GET",
-				endpoint: "/users/logout",
-				token: user.accessToken,
-			}
+		// if (action === "logout" && user) {
+		// 	const request: Req = {
+		// 		method: "GET",
+		// 		endpoint: "/users/logout",
+		// 		token: user.accessToken,
+		// 	}
 
-			callApi(request, dispatch).then((res: Res) => {
-				if (res.status === 200) {
-					dispatch(logout())
-					router.push("/")
-				}
-			})
-		}
+		// 	callApi(request, dispatch).then((res: Res) => {
+		// 		if (res.status === 200) {
+		// 			dispatch(logout())
+		// 			router.push("/")
+		// 		}
+		// 	})
+		// }
 	}
 
 	return (
@@ -134,7 +133,7 @@ const Navbar: FC = () => {
 									onClick={handleClick}
 									endIcon={<LogoutIcon />}
 								>
-									{user.name}
+									{"user.name"}
 								</Button>
 								<Menu
 									id="user-menu"

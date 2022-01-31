@@ -11,8 +11,8 @@ import { urlKeyWords } from "../../misc/config"
 import { useForm } from "react-hook-form"
 
 import { useDispatch } from "react-redux"
-import { ReduxUser } from "../../redux/types"
-import { login } from "../../redux/actions/userActions"
+// import { ReduxUser } from "../../redux/types"
+// import { login } from "../../redux/actions/userActions"
 
 import ValidatedInput from "../ValidatedInput"
 import UnderlinedTitle from "../UnderlinedTitle"
@@ -38,12 +38,12 @@ const RegisterForm: FC = () => {
 
 		callApi(request, dispatch).then((res: Res) => {
 			if (res.status == 200) {
-				const reduxUser: ReduxUser = {
-					...res.data.user,
-					accessToken: res.data.accessToken,
-					refreshToken: res.data.refreshToken,
-				}
-				dispatch(login(reduxUser))
+				// const reduxUser: ReduxUser = {
+				// 	...res.data.user,
+				// 	accessToken: res.data.accessToken,
+				// 	refreshToken: res.data.refreshToken,
+				// }
+				// dispatch(login(reduxUser))
 
 				router.push(urlKeyWords.home)
 			}
